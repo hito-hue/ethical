@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>エシカル・スカイジャパン｜集客・採用につなげるTikTok運用代行</title>
+<meta name="description" content="TikTok・Instagramリールの運用代行。企画・台本から撮影・編集・投稿・分析まで一貫でサポート。月500本超の分析データをもとに、集客・採用につながる発信を設計します。まずは資料請求から。">
+<meta property="og:title" content="エシカル・スカイジャパン｜集客・採用につなげるTikTok運用代行">
+<meta property="og:description" content="集客・採用につなげる、TikTok運用代行。エシカル・スカイジャパン株式会社。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://hito-hue.github.io/ethical/">
+<meta property="og:image" content="https://hito-hue.github.io/ethical/og-ethical.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hito-hue.github.io/ethical/og-ethical.jpg">
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/yakuhanjp@3.4.1/dist/css/yakuhanjp.min.css" rel="stylesheet">
+<!-- EmailJS（資料請求の自動返信メール） -->
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+<link rel="icon" href="favicon.png?v=3" type="image/png">
+<!-- Meta Pixel Code -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+fbq('init', '1738701710503356');
+fbq('track', 'PageView');
+</script>
+<noscript><img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1738701710503356&ev=PageView&noscript=1"
+/></noscript>
+<!-- End Meta Pixel Code -->
+<!-- Microsoft Clarity（ヒートマップ・録画計測） -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","xm82whyl82");</script>
+<style>
+:root{
+  --bg:#ffffff;
+  --panel:#f4f8fb;
+  --ink:#0f2233;
+  --dim:#6b7a88;
+  --key:#2f9be0;                 /* 重要キーワードのアクセント色（スカイブルー） */
+  --btn:#2f9be0;                 /* 資料請求ボタンの色（ブランドのスカイブルー） */
+  --hair:rgba(15,34,51,.14);
+  --hair2:rgba(15,34,51,.08);
+  --ghost:rgba(15,34,51,.05);
+  --serif:Yakuhanjp,"Noto Sans JP",sans-serif;   /* 公式サイトに合わせてゴシック体に */
+  --sans:Yakuhanjp,"Outfit","Noto Sans JP",sans-serif;
+  --lora:"Outfit","Noto Sans JP",sans-serif;     /* 英数字のアクセント（公式と同じOutfit） */
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:400;line-height:1.85;letter-spacing:.04em;overflow-x:hidden;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+.serif{font-family:var(--serif)}
+.lora{font-family:var(--lora)}
+
+/* フィルムグレイン */
+.grain{position:fixed;inset:-50%;z-index:300;pointer-events:none;opacity:.02;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='140' height='140'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  animation:grain 8s steps(6) infinite}
+@keyframes grain{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-2%)}60%{transform:translate(-2%,4%)}80%{transform:translate(4%,-3%)}100%{transform:translate(0,0)}}
+
+header{position:fixed;top:0;left:0;width:100%;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:22px clamp(18px,5vw,52px);transition:.4s}
+header.solid{background:rgba(255,255,255,.86);backdrop-filter:blur(8px);padding:14px clamp(18px,5vw,52px);box-shadow:0 1px 0 var(--hair2)}
+.logo{font-family:var(--lora);font-size:20px;letter-spacing:.34em;padding-left:.34em}
+/* 右上の資料請求ボタン（公式サイトと同じ青い丸ボタン） */
+/* ダウンロードアイコン（公式サイトに合わせる／currentColorで塗る） */
+.dlic::before{content:"";display:inline-block;width:14px;height:14px;flex:none;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M11 3h2v9.2l3.6-3.6 1.4 1.4L12 16.4 6 10.4l1.4-1.4L11 12.2V3zM5 19h14v2H5z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M11 3h2v9.2l3.6-3.6 1.4 1.4L12 16.4 6 10.4l1.4-1.4L11 12.2V3zM5 19h14v2H5z'/%3E%3C/svg%3E") center/contain no-repeat}
+
+/* 右上ボタン（公式と同じ濃色フラット） */
+.nav-cta{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;letter-spacing:.04em;color:#fff;background:var(--btn);border:none;border-radius:40px;padding:11px 22px;transition:.25s;white-space:nowrap}
+.nav-cta::after{content:"";display:inline-block;width:13px;height:13px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M11 3h2v9.2l3.6-3.6 1.4 1.4L12 16.4 6 10.4l1.4-1.4L11 12.2V3zM5 19h14v2H5z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M11 3h2v9.2l3.6-3.6 1.4 1.4L12 16.4 6 10.4l1.4-1.4L11 12.2V3zM5 19h14v2H5z'/%3E%3C/svg%3E") center/contain no-repeat}
+.nav-cta:hover{background:#0f6fb8;transform:translateY(-1px)}
+
+/* ===== ヒーロー ===== */
+.hero{position:relative;min-height:90svh;overflow:hidden;display:flex;align-items:flex-end}
+.hero video,.hero .bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.hero .bg{background:radial-gradient(150% 130% at 82% 10%,#12263a,#071019 60%)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,16,25,.18),rgba(7,16,25,.12) 38%,rgba(7,16,25,.62));z-index:1}
+.hero .inner{position:relative;z-index:2;padding:0 clamp(18px,5vw,52px) clamp(28px,6vh,56px);width:100%}
+.hero .kicker{display:flex;align-items:center;gap:14px;color:#a9c2d6;font-size:11px;letter-spacing:.24em;margin-bottom:18px}
+.hero .kicker::before{content:"";width:40px;height:1px;background:#a9c2d6}
+.hero h1{font-family:var(--serif);font-weight:700;font-size:clamp(28px,10.5vw,104px);line-height:1.1;letter-spacing:.01em;color:#fff}
+.hero h1 .a{display:block}.hero h1 .b{display:block;padding-left:.5em}.hero h1 .c{display:block;padding-left:.2em}
+.hero h1 i{font-family:var(--lora);font-style:normal;font-weight:600;letter-spacing:.02em}
+.hero .lead{margin-top:clamp(20px,4vw,34px);padding-left:.4em;color:#cfe0ec;font-weight:500;font-size:clamp(12px,3.4vw,15px);letter-spacing:.12em}
+.play{margin-top:22px;margin-left:.3em;display:inline-flex;align-items:center;gap:12px;background:transparent;border:1px solid var(--hair);color:var(--ink);font-family:var(--sans);font-size:12px;letter-spacing:.16em;padding:12px 24px;cursor:pointer;transition:.3s}
+.play[hidden]{display:none}
+.play:hover{border-color:var(--ink);background:rgba(231,227,218,.04)}
+.play .ic{width:22px;height:22px;border:1px solid currentColor;border-radius:50%;display:grid;place-items:center;font-size:8px}
+.hero .down{position:absolute;right:clamp(18px,5vw,52px);bottom:clamp(52px,10vh,100px);z-index:2;writing-mode:vertical-rl;font-family:var(--lora);font-size:11px;letter-spacing:.28em;color:#a9c2d6;display:flex;align-items:center;gap:14px}
+.hero .down::after{content:"";width:1px;height:48px;background:linear-gradient(#a9c2d6,transparent)}
+@media(max-width:600px){.hero .down{display:none}}
+
+/* ===== セクション共通（余白を圧縮） ===== */
+.sec{position:relative;max-width:1180px;margin:0 auto;padding:clamp(40px,7vw,74px) clamp(18px,5vw,64px)}
+.ghost{position:absolute;top:clamp(18px,3.5vw,36px);left:-.05em;font-family:var(--lora);font-weight:500;font-size:clamp(76px,20vw,220px);line-height:.8;color:var(--ghost);pointer-events:none;z-index:0;letter-spacing:-.03em;white-space:nowrap}
+.sec>*{position:relative;z-index:1}
+.shead{display:flex;gap:clamp(14px,4vw,26px);align-items:flex-start;margin-bottom:clamp(24px,4.5vw,40px)}
+.shead .ix{font-family:var(--lora);font-weight:500;font-size:clamp(26px,7vw,44px);line-height:1;color:var(--key);flex:none;padding-top:.12em}
+.eyeb{font-size:10.5px;letter-spacing:.24em;color:var(--dim);margin-bottom:8px}
+.htitle{font-family:var(--serif);font-weight:700;font-size:clamp(24px,6.6vw,48px);line-height:1.24;letter-spacing:.03em}
+.subn{color:var(--dim);font-size:12.5px;letter-spacing:.06em;margin-top:12px;line-height:1.9}
+
+/* リード */
+.intro{border-top:1px solid var(--hair2);padding-top:clamp(22px,4.5vw,42px)}
+.intro .big{font-family:var(--serif);font-weight:600;font-size:clamp(20px,5.6vw,52px);line-height:1.55;letter-spacing:.02em;color:#12303f}
+.intro .big .l2{display:block;padding-left:1.4em}
+.intro .big .u{border-bottom:2px solid var(--ink);padding-bottom:.02em}
+.intro .small{margin-top:clamp(26px,5vw,44px);margin-left:auto;max-width:26em;color:var(--dim);font-size:13px;letter-spacing:.05em;line-height:2}
+.intro .small .brand{font-family:var(--lora);letter-spacing:.14em;color:var(--ink)}
+
+/* ===== クリエイター（皆さま） ===== */
+.cases{background:var(--panel)}
+.lookwrap{position:relative;margin-top:clamp(20px,4vw,32px)}
+.lookwrap::after{content:"";position:absolute;top:0;right:0;bottom:8px;width:44px;background:linear-gradient(90deg,transparent,var(--panel));pointer-events:none;z-index:2}
+.lookbook{display:flex;gap:12px;overflow-x:auto;overflow-y:hidden;padding-bottom:8px;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.lookbook::-webkit-scrollbar{height:0}
+.tile{flex:0 0 auto;width:min(58vw,206px);position:relative;aspect-ratio:3/4;background:#16140f center 16%/cover no-repeat;border:1px solid var(--hair2);overflow:hidden;display:flex;align-items:flex-end;padding:15px}
+.tile::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,.04) 30%,rgba(10,10,10,.5) 60%,rgba(10,10,10,.93));z-index:0}
+.tile .who{position:relative;z-index:1}
+.tile .who .nm{font-family:var(--serif);font-size:17px;font-weight:600;letter-spacing:.05em}
+.tile .who .tg{font-size:10.5px;color:#c8c3b9;letter-spacing:.05em;margin-top:5px;line-height:1.5}
+
+/* Clients：スマホモックアップのタイル */
+.lookbook .mocktile{flex:0 0 auto;width:min(52vw,192px);display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .3s ease}
+.lookbook .mocktile:hover{transform:translateY(-4px)}
+.lookbook .mocktile img{width:100%;height:auto;display:block;filter:drop-shadow(0 16px 32px rgba(15,34,51,.2))}
+/* キャプション：白いカードを少し重ねて、実績を主役に */
+.lookbook .mocktile .cap{position:relative;z-index:2;margin-top:-16px;width:calc(100% - 14px);display:flex;flex-direction:column-reverse;gap:7px;background:#fff;border:1px solid var(--hair2);border-radius:16px;box-shadow:0 12px 30px rgba(15,34,51,.13);padding:13px 11px 14px;transition:.3s}
+.lookbook .mocktile:hover .cap{box-shadow:0 18px 40px rgba(47,155,224,.22);border-color:rgba(47,155,224,.35)}
+.lookbook .mocktile .nm2{display:block;font-family:var(--sans);font-weight:500;font-size:10px;letter-spacing:.01em;color:var(--dim);line-height:1.5}
+.lookbook .mocktile .tg2{display:block;font-family:var(--serif);font-size:13px;line-height:1.45;color:var(--key);font-weight:800;letter-spacing:.01em}
+.swipe{display:flex;align-items:center;gap:8px;margin-top:14px;color:var(--dim);font-size:10.5px;letter-spacing:.14em}
+.swipe .bar{width:34px;height:1px;background:var(--dim);position:relative;overflow:hidden}
+.swipe .bar::after{content:"";position:absolute;left:-40%;top:0;width:40%;height:100%;background:var(--ink);animation:swipe 1.8s ease-in-out infinite}
+@keyframes swipe{0%{left:-40%}60%,100%{left:100%}}
+.cases .disc{color:#57534b;font-size:10.5px;letter-spacing:.05em;margin-top:16px}
+
+/* ===== 実際の投稿（スマホモックアップ＋自動再生） ===== */
+.works{background:var(--bg)}
+.works .lookwrap::after{background:linear-gradient(90deg,transparent,var(--bg))}
+.reels{display:flex;align-items:flex-start;gap:clamp(14px,3.4vw,22px);overflow-x:auto;overflow-y:hidden;padding:4px 0 10px;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.reels::-webkit-scrollbar{height:0}
+
+/* 動画カード：文字は動画に重ねず、下に出す */
+.rcard{flex:0 0 auto;width:min(44vw,166px);display:flex;flex-direction:column;transition:transform .3s ease}
+.rcard:hover{transform:translateY(-4px)}
+.rcard .phone{width:100%}
+.rcap{margin-top:14px;padding-left:10px;border-left:2px solid var(--key);text-align:left;transition:.3s}
+.rcard:hover .rcap{border-left-width:4px;padding-left:12px}
+.rmet{display:block;font-family:var(--serif);font-size:12px;font-weight:800;color:var(--ink);line-height:1.45;letter-spacing:.01em}
+.rnm{display:block;margin-top:5px;font-size:9.5px;font-weight:500;color:var(--dim);line-height:1.45;letter-spacing:.02em}
+
+/* 実績プロフィールのモックアップ一覧 */
+.mockrail{display:flex;gap:clamp(18px,4vw,30px);overflow-x:auto;overflow-y:hidden;padding:6px 0 14px;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+.mockrail::-webkit-scrollbar{height:0}
+.mockcard{flex:0 0 auto;width:min(54vw,208px);display:flex;flex-direction:column;align-items:center;text-align:center;transition:transform .3s ease}
+.mockcard:hover{transform:translateY(-4px)}
+.mockimg{width:100%;height:auto;display:block;filter:drop-shadow(0 18px 36px rgba(15,34,51,.22))}
+.mockcap{margin-top:15px;padding:0 4px}
+.mnm{display:block;font-family:var(--serif);font-weight:700;font-size:15.5px;letter-spacing:.04em;color:var(--ink);line-height:1.35}
+.mach{display:block;margin-top:6px;font-size:11.5px;line-height:1.55;color:var(--key);font-weight:500;letter-spacing:.02em}
+.phone{flex:0 0 auto;width:min(44vw,164px);aspect-ratio:9/19;background:#0c0c0d;border:2px solid #27272b;border-radius:28px;padding:6px;position:relative;box-shadow:0 16px 36px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.04)}
+.phone .scr{width:100%;height:100%;border-radius:22px;overflow:hidden;position:relative;background:#000}
+.phone video{width:100%;height:100%;object-fit:cover;display:block}
+.phone .pill{position:absolute;top:11px;left:50%;transform:translateX(-50%);width:30%;height:9px;background:#000;border-radius:20px;z-index:3;box-shadow:inset 0 0 0 1px rgba(255,255,255,.07)}
+.phone .views{position:absolute;left:8px;bottom:8px;z-index:3;max-width:calc(100% - 16px);display:inline-flex;align-items:flex-start;gap:6px;background:rgba(8,7,5,.52);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);border:1px solid rgba(205,177,136,.45);color:#ecdcb4;font-family:Yakuhanjp,"Lora","Shippori Mincho JP",serif;font-size:10.5px;font-weight:500;letter-spacing:.01em;line-height:1.4;padding:5px 9px 5px 7px;border-radius:13px;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.phone .views svg{width:8.5px;height:8.5px;fill:var(--key);flex:none;margin-top:3px}
+.phone .pname{position:absolute;left:8px;top:26px;z-index:3;max-width:calc(100% - 16px);display:inline-block;background:rgba(8,7,5,.58);-webkit-backdrop-filter:blur(5px);backdrop-filter:blur(5px);border:1px solid rgba(205,177,136,.55);color:#f3e6c8;font-family:Yakuhanjp,"Shippori Mincho JP",serif;font-size:11.5px;font-weight:700;letter-spacing:.04em;line-height:1;padding:5px 10px;border-radius:22px;box-shadow:0 2px 10px rgba(0,0,0,.35)}
+.phone .link{position:absolute;inset:0;z-index:4;cursor:pointer}
+
+/* プロフィール（スマホ）モーダル */
+.pmodal{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:24px}
+.pmodal.open{display:flex}
+.pmodal-bg{position:absolute;inset:0;background:rgba(6,12,19,.82);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.pmodal-inner{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:16px;max-height:92vh;animation:pmup .32s cubic-bezier(.2,.8,.2,1)}
+@keyframes pmup{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+.pmodal-inner img{max-height:76vh;width:auto;max-width:90vw;display:block;filter:drop-shadow(0 24px 50px rgba(0,0,0,.5))}
+.pmodal-close{position:absolute;top:-42px;right:0;width:38px;height:38px;border-radius:50%;border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.06);color:#fff;font-size:20px;line-height:1;cursor:pointer;transition:.25s}
+.pmodal-close:hover{background:rgba(255,255,255,.16)}
+.pmodal-go{display:inline-flex;align-items:center;gap:8px;background:var(--key);color:#fff;font-family:var(--sans);font-size:13px;letter-spacing:.08em;font-weight:500;padding:13px 26px;border-radius:40px;box-shadow:0 10px 24px rgba(47,155,224,.4);transition:.25s}
+.pmodal-go:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(47,155,224,.5)}
+.pmodal-go span{font-size:12px}
+@media(max-width:600px){.pmodal-inner img{max-height:72vh}.pmodal-close{top:-40px}}
+
+/* ===== 選ばれる理由（キーワード＋色＋アニメ／文字量ダウン） ===== */
+.reason{background:var(--panel)}
+.reason .r{padding:clamp(22px,3.6vw,34px) 0;border-top:1px solid var(--hair2);display:grid;grid-template-columns:auto 1fr;gap:clamp(16px,4vw,36px);align-items:baseline}
+.reason .r:last-child{border-bottom:1px solid var(--hair2)}
+.reason .rn{font-family:var(--lora);font-size:clamp(22px,6vw,40px);color:var(--dim);line-height:1}
+.reason h3{font-family:var(--serif);font-size:clamp(19px,5.2vw,28px);font-weight:600;letter-spacing:.04em;line-height:1.5;margin-bottom:6px}
+.reason .rc p{font-size:clamp(13px,3.6vw,15px);color:#47555f;letter-spacing:.04em;line-height:1.9}
+.reason em{font-style:normal;color:var(--key);position:relative;white-space:nowrap}
+.reason em::after{content:"";position:absolute;left:0;bottom:-2px;width:100%;height:1px;background:var(--key);transform:scaleX(0);transform-origin:left;transition:transform .7s .35s cubic-bezier(.2,.6,.2,1)}
+.reason .r.in em::after{transform:scaleX(1)}
+
+/* ===== 診断フロー（縦線ドロー＋順次表示） ===== */
+.flow{background:var(--bg)}
+.flow .steps{position:relative;max-width:640px}
+.flow .track{position:absolute;left:15px;top:14px;bottom:14px;width:1px;background:var(--hair2);z-index:0}
+.flow .track::after{content:"";position:absolute;inset:0;background:var(--key);transform:scaleY(0);transform-origin:top;transition:transform 1.3s ease}
+.flow .steps.in .track::after{transform:scaleY(1)}
+.flow .s{position:relative;z-index:1;padding:clamp(18px,3.2vw,30px) 0 clamp(18px,3.2vw,30px) 48px}
+.flow .s .dot{position:absolute;left:8px;top:calc(clamp(18px,3.2vw,30px) + 6px);width:15px;height:15px;border-radius:50%;background:var(--bg);border:1px solid var(--key);z-index:2}
+.flow .s .dot::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--key);transform:scale(0);transition:transform .4s .2s ease}
+.flow .s.in .dot::after{transform:scale(1)}
+.flow .s .n{font-family:var(--lora);font-size:12px;color:var(--key);letter-spacing:.2em;margin-bottom:6px}
+.flow .s h4{font-family:var(--serif);font-size:17px;font-weight:500;letter-spacing:.04em;margin-bottom:6px}
+.flow .s p{color:var(--dim);font-size:13px;letter-spacing:.03em;line-height:1.8}
+
+/* ===== FAQ ===== */
+.faq{background:var(--panel)}
+.faq .q{border-top:1px solid var(--hair2)}
+.faq .q:last-child{border-bottom:1px solid var(--hair2)}
+.faq summary{cursor:pointer;list-style:none;padding:20px 40px 20px 0;font-size:14px;letter-spacing:.03em;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:4px;top:29px;width:12px;height:1px;background:var(--dim);transition:.25s}
+.faq summary::before{content:"";position:absolute;right:9px;top:24px;width:1px;height:12px;background:var(--dim);transition:.25s}
+.faq .q[open] summary::before{transform:scaleY(0)}
+.faq .a{padding:0 0 22px;color:var(--dim);font-size:13px;letter-spacing:.03em;line-height:1.95;max-width:34em}
+
+/* ===== 最終CTA（中央寄せ） ===== */
+.final{position:relative;text-align:center;max-width:1180px;margin:0 auto;padding:clamp(72px,13vw,140px) clamp(18px,5vw,64px);border-top:1px solid var(--hair2);overflow:hidden}
+.final .ghost{left:50%;transform:translateX(-50%);text-align:center}
+.final h2{font-family:var(--serif);font-weight:700;font-size:clamp(28px,8.5vw,70px);line-height:1.22;letter-spacing:.02em}
+.final p{margin:22px auto 0;color:var(--dim);font-size:13.5px;letter-spacing:.08em;max-width:24em}
+/* 高級ブランド流：シャープな角・細い二重フレーム・広い字間・単色（引き算の高級感） */
+.btn{position:relative;display:inline-flex;flex-direction:column;align-items:center;margin-top:40px;padding:23px 64px;background:transparent;color:var(--key);border:1px solid rgba(47,155,224,.6);font-size:12.5px;letter-spacing:.26em;font-weight:600;overflow:hidden;transition:color .55s cubic-bezier(.6,0,.2,1)}
+.btn::before{content:"";position:absolute;inset:5px;border:1px solid rgba(47,155,224,.35);pointer-events:none;z-index:2;transition:inset .55s cubic-bezier(.6,0,.2,1),border-color .55s}
+.btn::after{content:"";position:absolute;inset:0;background:var(--key);transform:scaleX(0);transform-origin:left;transition:transform .55s cubic-bezier(.6,0,.2,1);z-index:0}
+.btn:hover,.btn:active{color:#fff}
+.btn:hover::after,.btn:active::after{transform:scaleX(1)}
+.btn:hover::before,.btn:active::before{inset:8px;border-color:rgba(255,255,255,.4)}
+.btn>*{position:relative;z-index:3}
+.btn .lbl{display:flex;align-items:center;gap:14px}
+.btn small{font-size:9.5px;letter-spacing:.14em;margin-top:8px;opacity:.6;font-weight:400}
+/* 2ボタンCTA */
+.cta-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+.cta-btns .btn{margin-top:0}
+.sticky-row{display:flex;gap:8px;width:100%;max-width:520px}
+.s-btn{flex:1;position:relative;text-align:center;font-size:13px;letter-spacing:.1em;padding:15px 8px;background:var(--key);color:#fff}
+.s-btn::before{content:"";position:absolute;inset:5px;border:1px solid rgba(255,255,255,.28);pointer-events:none}
+.s-btn.alt{background:#0f2233}
+.s-btn span{display:block;position:relative;font-size:9px;opacity:.72;margin-top:3px;letter-spacing:.05em}
+.s-btn:first-child{flex:1.4}
+/* 主役ボタン（塗りつぶし） */
+.btn.primary{background:var(--key);color:#fff;border-color:var(--key)}
+.btn.primary::before{border-color:rgba(255,255,255,.4)}
+.btn.primary::after{background:#0f6fb8}
+/* ボタン近くの安心コピー＋実績 */
+.cta-trust{margin-top:24px;color:var(--dim);font-size:12px;letter-spacing:.05em;line-height:1.95}
+.cta-trust b{color:var(--key);font-weight:700}
+/* ヒーローの無料相談ボタン */
+.hero-cta{display:inline-flex;align-items:center;gap:11px;margin-top:26px;margin-left:.3em;background:var(--btn);color:#fff;font-family:var(--sans);font-size:13.5px;letter-spacing:.1em;font-weight:600;padding:17px 36px;border-radius:44px;transition:.25s}
+.hero-cta:hover{background:#0f6fb8;transform:translateY(-1px)}
+.hero-note{margin-top:12px;margin-left:.4em;color:#a9c2d6;font-size:11px;letter-spacing:.08em}
+/* 資料請求フォーム（公式サイト ethicalskyjapan.com のフォームに合わせる） */
+.reqform{max-width:520px;margin:34px auto 0;text-align:left;display:grid;gap:18px;background:#fff;border:1px solid #eee;border-radius:12px;padding:clamp(22px,5vw,34px);box-shadow:0 14px 40px rgba(15,34,51,.07)}
+.reqform .field label{display:block;font-size:13px;font-weight:700;color:var(--ink);margin-bottom:8px;letter-spacing:.03em;line-height:1.5}
+.reqform .field .req{margin-left:8px;font-size:10.5px;font-weight:700;color:#fff;background:var(--key);padding:3px 8px;border-radius:4px;letter-spacing:.05em;vertical-align:1.5px;white-space:nowrap}
+.reqform .field .opt{margin-left:8px;font-size:10.5px;font-weight:700;color:var(--dim);background:#f0f2f4;padding:3px 8px;border-radius:4px;letter-spacing:.05em;vertical-align:1.5px;white-space:nowrap}
+.reqform .field input{width:100%;padding:12px 12px;border:1px solid #eee;border-radius:4px;font-family:var(--sans);font-size:15px;background:#f9f9f9;color:var(--ink);transition:.2s}
+.reqform .field input::placeholder{color:#b6bfc7}
+.reqform .field input:focus{outline:none;border-color:var(--key);background:#fff;box-shadow:0 0 0 3px rgba(47,155,224,.13)}
+.reqform .f-hint{margin-top:6px;font-size:11px;color:var(--dim);letter-spacing:.02em;line-height:1.6}
+.reqform .f-check{display:flex;align-items:center;gap:9px;font-size:12.5px;color:var(--ink);cursor:pointer;letter-spacing:.02em}
+.reqform .f-check input{width:16px;height:16px;accent-color:var(--key);flex:none}
+.reqform button{display:inline-flex;align-items:center;justify-content:center;gap:10px;margin-top:4px;padding:17px;border:none;border-radius:44px;background:var(--btn);color:#fff;font-family:var(--sans);font-size:16px;font-weight:600;letter-spacing:.06em;cursor:pointer;transition:.25s}
+.reqform button::after{content:"";display:inline-block;width:16px;height:16px;background:currentColor;-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M11 3h2v9.2l3.6-3.6 1.4 1.4L12 16.4 6 10.4l1.4-1.4L11 12.2V3zM5 19h14v2H5z'/%3E%3C/svg%3E") center/contain no-repeat;mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M11 3h2v9.2l3.6-3.6 1.4 1.4L12 16.4 6 10.4l1.4-1.4L11 12.2V3zM5 19h14v2H5z'/%3E%3C/svg%3E") center/contain no-repeat}
+.reqform button:hover{background:#0f6fb8;transform:translateY(-1px)}
+.reqform .form-note{font-size:11px;color:var(--dim);text-align:left;letter-spacing:.02em;line-height:1.75;margin-top:-2px}
+
+footer{padding:44px clamp(18px,5vw,52px) 120px;color:var(--dim);font-size:10.5px;letter-spacing:.12em;border-top:1px solid var(--hair2);text-align:center}
+footer .logo{font-size:17px;color:var(--dim);margin-bottom:12px;padding-left:0}
+footer p{margin-top:7px}
+footer .fnav{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 20px;margin-top:20px}
+footer .fnav a{color:var(--dim);font-size:11px;letter-spacing:.08em;border-bottom:1px solid transparent;padding-bottom:2px;transition:.3s}
+footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
+
+.sticky{position:fixed;bottom:0;left:0;width:100%;z-index:90;padding:14px clamp(16px,4vw,24px) calc(14px + env(safe-area-inset-bottom));background:linear-gradient(180deg,rgba(255,255,255,0),rgba(255,255,255,.96) 45%);display:flex;justify-content:center;opacity:0;transform:translateY(100%);transition:.5s;pointer-events:none}
+.sticky.show{opacity:1;transform:none;pointer-events:auto}
+.sticky a{position:relative;width:100%;max-width:460px;text-align:center;font-size:13px;font-weight:600;letter-spacing:.14em;padding:17px;background:var(--btn);color:#fff;border-radius:44px}
+.sticky a span{display:block;position:relative;font-size:9.5px;letter-spacing:.1em;opacity:.65;margin-top:3px;font-weight:400}
+/* PCでは全幅バーをやめ、中央に浮く上品なボタンに */
+@media(min-width:768px){
+  .sticky{background:none;pointer-events:none!important;padding:0 0 26px}
+  .sticky a{pointer-events:auto;width:auto;max-width:none;padding:16px 48px;box-shadow:0 16px 46px rgba(0,0,0,.5)}
+}
+
+/* 動画モーダル */
+.modal{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;padding:20px}
+.modal.open{display:flex}
+.modal-bg{position:absolute;inset:0;background:rgba(5,5,5,.9);backdrop-filter:blur(5px)}
+.modal-box{position:relative;z-index:1;width:min(94vw,900px);aspect-ratio:16/9;background:#000;border:1px solid var(--hair2)}
+.modal-box iframe,.modal-box video{width:100%;height:100%;border:0;display:block}
+.modal-close{position:absolute;top:-42px;right:0;background:transparent;border:0;color:var(--ink);font-size:26px;cursor:pointer;line-height:1}
+
+/* 汎用アニメ */
+.fade{opacity:0;transform:translateY(20px);transition:opacity 1s cubic-bezier(.2,.6,.2,1),transform 1s cubic-bezier(.2,.6,.2,1)}
+.fade.in{opacity:1;transform:none}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+@media(prefers-reduced-motion:reduce){.fade{transition:none;opacity:1;transform:none}.swipe .bar::after{animation:none}}
+
+@media(min-width:820px){
+  .intro .big .l2{padding-left:2.2em}
+  .intro .small{margin-right:6vw}
+}
+
+/* ===== スマホ：動画を全体表示（横長）＋文字は下に ===== */
+@media(max-width:600px){
+  /* ヘッダーは常に濃色（動画の上でも本文の上でも読める） */
+  header,header.solid{background:rgba(7,16,25,.92);backdrop-filter:blur(8px)}
+  .logo{color:#fff}
+  .nav-cta{padding:9px 17px;font-size:12px}
+  /* ヒーローを縦積みに：上に動画（全体表示）→下に文字 */
+  .hero{min-height:0;display:block;background:#071019;padding-top:58px;overflow:visible}
+  .hero .bg{display:none}
+  .hero::after{display:none}
+  .hero video{position:static;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain;background:#000;display:block}
+  .hero .inner{position:static;padding:26px 20px 40px}
+  .hero h1{font-size:clamp(28px,8.6vw,44px)}
+  .hero .kicker{margin-bottom:14px}
+}
+</style>
+</head>
+<body>
+<div class="grain"></div>
+
+<header id="hd">
+  <div class="logo">ETHICAL</div>
+  <a href="#cta" class="nav-cta">資料請求</a>
+</header>
+
+<!-- ===== ヒーロー ===== -->
+<section class="hero">
+  <div class="bg"></div>
+  <video class="hero-vid" autoplay muted loop playsinline preload="auto" poster="hero-poster.jpg?v=2">
+    <source src="https://x85-131-252-8.static.xvps.ne.jp/ethical/hero.mp4?v=2" type="video/mp4">
+  </video>
+  <div class="inner">
+    <div class="kicker">選ばれ続ける発信を、データで。</div>
+    <h1 class="fade in">
+      <span class="a">社長は、本業を</span>
+      <span class="b">拡散は、</span>
+      <span class="c"><i>ETHICAL</i>が</span>
+    </h1>
+    <p class="lead">集客・採用につなげる、TikTok運用代行。</p>
+    <a href="#cta" class="hero-cta fade in">資料請求する<span class="dlic" aria-hidden="true"></span></a>
+    <p class="hero-note fade in">資料は無料でお送りします・しつこい営業はいたしません</p>
+    <button class="play fade in" id="playBtn" hidden><span class="ic">▶</span> ブランドムービーを見る</button>
+  </div>
+  <div class="down">SCROLL</div>
+</section>
+
+<!-- ===== リード ===== -->
+<section class="sec intro">
+  <p class="big fade">
+    再生数を、<span class="u">集客</span>へ。
+    <span class="l2">フォロワーを、<span class="u">採用</span>へ。</span>
+  </p>
+  <p class="small fade">月500本以上のショート動画を分析し、"伸びる型"を研究してきた専門チームが、企画から撮影・編集・投稿・分析まで、まるごとサポートする。それが <span class="brand">エシカル・スカイジャパン</span> です。</p>
+</section>
+
+<!-- ===== ご支援させていただく皆さま ===== -->
+<section class="cases">
+  <div class="sec">
+    <div class="shead fade"><span class="ix">01</span><div><p class="eyeb">Clients</p><h2 class="htitle">選ばれ続ける、<br>発信者・企業を</h2><p class="subn">メディアで活躍される発信者から、集客・採用を目指す企業アカウントまで、幅広くご支援しています。</p></div></div>
+    <div class="lookwrap">
+      <div class="lookbook">
+        <a class="mocktile" href="https://www.tiktok.com/@tsuji.keita" target="_blank" rel="noopener"><img src="works/prof-tsuji.png" alt="辻敬太のプロフィール"><span class="cap"><span class="nm2">辻敬太＠全国、世界で500店舗、勝てるフランチャイズ展開</span><span class="tg2">累計1.5億再生</span></span></a>
+        <a class="mocktile" href="https://www.tiktok.com/@kitahara64" target="_blank" rel="noopener"><img src="works/prof-kitahara.png" alt="北原孝彦のプロフィール"><span class="cap"><span class="nm2">起業家育成の専門家＠北原孝彦</span><span class="tg2">累計1億再生／10万フォロワー</span></span></a>
+        <a class="mocktile" href="https://www.tiktok.com/@hayashi.fc" target="_blank" rel="noopener"><img src="works/prof-hayashi.png" alt="林社長のプロフィール"><span class="cap"><span class="nm2">林社長＠令和の虎2代目主宰／FCチャンネル</span><span class="tg2">全投稿10万再生以上</span></span></a>
+        <a class="mocktile" href="https://www.instagram.com/hoiku_omamori" target="_blank" rel="noopener"><img src="works/prof-hoiku.png" alt="ほいくのおまもりのプロフィール"><span class="cap"><span class="nm2">ほいくのおまもり✂️保育情報の総合アカウント</span><span class="tg2">1動画1500万再生／サロン3,000名集客</span></span></a>
+        <a class="mocktile" href="https://www.tiktok.com/@aimeko_dayo" target="_blank" rel="noopener"><img src="works/prof-aimeko.png" alt="あいめこ社長のプロフィール"><span class="cap"><span class="nm2">あいめこ(社長)</span><span class="tg2">合計1000万再生達成</span></span></a>
+        <a class="mocktile" href="https://www.tiktok.com/@kiraga_jewelry" target="_blank" rel="noopener"><img src="works/prof-kiraga.png" alt="キラガさんのプロフィール"><span class="cap"><span class="nm2">ジュエリーメーカーキラガ</span><span class="tg2">ジュエリー売上1.5億円突破</span></span></a>
+        <a class="mocktile" href="https://www.instagram.com/issiki.yumika/" target="_blank" rel="noopener"><img src="works/prof-yumika.png" alt="一色優花のプロフィール"><span class="cap"><span class="nm2">一色優美加【突き抜ける女性起業家👩育成の専門家】</span><span class="tg2">講座販売累計9,000万円突破</span></span></a>
+        <a class="mocktile" href="https://www.tiktok.com/@arisa.happy.life" target="_blank" rel="noopener"><img src="works/prof-arisa.png" alt="ありさのプロフィール"><span class="cap"><span class="nm2">女性の原石を輝かせる起業支援｜ありさ</span><span class="tg2">講座販売累計4,500万円達成</span></span></a>
+        <a class="mocktile" href="https://www.instagram.com/dogtraining.nagomu" target="_blank" rel="noopener"><img src="works/prof-nagomu.png" alt="なごむさんのプロフィール"><span class="cap"><span class="nm2">なごむ｜愛犬を一緒に育てる人</span><span class="tg2">ペット事業／SNS月間550万円達成</span></span></a>
+        <a class="mocktile" href="https://www.instagram.com/neco_gohan_" target="_blank" rel="noopener"><img src="works/prof-sayaka.png" alt="さやかさんのプロフィール"><span class="cap"><span class="nm2">猫の食事専門 獣医師🐈 Dr. Sayaka Kaburaki</span><span class="tg2">ペット事業・売上6倍／総再生500万突破</span></span></a>
+        <a class="mocktile" href="https://www.tiktok.com/@shizen_bijin" target="_blank" rel="noopener"><img src="works/prof-kim.png" alt="キムのプロフィール"><span class="cap"><span class="nm2">恵比寿小顔コルギ専門店 自然美人</span><span class="tg2">単価40万円の回数券 10件以上販売成功</span></span></a>
+      </div>
+    </div>
+    <div class="swipe"><span class="bar"></span>SWIPE</div>
+    <p class="disc">※掲載は我々が運用に関与しているアカウントになります。</p>
+  </div>
+</section>
+
+<!-- ===== 実際の投稿（Instagram 埋め込み） ===== -->
+<section class="works">
+  <div class="sec">
+    <div class="shead fade"><span class="ix">02</span><div><p class="eyeb">Works</p><h2 class="htitle">実際の投稿</h2></div></div>
+    <div class="lookwrap">
+      <div class="reels">
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-kitahara.png" data-name="北原孝彦" href="https://www.tiktok.com/@kitahara64/video/7408497876663340295" target="_blank" rel="noopener" aria-label="北原孝彦の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/kitahara.mp4" poster="works/kitahara.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">累計1億再生／10万フォロワー</span><span class="rnm">北原孝彦</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-aimeko.png" data-name="あいめこ社長" href="https://www.tiktok.com/@aimeko_dayo/video/7436681525300628744" target="_blank" rel="noopener" aria-label="あいめこ社長の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/aimeko.mp4" poster="works/aimeko.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">合計1000万再生達成</span><span class="rnm">あいめこ社長</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-tsuji.png" data-name="辻敬太" href="https://www.tiktok.com/@tsuji.keita/video/7117569416014990593" target="_blank" rel="noopener" aria-label="辻敬太の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/tsuji.mp4" poster="works/tsuji.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">累計1.5億再生</span><span class="rnm">辻敬太</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-hayashi.png" data-name="林社長" href="https://www.tiktok.com/@hayashi.fc/video/7619646028500733205" target="_blank" rel="noopener" aria-label="林社長の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/hayashi.mp4" poster="works/hayashi.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">全投稿10万再生以上</span><span class="rnm">林社長</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-hoiku.png" data-name="ほいくのおまもり" href="https://www.instagram.com/reel/C-fDFhyT7Jt/" target="_blank" rel="noopener" aria-label="ほいくのおまもりの投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/hoiku.mp4" poster="works/hoiku.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">1動画1500万再生／サロン3,000名集客</span><span class="rnm">ほいくのおまもり</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-yumika.png" data-name="一色優美加" href="https://www.instagram.com/reel/DW1EmWWSm1r/" target="_blank" rel="noopener" aria-label="一色優美加の投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/yumika.mp4" poster="works/yumika.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">講座販売累計9,000万円突破</span><span class="rnm">一色優美加</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-kim.png" data-name="自然美人" href="https://www.tiktok.com/@shizen_bijin/video/7493105907782438161" target="_blank" rel="noopener" aria-label="自然美人の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/kim.mp4" poster="works/kim.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">単価40万円の回数券 10件以上販売</span><span class="rnm">自然美人</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-nagomu.png" data-name="なごむ" href="https://www.instagram.com/reel/DYWu76FmgLG/" target="_blank" rel="noopener" aria-label="なごむの投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/nagomu.mp4" poster="works/nagomu.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">ペット事業／SNS月間550万円達成</span><span class="rnm">なごむ</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-sayaka.png" data-name="さやか" href="https://www.instagram.com/reel/DaQHyXkNL7Z/" target="_blank" rel="noopener" aria-label="さやかの投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/sayaka.mp4" poster="works/sayaka.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">ペット事業・売上6倍／総再生500万突破</span><span class="rnm">さやか</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-kiraga.png" data-name="キラガ" href="https://www.tiktok.com/@kiraga_jewelry/video/7355801057768885512" target="_blank" rel="noopener" aria-label="キラガの投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/kiraga.mp4" poster="works/kiraga.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">ジュエリー売上1.5億円突破</span><span class="rnm">キラガ</span></span></div>
+      </div>
+    </div>
+    <div class="swipe"><span class="bar"></span>SWIPE</div>
+  </div>
+</section>
+
+<!-- ===== 選ばれる理由 ===== -->
+<section class="reason">
+  <div class="sec">
+    <div class="shead fade"><span class="ix">03</span><div><p class="eyeb">Reason</p><h2 class="htitle">選ばれる理由</h2></div></div>
+    <div class="r fade"><div class="rn">01</div><div class="rc"><h3>データに、こだわる。</h3><p>月<em>500本超</em>の分析から、<em>伸びる型</em>を見つけ出す。</p></div></div>
+    <div class="r fade"><div class="rn">02</div><div class="rc"><h3>再生数で、終わらせない。</h3><p>数字を、<em>集客</em>と<em>採用</em>につなげることを目指す。</p></div></div>
+    <div class="r fade"><div class="rn">03</div><div class="rc"><h3>社長の時間は、奪わない。</h3><p>企画から投稿まで<em>ワンストップ</em>。撮影は<em>月1回</em>だけ。</p></div></div>
+  </div>
+</section>
+
+<!-- ===== 診断フロー ===== -->
+<section class="flow">
+  <div class="sec">
+    <div class="shead fade"><span class="ix">04</span><div><p class="eyeb">Flow</p><h2 class="htitle">ご利用の流れ</h2></div></div>
+    <div class="steps">
+      <div class="track"></div>
+      <div class="s fade"><span class="dot"></span><div class="n">STEP 01</div><h4>無料で資料請求</h4><p>下のフォームから、30秒でかんたんに資料をお申し込みいただけます。</p></div>
+      <div class="s fade"><span class="dot"></span><div class="n">STEP 02</div><h4>資料の確認・無料相談</h4><p>資料をご覧いただいたうえで、ご希望の方には無料相談で現状をお伺いします。</p></div>
+      <div class="s fade"><span class="dot"></span><div class="n">STEP 03</div><h4>運用プランをご提案</h4><p>集客・採用の目標に合わせた、運用の方向性をご提案します。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="faq">
+  <div class="sec">
+    <div class="shead fade"><span class="ix">05</span><div><p class="eyeb">FAQ</p><h2 class="htitle">よくある質問</h2></div></div>
+    <details class="q fade"><summary>まだSNSを始めていなくても大丈夫ですか。</summary><div class="a">はい。ゼロからの立ち上げも得意です。無料相談で、最適なスタートをご提案します。</div></details>
+    <details class="q fade"><summary>どんな業種でも対応できますか。</summary><div class="a">美容・コンサル・販売・メーカー・採用など、幅広い業種でご支援してきました。まずはお気軽にご相談ください。</div></details>
+    <details class="q fade"><summary>撮影や編集は自分でする必要がありますか。</summary><div class="a">企画・台本から撮影・編集・投稿までこちらで対応します。撮影は月1回程度で済むため、本業に集中いただけます。</div></details>
+    <details class="q fade"><summary>相談だけでも大丈夫ですか。</summary><div class="a">もちろんです。まずは無料相談から、お気軽にどうぞ。オンラインでも対応しています。</div></details>
+  </div>
+</section>
+
+<!-- ===== 最終CTA ===== -->
+<section class="final" id="cta">
+  <div class="ghost">DOC</div>
+  <h2 class="fade">まずは、無料の<br>資料請求から</h2>
+  <p class="fade">サービス内容・料金・支援事例をまとめた資料を、無料でお送りします。</p>
+  <!-- ▼ フォーム送信先：Formspree / Googleフォーム / GAS 等のエンドポイントURLを action に設定してください。
+       未設定でも、送信すると thanks.html（サンクスページ）へ遷移します（下部の送信スクリプト参照）。 -->
+  <form class="reqform fade" id="reqForm" action="" method="POST" novalidate>
+    <div class="field"><label for="f-name">お名前<span class="req">必須</span></label><input id="f-name" type="text" name="name" required autocomplete="name" placeholder="例) 新宿 太郎"></div>
+    <div class="field"><label for="f-company">会社名・屋号<span class="req">必須</span></label><input id="f-company" type="text" name="company" required autocomplete="organization" placeholder="例) エシカル・スカイジャパン株式会社">
+      <p class="f-hint">※個人の方は「個人」とご記入ください</p></div>
+    <div class="field"><label for="f-email">メールアドレス<span class="req">必須</span></label><input id="f-email" type="email" name="email" required autocomplete="email" placeholder="例) example@sky-will.jp"></div>
+    <div class="field"><label for="f-phone">電話番号<span class="req">必須</span></label><input id="f-phone" type="tel" name="phone" required autocomplete="tel" placeholder="例) 090-0000-0000"></div>
+    <div class="field"><label for="f-link">ホームページまたはSNSアカウントのリンク<span class="req">必須</span></label><input id="f-link" type="url" name="link" required autocomplete="url" placeholder="例) https://www.tiktok.com/@your_account">
+      <p class="f-hint">※現在の発信状況を拝見したうえで、具体的なご提案をいたします</p></div>
+    <label class="f-check"><input type="checkbox" name="nosales" value="1"><span>営業・勧誘目的ではありません。</span></label>
+    <button type="submit">資料を受け取る</button>
+    <p class="form-note">※ご入力いただいた情報は、当社のプライバシーポリシーに基づき適切に管理いたします。</p>
+  </form>
+  <p class="cta-trust fade">支援実績 <b>100件以上</b>　|　月<b>500本超</b>のショート動画を分析　|　資料は無料・30秒で申し込み</p>
+</section>
+
+<footer>
+  <div class="logo lora">ETHICAL</div>
+  <p>集客・採用につなげる、TikTok運用代行</p>
+  <nav class="fnav">
+    <a href="https://ethicalskyjapan.com/" target="_blank" rel="noopener">公式サイト</a>
+    <a href="https://ethicalskyjapan.com/company" target="_blank" rel="noopener">運営会社</a>
+    <a href="privacy.html">プライバシーポリシー</a>
+    <a href="#cta">お問い合わせ</a>
+  </nav>
+  <p style="margin-top:18px">© エシカル・スカイジャパン株式会社</p>
+</footer>
+
+<div class="sticky" id="sticky">
+  <a href="#cta">無料で資料請求する<span>サービス資料をお送りします・30秒</span></a>
+</div>
+
+<!-- 動画モーダル -->
+<div class="modal" id="videoModal">
+  <div class="modal-bg"></div>
+  <div class="modal-box"><button class="modal-close" aria-label="閉じる">×</button><div id="modalVideo"></div></div>
+</div>
+
+<!-- プロフィール（スマホ）モーダル -->
+<div class="pmodal" id="profModal" aria-hidden="true">
+  <div class="pmodal-bg"></div>
+  <div class="pmodal-inner">
+    <button class="pmodal-close" aria-label="閉じる">×</button>
+    <img id="profImg" alt="プロフィール">
+    <a id="profGo" class="pmodal-go" target="_blank" rel="noopener">アカウントを見る<span aria-hidden="true">↗</span></a>
+  </div>
+</div>
+
+<script>
+/* ===== ここに動画URLを入れるとヒーローに再生ボタンが出る（YouTube / Vimeo / .mp4 いずれもOK） ===== */
+const HERO_VIDEO_URL = "";
+
+/* スクロールで順次フェード */
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.14});
+document.querySelectorAll('.fade').forEach(el=>io.observe(el));
+/* フロー：縦線ドロー＆ドット */
+const io2=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.3});
+document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
+
+/* ===== 資料請求フォーム送信 → Discord通知 → サンクスページへ ===== */
+(function(){
+  const form=document.getElementById('reqForm'); if(!form) return;
+  /* ▼▼ ここに Discord の Webhook URL を貼り付けてください ▼▼
+     （Discord：サーバー設定 → 連携サービス → ウェブフック → 新しいウェブフック → URLをコピー）
+     例: const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/xxxx/yyyy"; */
+  const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/1526479137202769992/Z6DBa5aoDJRNJ8kuZGiQHDX7CZWWFSafYootkMg8o_mdxkY9Vc3HoHWOrPgaxEm_pniL";
+
+  /* ▼ EmailJS：資料請求した方へ自動でお礼メールを送る設定 */
+  const EMAILJS_PUBLIC_KEY = "C9CgtY7CQ_EiGWL8A";
+  const EMAILJS_SERVICE_ID = "service_se9y32w";
+  const EMAILJS_TEMPLATE_ID = "template_efiknmr";
+  if(window.emailjs){ emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); }
+
+  /* ▼▼ Googleスプレッドシートに記録する場合、GASのウェブアプリURLをここに貼り付けてください ▼▼
+     （手順は 同フォルダの「Google連携の手順.md」を参照。空のままでもDiscord通知は動きます） */
+  const GAS_URL = "https://script.google.com/macros/s/AKfycbyQO0hJbg5G7ncOZDwkG06yuWqgr2m4rblxHKfRGjooSVPwhtQZdcb45-0M_pUquV1p/exec";
+  const GAS_TOKEN = "ethical-lp-2026";   // GAS側のコード内 SECRET と同じ文字列にする
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    if(!form.reportValidity()) return;              // 4項目の必須チェック
+    const d=new FormData(form);
+    const msg="📩 **新しい資料請求が届きました**\n"+
+      "▫️ お名前："+(d.get('name')||'')+"\n"+
+      "▫️ 会社名・屋号："+(d.get('company')||'')+"\n"+
+      "▫️ メール："+(d.get('email')||'')+"\n"+
+      "▫️ 電話："+(d.get('phone')||'')+"\n"+
+      "▫️ HP / SNS："+(d.get('link')||'（未記入）')+"\n"+
+      "▫️ 営業・勧誘目的ではない："+(d.get('nosales')?'✅ チェック済み':'—');
+    /* Meta広告コンバージョン計測：資料請求ボタン送信時に Lead を送る場合（Pixel設置後に有効化） */
+    /* if(window.fbq) fbq('track','Lead'); */
+
+    const go=function(){ location.href='thanks.html'; };   // 送信後はサンクスページへ遷移
+    const jobs=[];                                   // 送信先（Discord / Googleスプレッドシート）
+
+    /* ① Discordへ通知（@everyone でチャンネル全員にメンション） */
+    if(DISCORD_WEBHOOK){
+      jobs.push(fetch(DISCORD_WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({username:'資料請求フォーム',content:'@everyone\n'+msg,
+          allowed_mentions:{parse:['everyone']}})}).catch(()=>{}));
+    }
+    /* ①-2 資料請求した方へ、お礼メールを自動送信（EmailJS） */
+    if(window.emailjs && EMAILJS_SERVICE_ID){
+      jobs.push(emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        name:    d.get('name')||'ご担当者',
+        email:   d.get('email')||'',
+        company: d.get('company')||'',
+        phone:   d.get('phone')||'',
+        link:    d.get('link')||''
+      }).catch(()=>{}));
+    }
+    /* ② Googleスプレッドシートへ記録 */
+    if(GAS_URL){
+      const body=new URLSearchParams();
+      body.append('token', GAS_TOKEN);               // GAS側の合言葉と一致させる
+      ['name','company','email','phone','link'].forEach(k=>body.append(k,d.get(k)||''));
+      body.append('nosales', d.get('nosales')?'はい':'');
+      jobs.push(fetch(GAS_URL,{method:'POST',mode:'no-cors',body:body}).catch(()=>{}));
+    }
+    /* 送信が終わったら（失敗しても）サンクスページへ */
+    if(jobs.length){ Promise.all(jobs).then(go).catch(go); setTimeout(go,4000); }
+    else { go(); }
+  });
+})();
+
+/* ヘッダー＆固定CTA */
+const hd=document.getElementById('hd'),sticky=document.getElementById('sticky');
+addEventListener('scroll',()=>{const y=scrollY;hd.classList.toggle('solid',y>60);sticky.classList.toggle('show',y>640)});
+
+/* メンバースライダー：ゆっくり連続でスライドし続ける自動カルーセル */
+(function(){
+  const lb=document.querySelector('.lookbook'); if(!lb) return;
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  /* シームレスループ用に同じ並びを複製して連結 */
+  [...lb.children].forEach(n=>{const c=n.cloneNode(true);c.setAttribute('aria-hidden','true');lb.appendChild(c)});
+  lb.querySelectorAll('.tile').forEach(t=>t.classList.add('in'));   /* 即表示 */
+  let half=0,x=0,paused=false,pauseT=null,raf=0,active=false;
+  const SPEED=0.9;                                                  /* px/フレーム＝少し速め */
+  const measure=()=>{half=lb.scrollWidth/2};
+  measure(); addEventListener('resize',measure);
+  function frame(){ if(!paused){ x+=SPEED; if(x>=half)x-=half; lb.scrollLeft=x; } raf=requestAnimationFrame(frame); }
+  function start(){ if(active||reduce)return; active=true; x=lb.scrollLeft%half||0; frame(); }
+  function stop(){ active=false; cancelAnimationFrame(raf); }
+  /* 指で操作したら一時停止→少し待って再開（操作を邪魔しない） */
+  ['pointerdown','touchstart','wheel'].forEach(ev=>lb.addEventListener(ev,()=>{paused=true;clearTimeout(pauseT);pauseT=setTimeout(()=>{x=lb.scrollLeft%half||0;paused=false},2200)},{passive:true}));
+  lb.addEventListener('mouseenter',()=>paused=true);
+  lb.addEventListener('mouseleave',()=>{x=lb.scrollLeft%half||0;paused=false});
+  /* 少しでも見えたら即スタート */
+  new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?start():stop()),{threshold:0}).observe(lb);
+})();
+
+/* 実際の投稿（動画）：こちらも自動で流れ続けるカルーセルに */
+(function(){
+  const rl=document.querySelector('.reels'); if(!rl) return;
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  /* シームレスループ用に複製 */
+  [...rl.children].forEach(n=>{const c=n.cloneNode(true);c.setAttribute('aria-hidden','true');rl.appendChild(c)});
+  rl.querySelectorAll('.fade').forEach(p=>p.classList.add('in'));   /* 複製分も即表示 */
+  /* 複製した動画も画面内で再生されるように監視し直す */
+  const vio=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){ e.target.play().catch(()=>{}); } else { e.target.pause(); }
+  }),{threshold:.35});
+  rl.querySelectorAll('.phone video').forEach(v=>vio.observe(v));
+  let half=0,x=0,paused=false,pauseT=null,raf=0,active=false;
+  const SPEED=0.9;
+  const measure=()=>{half=rl.scrollWidth/2};
+  measure(); addEventListener('resize',measure);
+  function frame(){ if(!paused){ x+=SPEED; if(x>=half)x-=half; rl.scrollLeft=x; } raf=requestAnimationFrame(frame); }
+  function start(){ if(active||reduce)return; active=true; x=rl.scrollLeft%half||0; frame(); }
+  function stop(){ active=false; cancelAnimationFrame(raf); }
+  ['pointerdown','touchstart','wheel'].forEach(ev=>rl.addEventListener(ev,()=>{paused=true;clearTimeout(pauseT);pauseT=setTimeout(()=>{x=rl.scrollLeft%half||0;paused=false},2200)},{passive:true}));
+  rl.addEventListener('mouseenter',()=>paused=true);
+  rl.addEventListener('mouseleave',()=>{x=rl.scrollLeft%half||0;paused=false});
+  new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?start():stop()),{threshold:0}).observe(rl);
+})();
+
+/* スマホモックアップ：画面に入っているリールだけ再生（省電力） */
+(function(){
+  const vids=document.querySelectorAll('.phone video'); if(!vids.length) return;
+  const io=new IntersectionObserver(es=>es.forEach(e=>{
+    if(e.isIntersecting){ e.target.play().catch(()=>{}); } else { e.target.pause(); }
+  }),{threshold:.35});
+  vids.forEach(v=>io.observe(v));
+})();
+
+/* プロフィール（スマホ）モーダル：カードをタップで拡大表示 */
+(function(){
+  const modal=document.getElementById('profModal'),
+        img=document.getElementById('profImg'),
+        go=document.getElementById('profGo');
+  if(!modal) return;
+  const open=(src,href,name)=>{
+    img.src=src; img.alt=(name||'')+'のプロフィール';
+    if(href){go.href=href;go.style.display='';}else{go.style.display='none';}
+    modal.classList.add('open'); modal.setAttribute('aria-hidden','false');
+    document.body.style.overflow='hidden';
+  };
+  const close=()=>{modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';setTimeout(()=>img.src='',300);};
+  /* 複製されたカードでも効くよう、ページ全体で受け取る */
+  document.addEventListener('click',e=>{
+    const a=e.target.closest?.('.phone .link[data-prof]'); if(!a) return;
+    e.preventDefault(); open(a.dataset.prof,a.getAttribute('href'),a.dataset.name);
+  });
+  modal.querySelector('.pmodal-bg').addEventListener('click',close);
+  modal.querySelector('.pmodal-close').addEventListener('click',close);
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('open'))close();});
+})();
+
+/* 動画モーダル */
+(function(){
+  const btn=document.getElementById('playBtn'),modal=document.getElementById('videoModal'),box=document.getElementById('modalVideo');
+  if(!HERO_VIDEO_URL) return;            // URL未設定なら再生ボタンは非表示のまま
+  btn.hidden=false;
+  const embed=u=>{let m;
+    if(m=u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]+)/)) return '<iframe src="https://www.youtube.com/embed/'+m[1]+'?autoplay=1&rel=0" allow="autoplay;fullscreen" allowfullscreen></iframe>';
+    if(m=u.match(/vimeo\.com\/(\d+)/)) return '<iframe src="https://player.vimeo.com/video/'+m[1]+'?autoplay=1" allow="autoplay;fullscreen" allowfullscreen></iframe>';
+    return '<video src="'+u+'" controls autoplay playsinline></video>';};
+  const open=()=>{box.innerHTML=embed(HERO_VIDEO_URL);modal.classList.add('open');document.body.style.overflow='hidden'};
+  const close=()=>{modal.classList.remove('open');box.innerHTML='';document.body.style.overflow=''};
+  btn.addEventListener('click',open);
+  modal.addEventListener('click',e=>{if(e.target.classList.contains('modal-bg')||e.target.closest('.modal-close'))close()});
+  addEventListener('keydown',e=>{if(e.key==='Escape')close()});
+})();
+</script>
+</body>
+</html>
