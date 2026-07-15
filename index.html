@@ -584,7 +584,12 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
 
 /* ヘッダー＆固定CTA */
 const hd=document.getElementById('hd'),sticky=document.getElementById('sticky');
-addEventListener('scroll',()=>{const y=scrollY;hd.classList.toggle('solid',y>60);sticky.classList.toggle('show',y>640)});
+/* 資料請求フォームが画面に入っている間は、固定CTAを隠す（入力の邪魔・紛らわしさ防止） */
+let ctaVisible=false;const ctaSec=document.getElementById('cta');
+if(ctaSec&&'IntersectionObserver'in window){
+  new IntersectionObserver(es=>{ctaVisible=es[0].isIntersecting;if(ctaVisible)sticky.classList.remove('show');},{threshold:0.12}).observe(ctaSec);
+}
+addEventListener('scroll',()=>{const y=scrollY;hd.classList.toggle('solid',y>60);sticky.classList.toggle('show',y>640&&!ctaVisible)});
 
 /* メンバースライダー：ゆっくり連続でスライドし続ける自動カルーセル */
 (function(){
