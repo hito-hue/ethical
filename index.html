@@ -535,6 +535,8 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
      （手順は 同フォルダの「Google連携の手順.md」を参照。空のままでもDiscord通知は動きます） */
   const GAS_URL = "https://script.google.com/macros/s/AKfycbyQO0hJbg5G7ncOZDwkG06yuWqgr2m4rblxHKfRGjooSVPwhtQZdcb45-0M_pUquV1p/exec";
   const GAS_TOKEN = "ethical-lp-2026";   // GAS側のコード内 SECRET と同じ文字列にする
+  /* 広告ダッシュボード（リード数の集計）への記録先 */
+  const LEAD_ENDPOINT = "https://x85-131-252-8.static.xvps.ne.jp/ethical-lead";
   form.addEventListener('submit',function(e){
     e.preventDefault();
     if(!form.reportValidity()) return;              // 4項目の必須チェック
@@ -575,6 +577,16 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
       ['name','company','email','phone','link'].forEach(k=>body.append(k,d.get(k)||''));
       body.append('nosales', d.get('nosales')?'はい':'');
       jobs.push(fetch(GAS_URL,{method:'POST',mode:'no-cors',body:body}).catch(()=>{}));
+    }
+    /* ③ ダッシュボードへ記録（リード数の集計用。keepaliveでページ遷移中も送り切る） */
+    if(LEAD_ENDPOINT){
+      jobs.push(fetch(LEAD_ENDPOINT,{method:'POST',keepalive:true,
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({
+          name:d.get('name')||'', company:d.get('company')||'',
+          email:d.get('email')||'', phone:d.get('phone')||'',
+          link:d.get('link')||'', source:'ethical-lp'
+        })}).catch(()=>{}));
     }
     /* 送信が終わったら（失敗しても）サンクスページへ */
     if(jobs.length){ Promise.all(jobs).then(go).catch(go); setTimeout(go,4000); }
