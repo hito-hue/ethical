@@ -20,6 +20,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;600;700;800;900&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/yakuhanjp@3.4.1/dist/css/yakuhanjp.min.css" rel="stylesheet">
 <!-- EmailJS（資料請求の自動返信メール） -->
+<script>
+/* Instagram/Facebookアプリ内ブラウザが注入するネイティブ連携(window.webkit.messageHandlers)由来の
+   無害なエラーがコンソールに出るのを抑止。当サイト自身のコードは webkit を一切参照していない。 */
+window.addEventListener('error',function(e){
+  if(e&&e.message&&/webkit[\.\s]*messagehandlers/i.test(e.message)){e.preventDefault();return true;}
+},true);
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <link rel="icon" href="favicon.png?v=3" type="image/png">
 <!-- Meta Pixel Code -->
@@ -152,6 +159,11 @@ header.solid{background:rgba(255,255,255,.86);backdrop-filter:blur(8px);padding:
 .works .lookwrap::after{background:linear-gradient(90deg,transparent,var(--bg))}
 .reels{display:flex;align-items:flex-start;gap:clamp(14px,3.4vw,22px);overflow-x:auto;overflow-y:hidden;padding:4px 0 10px;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
 .reels::-webkit-scrollbar{height:0}
+/* タッチ端末では標準の横スワイプ＋スナップ（縦スクロールには一切干渉しない） */
+@media (pointer:coarse){
+  .lookbook,.reels,.mockrail{scroll-snap-type:x mandatory}
+  .lookbook>*,.reels>*,.mockrail>*{scroll-snap-align:start}
+}
 
 /* 動画カード：文字は動画に重ねず、下に出す */
 .rcard{flex:0 0 auto;width:min(44vw,166px);display:flex;flex-direction:column;transition:transform .3s ease}
@@ -345,9 +357,10 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
 <!-- ===== ヒーロー ===== -->
 <section class="hero">
   <div class="bg"></div>
-  <video class="hero-vid" autoplay muted loop playsinline preload="metadata" poster="hero-poster.jpg?v=2">
+  <video class="hero-vid" id="herovid" autoplay muted loop playsinline preload="metadata">
     <source src="https://x85-131-252-8.static.xvps.ne.jp/ethical/hero.mp4?v=3" type="video/mp4">
   </video>
+  <script>(function(){var v=document.getElementById('herovid');if(v){v.poster=(window.matchMedia&&matchMedia('(max-width:768px)').matches)?'hero-poster-800.webp?v=1':'hero-poster.jpg?v=2';}})();</script>
   <div class="inner">
     <div class="kicker">選ばれ続ける発信を、データで。</div>
     <h1 class="fade in">
@@ -402,16 +415,16 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
     <div class="shead fade"><span class="ix">02</span><div><p class="eyeb">Works</p><h2 class="htitle">実際の投稿</h2></div></div>
     <div class="lookwrap">
       <div class="reels">
-        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-kitahara.webp" loading="lazy" decoding="async" data-name="北原孝彦" href="https://www.tiktok.com/@kitahara64/video/7408497876663340295" target="_blank" rel="noopener" aria-label="北原孝彦の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/kitahara.mp4" poster="works/kitahara.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">累計1億再生／10万フォロワー</span><span class="rnm">北原孝彦</span></span></div>
-        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-aimeko.webp" loading="lazy" decoding="async" data-name="あいめこ社長" href="https://www.tiktok.com/@aimeko_dayo/video/7436681525300628744" target="_blank" rel="noopener" aria-label="あいめこ社長の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/aimeko.mp4" poster="works/aimeko.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">合計1000万再生達成</span><span class="rnm">あいめこ社長</span></span></div>
-        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-tsuji.webp" loading="lazy" decoding="async" data-name="辻敬太" href="https://www.tiktok.com/@tsuji.keita/video/7117569416014990593" target="_blank" rel="noopener" aria-label="辻敬太の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/tsuji.mp4" poster="works/tsuji.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">累計1.5億再生</span><span class="rnm">辻敬太</span></span></div>
-        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-hayashi.webp" loading="lazy" decoding="async" data-name="林社長" href="https://www.tiktok.com/@hayashi.fc/video/7619646028500733205" target="_blank" rel="noopener" aria-label="林社長の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/hayashi.mp4" poster="works/hayashi.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">全投稿10万再生以上</span><span class="rnm">林社長</span></span></div>
-        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-hoiku.webp" loading="lazy" decoding="async" data-name="ほいくのおまもり" href="https://www.instagram.com/reel/C-fDFhyT7Jt/" target="_blank" rel="noopener" aria-label="ほいくのおまもりの投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/hoiku.mp4" poster="works/hoiku.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">1動画1500万再生／サロン3,000名集客</span><span class="rnm">ほいくのおまもり</span></span></div>
-        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-yumika.webp" loading="lazy" decoding="async" data-name="一色優美加" href="https://www.instagram.com/reel/DW1EmWWSm1r/" target="_blank" rel="noopener" aria-label="一色優美加の投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/yumika.mp4" poster="works/yumika.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">講座販売累計9,000万円突破</span><span class="rnm">一色優美加</span></span></div>
-        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-kim.webp" loading="lazy" decoding="async" data-name="自然美人" href="https://www.tiktok.com/@shizen_bijin/video/7493105907782438161" target="_blank" rel="noopener" aria-label="自然美人の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/kim.mp4" poster="works/kim.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">単価40万円の回数券 10件以上販売</span><span class="rnm">自然美人</span></span></div>
-        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-nagomu.webp" loading="lazy" decoding="async" data-name="なごむ" href="https://www.instagram.com/reel/DYWu76FmgLG/" target="_blank" rel="noopener" aria-label="なごむの投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/nagomu.mp4" poster="works/nagomu.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">ペット事業／SNS月間550万円達成</span><span class="rnm">なごむ</span></span></div>
-        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-sayaka.webp" loading="lazy" decoding="async" data-name="さやか" href="https://www.instagram.com/reel/DaQHyXkNL7Z/" target="_blank" rel="noopener" aria-label="さやかの投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/sayaka.mp4" poster="works/sayaka.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">ペット事業・売上6倍／総再生500万突破</span><span class="rnm">さやか</span></span></div>
-        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-kiraga.webp" loading="lazy" decoding="async" data-name="キラガ" href="https://www.tiktok.com/@kiraga_jewelry/video/7355801057768885512" target="_blank" rel="noopener" aria-label="キラガの投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/kiraga.mp4" poster="works/kiraga.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">ジュエリー売上1.5億円突破</span><span class="rnm">キラガ</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-kitahara.webp" loading="lazy" decoding="async" data-name="北原孝彦" href="https://www.tiktok.com/@kitahara64/video/7408497876663340295" target="_blank" rel="noopener" aria-label="北原孝彦の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/kitahara.mp4" data-poster="works/kitahara.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">累計1億再生／10万フォロワー</span><span class="rnm">北原孝彦</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-aimeko.webp" loading="lazy" decoding="async" data-name="あいめこ社長" href="https://www.tiktok.com/@aimeko_dayo/video/7436681525300628744" target="_blank" rel="noopener" aria-label="あいめこ社長の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/aimeko.mp4" data-poster="works/aimeko.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">合計1000万再生達成</span><span class="rnm">あいめこ社長</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-tsuji.webp" loading="lazy" decoding="async" data-name="辻敬太" href="https://www.tiktok.com/@tsuji.keita/video/7117569416014990593" target="_blank" rel="noopener" aria-label="辻敬太の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/tsuji.mp4" data-poster="works/tsuji.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">累計1.5億再生</span><span class="rnm">辻敬太</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-hayashi.webp" loading="lazy" decoding="async" data-name="林社長" href="https://www.tiktok.com/@hayashi.fc/video/7619646028500733205" target="_blank" rel="noopener" aria-label="林社長の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/hayashi.mp4" data-poster="works/hayashi.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">全投稿10万再生以上</span><span class="rnm">林社長</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-hoiku.webp" loading="lazy" decoding="async" data-name="ほいくのおまもり" href="https://www.instagram.com/reel/C-fDFhyT7Jt/" target="_blank" rel="noopener" aria-label="ほいくのおまもりの投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/hoiku.mp4" data-poster="works/hoiku.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">1動画1500万再生／サロン3,000名集客</span><span class="rnm">ほいくのおまもり</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-yumika.webp" loading="lazy" decoding="async" data-name="一色優美加" href="https://www.instagram.com/reel/DW1EmWWSm1r/" target="_blank" rel="noopener" aria-label="一色優美加の投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/yumika.mp4" data-poster="works/yumika.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">講座販売累計9,000万円突破</span><span class="rnm">一色優美加</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-kim.webp" loading="lazy" decoding="async" data-name="自然美人" href="https://www.tiktok.com/@shizen_bijin/video/7493105907782438161" target="_blank" rel="noopener" aria-label="自然美人の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/kim.mp4" data-poster="works/kim.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">単価40万円の回数券 10件以上販売</span><span class="rnm">自然美人</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-nagomu.webp" loading="lazy" decoding="async" data-name="なごむ" href="https://www.instagram.com/reel/DYWu76FmgLG/" target="_blank" rel="noopener" aria-label="なごむの投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/nagomu.mp4" data-poster="works/nagomu.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">ペット事業／SNS月間550万円達成</span><span class="rnm">なごむ</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-sayaka.webp" loading="lazy" decoding="async" data-name="さやか" href="https://www.instagram.com/reel/DaQHyXkNL7Z/" target="_blank" rel="noopener" aria-label="さやかの投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/sayaka.mp4" data-poster="works/sayaka.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">ペット事業・売上6倍／総再生500万突破</span><span class="rnm">さやか</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-kiraga.webp" loading="lazy" decoding="async" data-name="キラガ" href="https://www.tiktok.com/@kiraga_jewelry/video/7355801057768885512" target="_blank" rel="noopener" aria-label="キラガの投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/kiraga.mp4" data-poster="works/kiraga.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">ジュエリー売上1.5億円突破</span><span class="rnm">キラガ</span></span></div>
       </div>
     </div>
     <div class="swipe"><span class="bar"></span>SWIPE</div>
@@ -606,33 +619,45 @@ addEventListener('scroll',()=>{const y=scrollY;hd.classList.toggle('solid',y>60)
 /* メンバースライダー：ゆっくり連続でスライドし続ける自動カルーセル */
 (function(){
   const lb=document.querySelector('.lookbook'); if(!lb) return;
+  lb.querySelectorAll('.tile,.mocktile').forEach(t=>t.classList.add('in'));   /* 即表示 */
   const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  /* シームレスループ用に同じ並びを複製して連結 */
+  const coarse=matchMedia('(pointer:coarse)').matches;
+  /* タッチ端末・省モーションでは自動再生せず、ブラウザ標準の横スワイプのみ（縦スクロールに一切干渉しない） */
+  if(coarse||reduce) return;
+  /* PCのみ：シームレスループ用に同じ並びを複製して連結 */
   [...lb.children].forEach(n=>{const c=n.cloneNode(true);c.setAttribute('aria-hidden','true');lb.appendChild(c)});
-  lb.querySelectorAll('.tile').forEach(t=>t.classList.add('in'));   /* 即表示 */
   let half=0,x=0,paused=false,pauseT=null,raf=0,active=false;
-  const SPEED=0.9;                                                  /* px/フレーム＝少し速め */
+  const SPEED=0.9;
   const measure=()=>{half=lb.scrollWidth/2};
   measure(); addEventListener('resize',measure);
   function frame(){ if(!paused){ x+=SPEED; if(x>=half)x-=half; lb.scrollLeft=x; } raf=requestAnimationFrame(frame); }
-  function start(){ if(active||reduce)return; active=true; x=lb.scrollLeft%half||0; frame(); }
+  function start(){ if(active)return; active=true; x=lb.scrollLeft%half||0; frame(); }
   function stop(){ active=false; cancelAnimationFrame(raf); }
-  /* 指で操作したら一時停止→少し待って再開（操作を邪魔しない） */
-  ['pointerdown','touchstart','wheel'].forEach(ev=>lb.addEventListener(ev,()=>{paused=true;clearTimeout(pauseT);pauseT=setTimeout(()=>{x=lb.scrollLeft%half||0;paused=false},2200)},{passive:true}));
+  ['pointerdown','wheel'].forEach(ev=>lb.addEventListener(ev,()=>{paused=true;clearTimeout(pauseT);pauseT=setTimeout(()=>{x=lb.scrollLeft%half||0;paused=false},2200)},{passive:true}));
   lb.addEventListener('mouseenter',()=>paused=true);
   lb.addEventListener('mouseleave',()=>{x=lb.scrollLeft%half||0;paused=false});
-  /* 少しでも見えたら即スタート */
   new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?start():stop()),{threshold:0}).observe(lb);
 })();
+
+/* works配下のサムネイル（動画のposter）を遅延読み込み（初回の転送量を削減） */
+const posterIO=new IntersectionObserver((es)=>es.forEach(e=>{
+  if(e.isIntersecting){const v=e.target;if(v.dataset.poster){v.poster=v.dataset.poster;v.removeAttribute('data-poster');}posterIO.unobserve(v);}
+}),{rootMargin:'400px 0px'});
+function lazyPosters(root){(root||document).querySelectorAll('video[data-poster]').forEach(v=>posterIO.observe(v));}
+lazyPosters();
 
 /* 実際の投稿（動画）：こちらも自動で流れ続けるカルーセルに */
 (function(){
   const rl=document.querySelector('.reels'); if(!rl) return;
   const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
-  /* シームレスループ用に複製 */
+  const coarse=matchMedia('(pointer:coarse)').matches;
+  /* タッチ端末・省モーションでは自動再生せず、ブラウザ標準の横スワイプのみ（縦スクロールに一切干渉しない）
+     ※動画の再生と poster の遅延読み込みは、下の共通の監視で全端末対応済み */
+  if(coarse||reduce) return;
+  /* PCのみ：シームレスループ用に複製 */
   [...rl.children].forEach(n=>{const c=n.cloneNode(true);c.setAttribute('aria-hidden','true');rl.appendChild(c)});
   rl.querySelectorAll('.fade').forEach(p=>p.classList.add('in'));   /* 複製分も即表示 */
-  /* 複製した動画も画面内で再生されるように監視し直す */
+  lazyPosters(rl);                                                  /* 複製した動画のposterも遅延読み込み対象に */
   const vio=new IntersectionObserver(es=>es.forEach(e=>{
     if(e.isIntersecting){ e.target.play().catch(()=>{}); } else { e.target.pause(); }
   }),{threshold:.35});
@@ -642,9 +667,9 @@ addEventListener('scroll',()=>{const y=scrollY;hd.classList.toggle('solid',y>60)
   const measure=()=>{half=rl.scrollWidth/2};
   measure(); addEventListener('resize',measure);
   function frame(){ if(!paused){ x+=SPEED; if(x>=half)x-=half; rl.scrollLeft=x; } raf=requestAnimationFrame(frame); }
-  function start(){ if(active||reduce)return; active=true; x=rl.scrollLeft%half||0; frame(); }
+  function start(){ if(active)return; active=true; x=rl.scrollLeft%half||0; frame(); }
   function stop(){ active=false; cancelAnimationFrame(raf); }
-  ['pointerdown','touchstart','wheel'].forEach(ev=>rl.addEventListener(ev,()=>{paused=true;clearTimeout(pauseT);pauseT=setTimeout(()=>{x=rl.scrollLeft%half||0;paused=false},2200)},{passive:true}));
+  ['pointerdown','wheel'].forEach(ev=>rl.addEventListener(ev,()=>{paused=true;clearTimeout(pauseT);pauseT=setTimeout(()=>{x=rl.scrollLeft%half||0;paused=false},2200)},{passive:true}));
   rl.addEventListener('mouseenter',()=>paused=true);
   rl.addEventListener('mouseleave',()=>{x=rl.scrollLeft%half||0;paused=false});
   new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting?start():stop()),{threshold:0}).observe(rl);
