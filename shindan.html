@@ -221,9 +221,9 @@ function result(){
   const list=(CASES[genre]||CASES["医療・健康・その他"]);
   const cases=list.map(c=>`<figure class="casei"><img loading="lazy" decoding="async" src="${c.img}" alt="${esc(c.c)}"><figcaption>${esc(c.c)}</figcaption></figure>`).join('');
 
-  const booking = BOOKRUN_EMBED_URL
-    ? `<div class="bookwrap"><iframe class="bookrun" src="${BOOKRUN_EMBED_URL}" title="無料相談の予約" loading="lazy"></iframe></div>`
-    : `<a class="btn" href="${BOOK_LINK}" target="_blank" rel="noopener">無料相談を予約する →</a>`;
+  /* ボタンを押すと、ページ移行せず“その場”に予約フォーム(bookrun)を展開 */
+  const booking = `<button type="button" class="btn" id="bookBtn">無料相談を予約する →</button>
+      <div class="bookwrap hide" id="bookWrap"></div>`;
 
   show(`<div class="card">
     <div class="score-wrap">
@@ -255,6 +255,20 @@ function result(){
   const el=document.getElementById('scoreNum');let n=0;
   const tm=setInterval(()=>{n+=Math.max(1,Math.round(rel/26));if(n>=rel){n=rel;clearInterval(tm);}el.textContent=n;},34);
   setTimeout(()=>{document.getElementById('rbar').style.width=rel+'%';},120);
+
+  /* 予約ボタン：ページ移行せず、その場に bookrun を埋め込み表示 */
+  const bb=document.getElementById('bookBtn');
+  if(bb) bb.addEventListener('click',()=>{
+    const w=document.getElementById('bookWrap');
+    if(BOOKRUN_EMBED_URL){
+      w.innerHTML=`<iframe class="bookrun" src="${BOOKRUN_EMBED_URL}" title="無料相談の予約"></iframe>`;
+      w.classList.remove('hide'); bb.classList.add('hide');
+      setTimeout(()=>w.scrollIntoView({behavior:'smooth',block:'nearest'}),80);
+    } else {
+      /* 予約URL未設定のあいだは、診断ページを残したまま別タブで開く（ページ移行しない） */
+      window.open(BOOK_LINK,'_blank','noopener');
+    }
+  });
 }
 
 start();
