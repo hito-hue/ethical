@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>SNS集客 相性診断｜エシカル・スカイジャパン</title>
+<meta name="description" content="あなたのサービス・商品がショート動画で成果を出せるか、30秒で無料診断。">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b1420;--bg2:#0f1b2a;--ink:#eaf1f8;--dim:#93a7bc;--gold:#c9a86a;--key:#2f9be0;--line:rgba(201,168,106,.24);--ok:#4cc47e}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"Zen Kaku Gothic New",sans-serif;background:radial-gradient(120% 80% at 50% 0%,#12233a 0%,var(--bg) 60%);color:var(--ink);line-height:1.8;-webkit-font-smoothing:antialiased;min-height:100vh}
+.wrap{max-width:600px;margin:0 auto;padding:22px 18px 60px;min-height:100vh;display:flex;flex-direction:column}
+.brand{display:flex;align-items:center;gap:9px;font-family:"Shippori Mincho",serif;font-weight:700;font-size:14px;letter-spacing:.06em;color:var(--gold)}
+.brand .dot{width:8px;height:8px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold)}
+.stage{flex:1;display:flex;flex-direction:column;justify-content:center;padding:14px 0}
+.mincho{font-family:"Shippori Mincho",serif}
+/* 進捗 */
+.prog{height:5px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden;margin:14px 0 6px}
+.prog b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),#e6cf9a);border-radius:6px;transition:width .4s}
+.pnum{font-size:11.5px;color:var(--dim);letter-spacing:.05em;font-family:"Shippori Mincho",serif}
+/* カード共通 */
+.card{background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01));border:1px solid var(--line);border-radius:18px;padding:26px 22px;box-shadow:0 20px 50px rgba(0,0,0,.35);animation:rise .45s ease}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* スタート */
+.eyeb{font-size:12px;letter-spacing:.28em;color:var(--gold);font-weight:700;margin-bottom:14px}
+h1{font-family:"Shippori Mincho",serif;font-weight:700;font-size:clamp(23px,6.4vw,32px);line-height:1.5;letter-spacing:.02em}
+h1 .u{background:linear-gradient(transparent 62%,rgba(201,168,106,.34) 0);padding:0 2px}
+.lead{color:var(--dim);font-size:14px;margin-top:16px}
+.meta{display:flex;gap:16px;flex-wrap:wrap;margin-top:20px;font-size:12px;color:var(--dim)}
+.meta span{display:flex;align-items:center;gap:6px}
+.meta i{color:var(--gold);font-style:normal}
+/* ボタン */
+.btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;font-family:inherit;font-size:16px;font-weight:700;letter-spacing:.04em;color:#0b1420;background:linear-gradient(180deg,#e6cf9a,var(--gold));border:none;border-radius:12px;padding:16px;margin-top:24px;cursor:pointer;transition:.2s;box-shadow:0 10px 26px rgba(201,168,106,.28)}
+.btn:hover{transform:translateY(-2px)}
+.btn.key{color:#fff;background:linear-gradient(180deg,#43abec,#1f83c9);box-shadow:0 10px 26px rgba(47,155,224,.3)}
+.btn.ghost{background:none;color:var(--dim);box-shadow:none;border:1px solid var(--line);font-size:13px;padding:13px;margin-top:12px;font-weight:500}
+/* 質問 */
+.q{font-family:"Shippori Mincho",serif;font-weight:700;font-size:clamp(19px,5vw,23px);line-height:1.55;margin-bottom:20px}
+.opts{display:flex;flex-direction:column;gap:11px}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;font-family:inherit;font-size:15px;font-weight:500;color:var(--ink);background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:12px;padding:15px 16px;cursor:pointer;transition:.18s}
+.opt:hover,.opt:focus{border-color:var(--gold);background:rgba(201,168,106,.1);outline:none}
+.opt .mk{flex:none;width:24px;height:24px;border-radius:50%;border:1.5px solid var(--gold);color:var(--gold);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:"Shippori Mincho",serif}
+.back{margin-top:16px;font-size:12.5px;color:var(--dim);background:none;border:none;cursor:pointer;font-family:inherit}
+/* 診断中 */
+.load{text-align:center;padding:20px 0}
+.ring{width:64px;height:64px;margin:0 auto 20px;border:4px solid rgba(201,168,106,.2);border-top-color:var(--gold);border-radius:50%;animation:spin .9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+/* 結果 */
+.score-wrap{text-align:center;margin:4px 0 18px}
+.score-lbl{font-size:12px;letter-spacing:.2em;color:var(--gold);font-weight:700}
+.score{font-family:"Shippori Mincho",serif;font-weight:700;font-size:64px;line-height:1.1;letter-spacing:.02em}
+.score small{font-size:26px;color:var(--dim)}
+.tier{display:inline-block;font-family:"Shippori Mincho",serif;font-weight:700;font-size:17px;padding:7px 18px;border-radius:30px;border:1px solid var(--gold);color:var(--gold);margin-top:6px}
+.rbar{height:9px;background:rgba(255,255,255,.08);border-radius:6px;overflow:hidden;margin:16px 0 22px}
+.rbar b{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--gold),#e6cf9a);border-radius:6px;transition:width 1.1s cubic-bezier(.2,.8,.2,1)}
+.analy{list-style:none;display:flex;flex-direction:column;gap:12px;margin:8px 0 4px}
+.analy li{display:flex;gap:11px;font-size:14.5px;line-height:1.7}
+.analy .ic{flex:none;color:var(--gold)}
+.rhead{font-family:"Shippori Mincho",serif;font-weight:700;font-size:16px;color:var(--gold);margin:22px 0 10px;letter-spacing:.03em}
+.cta-box{margin-top:24px;background:linear-gradient(180deg,rgba(47,155,224,.12),rgba(47,155,224,.03));border:1px solid rgba(47,155,224,.32);border-radius:16px;padding:20px}
+.cta-box p{font-size:14px;color:var(--ink)}
+.cta-box .small{font-size:12px;color:var(--dim);margin-top:10px;text-align:center}
+.disc{font-size:11px;color:var(--dim);margin-top:22px;text-align:center;line-height:1.7}
+.hide{display:none!important}
+a{color:inherit}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand"><span class="dot"></span>ETHICAL SKY JAPAN｜SNS集客 相性診断</div>
+
+  <!-- 進捗（質問中のみ表示） -->
+  <div id="progwrap" class="hide">
+    <div class="prog"><b id="progbar"></b></div>
+    <div class="pnum" id="pnum"></div>
+  </div>
+
+  <div class="stage" id="stage"><!-- ここに画面を差し込む --></div>
+</div>
+
+<script>
+/* ★ここを差し替えてください ───────────────────────────────
+   BOOKRUN_URL : お客様が「無料相談（商談）」を予約するbookrunの公開URL
+   未設定の間は、LPの資料請求フォームに誘導します。 */
+const BOOKRUN_URL = "";                                   // 例: "https://b-book.run/xxxx"
+const LP_URL      = "https://hito-hue.github.io/ethical/";
+const BOOK_LINK   = BOOKRUN_URL || (LP_URL + "#cta");
+/* ───────────────────────────────────────────────────── */
+
+const QUESTIONS=[
+  {q:"あなたの事業に近いのは？",opts:[
+    {t:"美容・サロン・エステ",p:3},{t:"士業・コンサル・コーチ",p:3},
+    {t:"店舗・飲食・教室",p:2},{t:"EC・物販・メーカー",p:2},
+    {t:"医療・健康・その他",p:2}]},
+  {q:"いまのSNS発信は？",opts:[
+    {t:"まだやっていない",p:2},{t:"始めたが、伸びていない",p:3},
+    {t:"そこそこ伸びてきた",p:2},{t:"すでに集客できている",p:1}],key:"sns"},
+  {q:"主力商品・サービスの単価帯は？",opts:[
+    {t:"〜1万円",p:1},{t:"1〜10万円",p:2},
+    {t:"10〜50万円",p:3},{t:"50万円以上",p:3}],key:"price"},
+  {q:"SNSで一番かなえたいことは？",opts:[
+    {t:"集客・売上アップ",p:3},{t:"採用・人材集め",p:3},
+    {t:"認知・ブランディング",p:2},{t:"既存客のファン化",p:2}],key:"goal"},
+  {q:"いま一番の“つまずき”は？",opts:[
+    {t:"何を発信すればいいか分からない",p:3},{t:"続けられない・時間がない",p:3},
+    {t:"撮影・編集が難しい",p:3},{t:"投稿しても反応が取れない",p:2}],key:"pain"},
+  {q:"動画をつくる体制は？",opts:[
+    {t:"まだ何もしていない",p:3},{t:"自分（社内）でやっている",p:2},
+    {t:"一部を外注している",p:1},{t:"本格的に外注している",p:1}]}
+];
+
+const stage=document.getElementById('stage');
+const progwrap=document.getElementById('progwrap');
+const progbar=document.getElementById('progbar');
+const pnum=document.getElementById('pnum');
+let step=-1;                 // -1=スタート
+const answers=[];            // {p, key, t}
+
+function show(html){stage.innerHTML=html;stage.scrollIntoView({block:'start'});}
+
+function start(){
+  progwrap.classList.add('hide');
+  show(`
+    <div class="card">
+      <div class="eyeb">30秒・無料・登録不要</div>
+      <h1>あなたの商品・サービスは<br><span class="u mincho">ショート動画で成果が出るか</span>？</h1>
+      <p class="lead">月500本超の分析データをもとに、6つの質問であなたのSNS集客の<b>相性度</b>を無料診断。最後に、あなた専用の“次の一手”をお伝えします。</p>
+      <div class="meta">
+        <span><i>●</i>所要 約30秒</span><span><i>●</i>全6問・タップだけ</span><span><i>●</i>その場で結果</span>
+      </div>
+      <button class="btn" onclick="next()">診断をはじめる →</button>
+    </div>`);
+}
+
+function next(){
+  step++;
+  if(step>=QUESTIONS.length){return finish();}
+  const Q=QUESTIONS[step];
+  progwrap.classList.remove('hide');
+  progbar.style.width=((step)/QUESTIONS.length*100)+'%';
+  pnum.textContent=`Q${step+1} / ${QUESTIONS.length}`;
+  const opts=Q.opts.map((o,i)=>`<button class="opt" onclick="pick(${i})"><span class="mk">${'ABCDE'[i]}</span>${o.t}</button>`).join('');
+  show(`<div class="card">
+      <div class="q mincho">${Q.q}</div>
+      <div class="opts">${opts}</div>
+      ${step>0?'<button class="back" onclick="back()">← 前の質問にもどる</button>':''}
+    </div>`);
+}
+function pick(i){
+  const Q=QUESTIONS[step];const o=Q.opts[i];
+  answers[step]={p:o.p,key:Q.key,t:o.t};
+  next();
+}
+function back(){ step-=2; if(step<-1)step=-1; next(); }
+
+function finish(){
+  progbar.style.width='100%';
+  progwrap.classList.add('hide');
+  show(`<div class="card"><div class="load">
+      <div class="ring"></div>
+      <p class="mincho" style="font-size:18px;color:var(--gold)">診断中…</p>
+      <p class="lead">500本超の分析データと照合しています</p>
+    </div></div>`);
+  setTimeout(result,1600);
+}
+
+function byKey(k){const a=answers.find(x=>x&&x.key===k);return a?a.t:'';}
+
+function result(){
+  const pts=answers.reduce((s,a)=>s+(a?a.p:0),0);
+  const max=QUESTIONS.reduce((s,q)=>s+Math.max(...q.opts.map(o=>o.p)),0);
+  const rel=Math.round(50+ (pts/max)*46);          // だいたい 70〜96%
+  let tier,tierMsg;
+  if(rel>=87){tier="相性◎ 今が始めどき";tierMsg="ショート動画と非常に相性の良い事業です。仕組みさえ作れば、伸びるスピードが早いタイプ。";}
+  else if(rel>=76){tier="伸びしろ大";tierMsg="設計次第で大きく伸びるポテンシャルがあります。“やり方”が整えば結果はついてきます。";}
+  else{tier="戦略設計が鍵";tierMsg="今のままだと遠回りになりがち。逆に言えば、正しい設計で一気に化ける余地が大きい事業です。";}
+
+  // 回答に応じた分析コメント
+  const A=[];
+  const sns=byKey('sns'),pain=byKey('pain'),price=byKey('price'),goal=byKey('goal');
+  if(sns==='始めたが、伸びていない') A.push("すでに発信されているのは大きな強み。<b>“伸びない原因”は才能ではなく設計</b>で、企画と見せ方の調整で改善余地が大きいです。");
+  else if(sns==='まだやっていない') A.push("未着手＝伸びしろ100%。<b>最初の設計を正しく組む</b>ほど、後の伸びが変わります。今が最も差をつけやすいタイミングです。");
+  else A.push("土台ができているので、<b>勝ちパターンの横展開</b>で数字を伸ばしやすい状態です。");
+  if(pain) A.push(`最大の壁「<b>${pain}</b>」は、当社が最も多く解決してきた領域です。企画〜撮影〜編集〜分析まで一貫で伴走できます。`);
+  if(price==='10〜50万円'||price==='50万円以上') A.push("単価が高いほど、動画1本あたりの費用対効果が大きくなります。<b>少ない成約でも回収しやすい</b>相性の良い価格帯です。");
+  if(goal==='採用・人材集め') A.push("採用は動画と好相性。<b>“働く姿・想い”が伝わる発信</b>で応募の質が変わります。");
+
+  const bullets=A.map(t=>`<li><span class="ic">◆</span><span>${t}</span></li>`).join('');
+
+  show(`<div class="card">
+    <div class="score-wrap">
+      <div class="score-lbl">あなたのSNS集客 相性度</div>
+      <div class="score"><span id="scoreNum">0</span><small>%</small></div>
+      <div class="tier mincho">${tier}</div>
+    </div>
+    <div class="rbar"><b id="rbar"></b></div>
+    <p class="lead" style="color:var(--ink)">${tierMsg}</p>
+
+    <div class="rhead">◆ あなた専用の診断コメント</div>
+    <ul class="analy">${bullets}</ul>
+
+    <div class="cta-box">
+      <p class="mincho" style="font-size:16px;color:#fff">次の一手は、<span style="color:var(--gold)">プロと30分の無料相談</span>で明確になります。</p>
+      <p style="margin-top:8px">あなたの事業に合わせた<b>具体的な発信プラン・成功事例</b>を、担当が直接ご提案します（無料・オンライン）。</p>
+      <a class="btn key" href="${BOOK_LINK}" target="_blank" rel="noopener">無料で個別相談を予約する →</a>
+      <div class="small">※しつこい営業は一切いたしません</div>
+    </div>
+
+    <a class="btn ghost" href="${LP_URL}" target="_blank" rel="noopener">サービス内容・実績を見る</a>
+    <p class="disc">診断結果は回答をもとにした簡易的な目安です。<br>エシカル・スカイジャパン株式会社</p>
+  </div>`);
+
+  // スコアのカウントアップ＆バー
+  const el=document.getElementById('scoreNum');let n=0;
+  const tm=setInterval(()=>{n+=Math.max(1,Math.round(rel/26));if(n>=rel){n=rel;clearInterval(tm);}el.textContent=n;},34);
+  setTimeout(()=>{document.getElementById('rbar').style.width=rel+'%';},120);
+}
+
+start();
+</script>
+</body>
+</html>
