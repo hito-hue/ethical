@@ -27,7 +27,6 @@ window.addEventListener('error',function(e){
   if(e&&e.message&&/webkit[\.\s]*messagehandlers/i.test(e.message)){e.preventDefault();return true;}
 },true);
 </script>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <link rel="icon" href="favicon.png?v=3" type="image/png">
 <!-- Meta Pixel Code -->
 <script>
@@ -480,6 +479,7 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
     <div class="field"><label for="f-phone">電話番号<span class="req">必須</span></label><input id="f-phone" type="tel" name="phone" required autocomplete="tel" placeholder="例) 090-0000-0000"></div>
     <div class="field"><label for="f-link">ホームページまたはSNSアカウントのリンク<span class="opt">任意</span></label><input id="f-link" type="url" name="link" autocomplete="url" placeholder="例) https://www.tiktok.com/@your_account">
       <p class="f-hint">※現在の発信状況を拝見したうえで、具体的なご提案をいたします</p></div>
+    <label class="f-check"><input type="checkbox" name="consult" value="1"><span>無料相談を希望する（任意）</span></label>
     <label class="f-check"><input type="checkbox" name="nosales" value="1"><span>営業・勧誘目的ではありません。</span></label>
     <button type="submit">資料を受け取る</button>
     <p class="form-note">※ご入力いただいた情報は、当社のプライバシーポリシーに基づき適切に管理いたします。</p>
@@ -542,7 +542,7 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
   const EMAILJS_PUBLIC_KEY = "C9CgtY7CQ_EiGWL8A";
   const EMAILJS_SERVICE_ID = "service_se9y32w";
   const EMAILJS_TEMPLATE_ID = "template_efiknmr";
-  if(window.emailjs){ emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY }); }
+  /* EmailJSはSDKを使わずRESTで送るため init 不要 */
 
   /* ▼▼ Googleスプレッドシートに記録する場合、GASのウェブアプリURLをここに貼り付けてください ▼▼
      （手順は 同フォルダの「Google連携の手順.md」を参照。空のままでもDiscord通知は動きます） */
@@ -560,6 +560,7 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
       "▫️ メール："+(d.get('email')||'')+"\n"+
       "▫️ 電話："+(d.get('phone')||'')+"\n"+
       "▫️ HP / SNS："+(d.get('link')||'（未記入）')+"\n"+
+      "▫️ 無料相談希望："+(d.get('consult')?'✅ 希望する':'—')+"\n"+
       "▫️ 営業・勧誘目的ではない："+(d.get('nosales')?'✅ チェック済み':'—');
     /* Meta広告コンバージョン計測：資料請求ボタン送信時に Lead を送る場合（Pixel設置後に有効化） */
     /* if(window.fbq) fbq('track','Lead'); */
@@ -567,21 +568,20 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
     const go=function(){ location.href='thanks.html'; };   // 送信後はサンクスページへ遷移
     const jobs=[];                                   // 送信先（Discord / Googleスプレッドシート）
 
+    /* すべて keepalive で送るので、ページ遷移してもバックグラウンドで届く＝サンクスへは即移動できる */
     /* ① Discordへ通知（@everyone でチャンネル全員にメンション） */
     if(DISCORD_WEBHOOK){
-      jobs.push(fetch(DISCORD_WEBHOOK,{method:'POST',headers:{'Content-Type':'application/json'},
+      jobs.push(fetch(DISCORD_WEBHOOK,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},
         body:JSON.stringify({username:'資料請求フォーム',content:'@everyone\n'+msg,
           allowed_mentions:{parse:['everyone']}})}).catch(()=>{}));
     }
-    /* ①-2 資料請求した方へ、お礼メールを自動送信（EmailJS） */
-    if(window.emailjs && EMAILJS_SERVICE_ID){
-      jobs.push(emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-        name:    d.get('name')||'ご担当者',
-        email:   d.get('email')||'',
-        company: d.get('company')||'',
-        phone:   d.get('phone')||'',
-        link:    d.get('link')||''
-      }).catch(()=>{}));
+    /* ①-2 資料請求した方へ、お礼メールを自動送信（EmailJS REST＝keepaliveで遷移中も送り切る） */
+    if(EMAILJS_SERVICE_ID && EMAILJS_PUBLIC_KEY){
+      jobs.push(fetch('https://api.emailjs.com/api/v1.0/email/send',{method:'POST',keepalive:true,
+        headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({service_id:EMAILJS_SERVICE_ID,template_id:EMAILJS_TEMPLATE_ID,user_id:EMAILJS_PUBLIC_KEY,
+          template_params:{name:d.get('name')||'ご担当者',email:d.get('email')||'',company:d.get('company')||'',
+            phone:d.get('phone')||'',link:d.get('link')||''}})}).catch(()=>{}));
     }
     /* ② Googleスプレッドシートへ記録 */
     if(GAS_URL){
@@ -589,9 +589,10 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
       body.append('token', GAS_TOKEN);               // GAS側の合言葉と一致させる
       ['name','company','email','phone','link'].forEach(k=>body.append(k,d.get(k)||''));
       body.append('nosales', d.get('nosales')?'はい':'');
-      jobs.push(fetch(GAS_URL,{method:'POST',mode:'no-cors',body:body}).catch(()=>{}));
+      body.append('consult', d.get('consult')?'はい':'');
+      jobs.push(fetch(GAS_URL,{method:'POST',mode:'no-cors',keepalive:true,body:body}).catch(()=>{}));
     }
-    /* ③ ダッシュボードへ記録（リード数の集計用。keepaliveでページ遷移中も送り切る） */
+    /* ③ ダッシュボードへ記録（リード数の集計用） */
     if(LEAD_ENDPOINT){
       jobs.push(fetch(LEAD_ENDPOINT,{method:'POST',keepalive:true,
         headers:{'Content-Type':'application/json'},
@@ -601,9 +602,8 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
           link:d.get('link')||'', source:'ethical-lp'
         })}).catch(()=>{}));
     }
-    /* 送信が終わったら（失敗しても）サンクスページへ */
-    if(jobs.length){ Promise.all(jobs).then(go).catch(go); setTimeout(go,4000); }
-    else { go(); }
+    /* 送信の完了は待たず、すぐサンクスページへ（通知は keepalive で裏で届く） */
+    setTimeout(go, 200);
   });
 })();
 
