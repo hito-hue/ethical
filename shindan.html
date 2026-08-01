@@ -61,7 +61,7 @@ h1 .u{background:linear-gradient(transparent 60%,rgba(47,155,224,.2) 0);padding:
 /* 実績（HP画像そのまま） */
 .cases{display:flex;flex-direction:column;gap:14px}
 .casei{margin:0;background:var(--panel);border:1px solid var(--hair2);border-radius:12px;overflow:hidden;box-shadow:0 6px 18px rgba(15,34,51,.06)}
-.casei img{width:100%;height:auto;display:block}
+.casei img{width:100%;height:auto;max-height:340px;object-fit:cover;object-position:center top;display:block}
 .casei figcaption{font-size:12.5px;font-weight:700;color:var(--ink);line-height:1.55;padding:11px 13px}
 .srclink{display:inline-block;font-size:12.5px;color:var(--key);font-weight:700;margin-top:12px;text-decoration:underline}
 /* bookrun 埋め込み */
@@ -92,10 +92,10 @@ a{color:inherit}
 
 <script>
 /* ★ここを差し替えてください ───────────────────────────────
-   BOOKRUN_EMBED_URL : bookrunの「予約ページ公開URL」。入れると診断後にそのまま予約フォームを埋め込み表示します。
-   未設定の間は、予約ボタン（下記BOOK_LINK）を表示します。 */
-const BOOKRUN_EMBED_URL = "";                             // 例: "https://b-book.run/xxxx"（埋め込み用）
-const BOOKRUN_URL = "";                                   // 予約ボタンの飛び先（埋め込み未設定時のフォールバック）
+   BOOKRUN_URL : お客様が予約する bookrun の公開URL。
+   「無料相談を予約する」ボタンを押すと、このURL（bookrun）へ直接ジャンプします。
+   未設定の間は、暫定でLPの資料請求フォームへ飛びます。 */
+const BOOKRUN_URL = "";                                   // 例: "https://b-book.run/xxxx"
 const LP_URL      = "https://hito-hue.github.io/ethical/";
 const EXPERIENCE  = "https://ethicalskyjapan.com/experience";
 const BOOK_LINK   = BOOKRUN_URL || (LP_URL + "#cta");
@@ -123,30 +123,34 @@ const QUESTIONS=[
     {t:"一部を外注している",p:1},{t:"本格的に外注している",p:1}]}
 ];
 
-/* ジャンル別の実績（根拠）：ethicalskyjapan.com/experience の画像をそのまま使用 */
-const B="https://storage.googleapis.com/studio-cms-assets/projects/rROnPnZkaA/";
+/* ジャンル別の実績（根拠）：ethicalskyjapan.com/experience の画像／美容はLP実績を使用 */
+const CMS="https://storage.googleapis.com/studio-cms-assets/projects/rROnPnZkaA/";
+const DES="https://storage.googleapis.com/studio-design-asset-files/projects/rROnPnZkaA/";
 const IMG={
-  kitahara:B+"s-1160x724_09b2e4f5-3686-453f-a433-c48146a443c4.webp", // 8万フォロワー
-  osaru:   B+"s-1160x724_504c389a-9c37-4c8f-a265-24ed43c6acd3.webp", // 売上1,000万規模
-  tsuji:   B+"s-1160x724_31706c03-df8a-4fed-9df0-a1894792186d.webp", // 1.5億再生
-  aimeko:  B+"s-1160x724_117df88e-a961-4d3a-991d-cce591981200.webp", // 627万再生
-  bright:  B+"s-1160x724_40bf6267-e7c6-4b1c-aa2d-1473f629ea46.webp", // NHK取材
-  friend:  B+"s-1160x724_45f02583-3839-44f4-a511-a797703724e0.webp"  // 会員2,800名
+  kitahara:CMS+"s-1160x724_09b2e4f5-3686-453f-a433-c48146a443c4.webp", // 北原・起業家育成
+  osaru:   CMS+"s-1160x724_504c389a-9c37-4c8f-a265-24ed43c6acd3.webp", // おさる・英語コーチ
+  hayashi: DES+"s-580x362_b0f421e8-5e46-48a5-b988-22d0f6fe791e.webp",  // 林・令和の虎/経営コンサル
+  tsuji:   CMS+"s-1160x724_31706c03-df8a-4fed-9df0-a1894792186d.webp", // 辻・営業/FC
+  aimeko:  CMS+"s-1160x724_117df88e-a961-4d3a-991d-cce591981200.webp", // あいめこ・SNS運用
+  bright:  CMS+"s-1160x724_40bf6267-e7c6-4b1c-aa2d-1473f629ea46.webp", // ブライトリンク・メーカー
+  friend:  CMS+"s-1160x724_45f02583-3839-44f4-a511-a797703724e0.webp", // フレンドシップ・スクール
+  bishin:  "works/kim.jpg"                                             // 自然美人・小顔コルギ（LP実績）
 };
 const CASES={
-  "美容・サロン・エステ":[{img:IMG.kitahara,c:"北原孝彦 様｜1年で8万フォロワー・累計1,000万再生"}],
+  "美容・サロン・エステ":[
+    {img:IMG.bishin,c:"自然美人 様（恵比寿 小顔コルギ専門店）｜単価40万円の回数券を10件以上販売"}],
   "士業・コンサル・コーチ":[
-    {img:IMG.osaru,c:"イングリッシュおさる 様｜わずかな工数で売上1,000万円規模"},
-    {img:IMG.tsuji,c:"辻 敬太 様｜累計1.5億再生"}],
+    {img:IMG.kitahara,c:"北原孝彦 様（起業家育成の専門家）｜1年で8万フォロワー・累計1,000万再生"},
+    {img:IMG.osaru,c:"イングリッシュおさる 様（英語コーチ）｜わずかな工数で売上1,000万円規模"}],
   "店舗・飲食・教室":[
-    {img:IMG.friend,c:"フレンドシップ 様｜会員2,800名・集客の約7割がSNS"},
-    {img:IMG.kitahara,c:"北原孝彦 様｜1年で8万フォロワー"}],
+    {img:IMG.friend,c:"フレンドシップ 様（スクール運営）｜会員2,800名・集客の約7割がSNS"},
+    {img:IMG.tsuji,c:"辻 敬太 様（全国・世界で500店舗のFC展開）｜累計1.5億再生"}],
   "EC・物販・メーカー":[
-    {img:IMG.bright,c:"ブライトリンク 様｜製造の裏側を発信しNHKから取材"},
-    {img:IMG.tsuji,c:"辻 敬太 様｜累計1.5億再生"}],
+    {img:IMG.bright,c:"ブライトリンク 様（カプセル製造メーカー）｜製造の裏側を発信しNHKから取材"},
+    {img:IMG.tsuji,c:"辻 敬太 様（物販・営業）｜累計1.5億再生"}],
   "医療・健康・その他":[
-    {img:IMG.aimeko,c:"あいめこ 様｜6ヶ月で627万再生"},
-    {img:IMG.friend,c:"フレンドシップ 様｜会員2,800名を突破"}]
+    {img:IMG.aimeko,c:"あいめこ 様（SNS運用）｜6ヶ月で627万再生"},
+    {img:IMG.hayashi,c:"FCチャンネル 様（令和の虎2代目主宰）｜初動500万再生突破"}]
 };
 
 const stage=document.getElementById('stage');
@@ -221,9 +225,8 @@ function result(){
   const list=(CASES[genre]||CASES["医療・健康・その他"]);
   const cases=list.map(c=>`<figure class="casei"><img loading="lazy" decoding="async" src="${c.img}" alt="${esc(c.c)}"><figcaption>${esc(c.c)}</figcaption></figure>`).join('');
 
-  /* ボタンを押すと、ページ移行せず“その場”に予約フォーム(bookrun)を展開 */
-  const booking = `<button type="button" class="btn" id="bookBtn">無料相談を予約する →</button>
-      <div class="bookwrap hide" id="bookWrap"></div>`;
+  /* ボタンを押すと bookrun の予約ページへ直接ジャンプ */
+  const booking = `<a class="btn" href="${BOOK_LINK}" target="_blank" rel="noopener">無料相談を予約する →</a>`;
 
   show(`<div class="card">
     <div class="score-wrap">
@@ -255,20 +258,6 @@ function result(){
   const el=document.getElementById('scoreNum');let n=0;
   const tm=setInterval(()=>{n+=Math.max(1,Math.round(rel/26));if(n>=rel){n=rel;clearInterval(tm);}el.textContent=n;},34);
   setTimeout(()=>{document.getElementById('rbar').style.width=rel+'%';},120);
-
-  /* 予約ボタン：ページ移行せず、その場に bookrun を埋め込み表示 */
-  const bb=document.getElementById('bookBtn');
-  if(bb) bb.addEventListener('click',()=>{
-    const w=document.getElementById('bookWrap');
-    if(BOOKRUN_EMBED_URL){
-      w.innerHTML=`<iframe class="bookrun" src="${BOOKRUN_EMBED_URL}" title="無料相談の予約"></iframe>`;
-      w.classList.remove('hide'); bb.classList.add('hide');
-      setTimeout(()=>w.scrollIntoView({behavior:'smooth',block:'nearest'}),80);
-    } else {
-      /* 予約URL未設定のあいだは、診断ページを残したまま別タブで開く（ページ移行しない） */
-      window.open(BOOK_LINK,'_blank','noopener');
-    }
-  });
 }
 
 start();
