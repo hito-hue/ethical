@@ -7,6 +7,16 @@
 <title>SNS集客 相性診断｜エシカル・スカイジャパン</title>
 <meta name="description" content="あなたのサービス・商品がショート動画で成果を出せるか、30秒で無料診断。">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+<script>
+/* アプリ内ブラウザ注入(window.webkit.messageHandlers)由来の無害エラーを抑止 */
+window.addEventListener('error',function(e){if(e&&e.message&&/webkit[\.\s]*messagehandlers/i.test(e.message)){e.preventDefault();return true;}},true);
+</script>
+<!-- Meta Pixel（訪問・診断開始/完了・予約クリックを計測） -->
+<script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+fbq('init','1372133374843299');fbq('track','PageView');</script>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1372133374843299&ev=PageView&noscript=1"/></noscript>
+<!-- Microsoft Clarity（ヒートマップ・録画・イベント） -->
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","xmnw7ql5sn");</script>
 <style>
 :root{--bg:#ffffff;--panel:#f4f8fb;--ink:#0f2233;--dim:#6b7a88;--key:#2f9be0;--ok:#1c8b4d;
   --hair:rgba(15,34,51,.14);--hair2:rgba(15,34,51,.08);--ghost:rgba(15,34,51,.04);
@@ -153,6 +163,12 @@ const CASES={
     {img:IMG.hayashi,c:"FCチャンネル 様（令和の虎2代目主宰）｜初動500万再生突破"}]
 };
 
+/* 計測：Metaピクセル＋Clarityへイベント送信 */
+function track(name){
+  try{ if(window.fbq) fbq('trackCustom', name); }catch(e){}
+  try{ if(window.clarity) clarity('event', name); }catch(e){}
+}
+
 const stage=document.getElementById('stage');
 const progwrap=document.getElementById('progwrap');
 const progbar=document.getElementById('progbar');
@@ -170,7 +186,7 @@ function start(){
       <h1>あなたの商品・サービスは<br><span class="u">ショート動画で成果が出るか</span>？</h1>
       <p class="lead">月500本超の分析データをもとに、6つの質問であなたのSNS集客の<b>相性度</b>を無料診断。<br>最後に、あなたのジャンルの<b>実績</b>と“次の一手”をお伝えします。</p>
       <div class="meta"><span>所要 約30秒</span><span>全6問・タップだけ</span><span>その場で結果</span></div>
-      <button class="btn" onclick="next()">診断をはじめる →</button>
+      <button class="btn" onclick="track('ShindanStart');next()">診断をはじめる →</button>
     </div>`);
 }
 
@@ -204,6 +220,7 @@ function finish(){
 function byKey(k){const a=answers.find(x=>x&&x.key===k);return a?a.t:'';}
 
 function result(){
+  track('ShindanComplete');
   const pts=answers.reduce((s,a)=>s+(a?a.p:0),0);
   const max=QUESTIONS.reduce((s,q)=>s+Math.max(...q.opts.map(o=>o.p)),0);
   const rel=Math.round(50+(pts/max)*46);
@@ -225,8 +242,8 @@ function result(){
   const list=(CASES[genre]||CASES["医療・健康・その他"]);
   const cases=list.map(c=>`<figure class="casei"><img loading="lazy" decoding="async" src="${c.img}" alt="${esc(c.c)}"><figcaption>${esc(c.c)}</figcaption></figure>`).join('');
 
-  /* ボタンを押すと bookrun の予約ページへ直接ジャンプ */
-  const booking = `<a class="btn" href="${BOOK_LINK}" target="_blank" rel="noopener">無料相談を予約する →</a>`;
+  /* ボタンを押すと bookrun の予約ページへ直接ジャンプ（クリックを計測） */
+  const booking = `<a class="btn" href="${BOOK_LINK}" target="_blank" rel="noopener" onclick="track('BookrunClick')">無料相談を予約する →</a>`;
 
   show(`<div class="card">
     <div class="score-wrap">
