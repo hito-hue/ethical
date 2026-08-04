@@ -163,11 +163,16 @@ const CASES={
     {img:IMG.hayashi,c:"FCチャンネル 様（令和の虎2代目主宰）｜初動500万再生突破"}]
 };
 
-/* 計測：Metaピクセル＋Clarityへイベント送信 */
+/* 計測：Metaピクセル＋Clarity＋自社ダッシュボードへ送信 */
+const EVENT_ENDPOINT="https://x85-131-252-8.static.xvps.ne.jp/shindan-event";
+function beacon(event){ try{ fetch(EVENT_ENDPOINT,{method:'POST',keepalive:true,body:JSON.stringify({event})}); }catch(e){} }
 function track(name){
   try{ if(window.fbq) fbq('trackCustom', name); }catch(e){}
   try{ if(window.clarity) clarity('event', name); }catch(e){}
+  const map={ShindanStart:'start',ShindanComplete:'complete',BookrunClick:'book'};
+  if(map[name]) beacon(map[name]);
 }
+beacon('view');   /* ページ訪問 */
 
 const stage=document.getElementById('stage');
 const progwrap=document.getElementById('progwrap');
