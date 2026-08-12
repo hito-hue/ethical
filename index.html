@@ -550,6 +550,35 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
   const GAS_TOKEN = "ethical-lp-2026";   // GAS側のコード内 SECRET と同じ文字列にする
   /* 広告ダッシュボード（リード数の集計）への記録先 */
   const LEAD_ENDPOINT = "https://x85-131-252-8.static.xvps.ne.jp/ethical-lead";
+  /* 記入途中データの記録先（送信前・カゴ落ち追客用） */
+  const PARTIAL_ENDPOINT = "https://x85-131-252-8.static.xvps.ne.jp/ethical-partial";
+  /* このブラウザの一時ID（記入途中データの目印。送信すると自動でCV扱いになる） */
+  let SID='';
+  try{ SID=sessionStorage.getItem('eth_sid')||''; if(!SID){ SID='s'+Date.now().toString(36)+Math.random().toString(36).slice(2,8); sessionStorage.setItem('eth_sid',SID); } }catch(_){ SID='s'+Date.now().toString(36); }
+  /* 現在のフォーム内容を集める */
+  const collect=()=>{ const d=new FormData(form); return {
+    sid:SID, name:d.get('name')||'', company:d.get('company')||'',
+    email:d.get('email')||'', phone:d.get('phone')||'', link:d.get('link')||'', source:'ethical-lp'
+  }; };
+  /* 記入途中データを送る（連絡先が1つでも入っていれば）。sendBeaconで離脱時も届く */
+  let _partialSent='';
+  const sendPartial=(extra)=>{
+    const p=Object.assign(collect(),extra||{});
+    if(!p.email && !p.phone && !(extra&&extra.converted)) return;   // 連絡先なしは記録しない
+    const sig=p.name+'|'+p.email+'|'+p.phone+'|'+p.link+'|'+(p.converted?'1':'');
+    if(sig===_partialSent) return;                                   // 変化なしなら送らない
+    _partialSent=sig;
+    try{
+      const blob=new Blob([JSON.stringify(p)],{type:'application/json'});
+      if(navigator.sendBeacon){ navigator.sendBeacon(PARTIAL_ENDPOINT, blob); }
+      else{ fetch(PARTIAL_ENDPOINT,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},body:JSON.stringify(p)}).catch(()=>{}); }
+    }catch(_){}
+  };
+  /* 入力のたびに（1.5秒たまってから）控える＋ページを離れる瞬間にも控える */
+  let _pt=null;
+  ['input','change'].forEach(ev=>form.addEventListener(ev,()=>{ clearTimeout(_pt); _pt=setTimeout(()=>sendPartial(),1500); }));
+  document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden') sendPartial(); });
+  window.addEventListener('pagehide',()=>sendPartial());
   form.addEventListener('submit',function(e){
     e.preventDefault();
     if(!form.reportValidity()) return;              // 4項目の必須チェック
@@ -599,9 +628,11 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
         body:JSON.stringify({
           name:d.get('name')||'', company:d.get('company')||'',
           email:d.get('email')||'', phone:d.get('phone')||'',
-          link:d.get('link')||'', source:'ethical-lp'
+          link:d.get('link')||'', source:'ethical-lp', sid:SID
         })}).catch(()=>{}));
     }
+    /* ④ 記入途中データを「CV済み」にする（未CVリストから外す） */
+    sendPartial({converted:true});
     /* 送信の完了は待たず、すぐサンクスページへ（通知は keepalive で裏で届く） */
     setTimeout(go, 200);
   });
