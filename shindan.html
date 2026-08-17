@@ -165,7 +165,9 @@ const CASES={
 
 /* 計測：Metaピクセル＋Clarity＋自社ダッシュボードへ送信 */
 const EVENT_ENDPOINT="https://x85-131-252-8.static.xvps.ne.jp/shindan-event";
-function beacon(event){ try{ fetch(EVENT_ENDPOINT,{method:'POST',keepalive:true,body:JSON.stringify({event})}); }catch(e){} }
+/* 流入元（?src=sms など）を計測に含める。SMS経由の訪問→診断→予約を追える */
+const SRC=(new URLSearchParams(location.search).get('src')||'').slice(0,20);
+function beacon(event){ try{ fetch(EVENT_ENDPOINT,{method:'POST',keepalive:true,body:JSON.stringify({event,src:SRC})}); }catch(e){} }
 function track(name){
   try{ if(window.fbq) fbq('trackCustom', name); }catch(e){}
   try{ if(window.clarity) clarity('event', name); }catch(e){}
