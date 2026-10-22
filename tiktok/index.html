@@ -527,7 +527,7 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
   const form=document.getElementById('reqForm'); if(!form) return;
   /* ▼▼ ここに Discord の Webhook URL を貼り付けてください ▼▼
      （Discord：サーバー設定 → 連携サービス → ウェブフック → 新しいウェブフック → URLをコピー）
-     例: const DISCORD_WEBHOOK = "";   /* ★TikTok用の新DiscordチャンネルのWebhook URLをここに貼る（空の間は通知だけ送られない。メール・リード記録は動く） */ */
+     例: const DISCORD_WEBHOOK = "https://discord.com/api/webhooks/xxxx/yyyy"; */
   const DISCORD_WEBHOOK = "";   /* ★TikTok用の新DiscordチャンネルのWebhook URLをここに貼る（空の間は通知だけ送られない。メール・リード記録は動く） */
 
   /* ▼ EmailJS：資料請求した方へ自動でお礼メールを送る設定 */
