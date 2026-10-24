@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ドライブで開く…</title>
+<style>
+body{margin:0;font-family:-apple-system,"Hiragino Sans",sans-serif;background:#0f1012;color:#eee;
+     display:flex;min-height:100vh;align-items:center;justify-content:center;text-align:center;padding:24px}
+.box{max-width:420px}
+h1{font-size:18px;font-weight:600;margin:0 0 8px}
+p{color:#9aa;font-size:14px;margin:0 0 20px}
+a.btn{display:inline-block;background:#1a73e8;color:#fff;text-decoration:none;padding:13px 22px;border-radius:12px;font-size:15px;font-weight:600}
+a.plain{display:block;margin-top:16px;color:#7ab;font-size:13px}
+.spin{width:28px;height:28px;border:3px solid #333;border-top-color:#1a73e8;border-radius:50%;animation:s .8s linear infinite;margin:0 auto 18px}
+@keyframes s{to{transform:rotate(360deg)}}
+</style>
+</head>
+<body>
+<div class="box">
+<div class="spin"></div>
+<h1>Googleドライブを開いています…</h1>
+<p>自動で開かないときは下のボタンを押してください。</p>
+<a class="btn" id="app" href="#">アプリで開く</a>
+<a class="plain" id="web" href="#">うまく開かないときはこちら（ブラウザで表示）</a>
+</div>
+<script>
+(function(){
+  var q = new URLSearchParams(location.search);
+  var f = q.get('f'), folder = q.get('folder'), doc = q.get('d'), sheet = q.get('s'), slide = q.get('p');
+  var web, app;
+  if (f)          { web = 'https://drive.google.com/file/d/'+f+'/view';            app = 'googledrive://'+web; }
+  else if (folder){ web = 'https://drive.google.com/drive/folders/'+folder;        app = 'googledrive://'+web; }
+  else if (doc)   { web = 'https://docs.google.com/document/d/'+doc+'/edit';        app = 'googledocs://'+web; }
+  else if (sheet) { web = 'https://docs.google.com/spreadsheets/d/'+sheet+'/edit'; app = 'googlesheets://'+web; }
+  else if (slide) { web = 'https://docs.google.com/presentation/d/'+slide+'/edit'; app = 'googleslides://'+web; }
+  else { document.querySelector('h1').textContent='リンクが指定されていません'; return; }
+  document.getElementById('app').href = app;
+  document.getElementById('web').href = web;
+  setTimeout(function(){ location.replace(app); }, 100);
+})();
+</script>
+</body>
+</html>
