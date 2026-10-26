@@ -591,8 +591,9 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
       "▫️ HP / SNS："+(d.get('link')||'（未記入）')+"\n"+
       "▫️ 無料相談希望："+(d.get('consult')?'✅ 希望する':'—')+"\n"+
       "▫️ 営業・勧誘目的ではない："+(d.get('nosales')?'✅ チェック済み':'—');
-    /* Meta広告コンバージョン計測：資料請求ボタン送信時に Lead を送る場合（Pixel設置後に有効化） */
-    if(window.fbq) fbq('track','Lead');
+    /* Meta広告コンバージョン計測：Lead はサンクスページ（thanks.html）の1回だけで数える。
+       ここでも送ると1件の申込が2件に数えられるため止めている（2026-10-26・旧LPと同じ形） */
+    /* if(window.fbq) fbq('track','Lead'); */
 
     const go=function(){ location.href='thanks.html'; };   // 送信後はサンクスページへ遷移
     const jobs=[];                                   // 送信先（Discord / Googleスプレッドシート）
