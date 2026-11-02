@@ -1,0 +1,1161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta name="robots" content="noindex,nofollow" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>hakamory｜クラウド型 霊園管理システム｜紙とExcelの墓地台帳をDXへ</title>
+<link rel="icon" href="assets/logo.png" />
+<meta name="description" content="hakamoryは霊園・寺院向けのクラウド型霊園管理システム。紙・Excel・専用端末の墓地台帳を、普段のパソコンで使えるクラウドへ。区画・使用者・年間管理料の請求まで、ひとつの画面に。最初の3か月は月額利用料が無料。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Noto+Serif+JP:wght@500;700&family=Manrope:wght@500;700;800&display=swap" rel="stylesheet" />
+<style>
+:root{
+  --ink:#0d2135;          /* 深い藍紺：信頼・和 */
+  --ink-2:#13304c;
+  --ink-soft:#4a6075;
+  --teal:#0ea5a0;         /* DXティール */
+  --teal-d:#0b857f;
+  --sky:#2aa5e8;          /* クラウドのスカイ */
+  --sky-d:#1b87c7;
+  --gold:#b8925a;         /* 和の金（極控えめ） */
+  --bg:#ffffff;
+  --bg-2:#f4f8f9;
+  --bg-3:#eef4f5;
+  --line:#e2eaed;
+  --card:#ffffff;
+  --ok:#17a673;
+  --warn:#e08a2b;
+  --shadow:0 18px 50px -24px rgba(13,33,53,.28);
+  --shadow-sm:0 8px 24px -14px rgba(13,33,53,.25);
+  --radius:20px;
+  --maxw:1140px;
+  --grad:linear-gradient(120deg,var(--teal) 0%,var(--sky) 100%);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:"Noto Sans JP",-apple-system,BlinkMacSystemFont,sans-serif;
+  color:var(--ink);background:var(--bg);line-height:1.8;
+  -webkit-font-smoothing:antialiased;letter-spacing:.01em;overflow-x:hidden;
+}
+.en{font-family:"Manrope",sans-serif;letter-spacing:.02em}
+/* 日本語の折り返しを自然に（語の途中・一文字泣き別れを防ぐ） */
+h1,h2,h3,h4,.lead,.sec-head p,.faq .q,.pain p,.reason p,.use li,.feat p{word-break:auto-phrase;line-break:strict}
+.nw{display:inline-block}
+.serif{font-family:"Noto Serif JP",serif}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;width:100%}
+section{position:relative}
+
+/* ===== ボタン ===== */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.6em;
+  font-weight:700;border-radius:999px;padding:1.05rem 2.2rem;font-size:1.02rem;
+  cursor:pointer;border:none;transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s;
+  white-space:nowrap;position:relative;
+}
+.btn-primary{background:var(--grad);color:#fff;box-shadow:0 14px 30px -12px rgba(14,165,160,.6)}
+.btn-primary:hover{transform:translateY(-3px);box-shadow:0 22px 40px -14px rgba(14,165,160,.7)}
+.btn-ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:var(--shadow-sm)}
+.btn-ghost:hover{transform:translateY(-3px);border-color:var(--teal)}
+.btn-lg{padding:1.25rem 2.8rem;font-size:1.1rem}
+.btn-tel{gap:.5em;font-size:1.05rem}
+
+/* ===== ヘッダー ===== */
+header{
+  position:fixed;inset:0 0 auto 0;z-index:100;
+  background:rgba(255,255,255,.82);backdrop-filter:blur(14px);
+  border-bottom:1px solid transparent;transition:border-color .3s,box-shadow .3s;
+}
+header.scrolled{border-color:var(--line);box-shadow:0 6px 24px -18px rgba(13,33,53,.4)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:.6rem;font-weight:900;font-size:1.4rem;letter-spacing:.01em}
+.brand .logo-mark{width:34px;height:34px}
+.brand small{display:block;font-size:.62rem;font-weight:500;color:var(--ink-soft);letter-spacing:.14em;margin-top:2px}
+.brand-logo{height:42px;width:auto}
+.nav-right{display:flex;align-items:center;gap:1.4rem}
+.nav-tel{display:flex;flex-direction:column;align-items:flex-end;line-height:1.25}
+.nav-tel span{font-size:.66rem;color:var(--ink-soft);letter-spacing:.08em}
+.nav-tel b{font-family:"Manrope";font-size:1.22rem;color:var(--ink)}
+.nav-links{display:flex;gap:1.5rem;font-size:.9rem;font-weight:500}
+.nav-links a{color:var(--ink-soft);transition:color .2s}
+.nav-links a:hover{color:var(--teal)}
+
+/* ===== ヒーロー ===== */
+.hero{padding:150px 0 90px;position:relative;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:-2;
+  background:
+    radial-gradient(1200px 600px at 80% -10%,rgba(42,165,232,.12),transparent 60%),
+    radial-gradient(900px 500px at 10% 20%,rgba(14,165,160,.1),transparent 55%),
+    var(--bg);
+}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:-1;opacity:.5;
+  background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+  background-size:46px 46px;
+  -webkit-mask-image:radial-gradient(900px 600px at 70% 10%,#000,transparent 75%);
+          mask-image:radial-gradient(900px 600px at 70% 10%,#000,transparent 75%);
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:52px;align-items:center}
+.badge-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:1.6rem}
+.badge{
+  display:inline-flex;align-items:center;gap:.4em;background:#fff;border:1px solid var(--line);
+  padding:.45rem 1rem;border-radius:999px;font-size:.8rem;font-weight:700;color:var(--ink-2);
+  box-shadow:var(--shadow-sm);
+}
+.badge .dot{width:8px;height:8px;border-radius:50%;background:var(--grad)}
+.badge.free{background:var(--grad);color:#fff;border:none}
+.hero h1{font-size:clamp(2.1rem,4.4vw,3.35rem);line-height:1.32;font-weight:900;letter-spacing:.005em}
+.hero h1 .hl{position:relative;color:var(--teal-d);white-space:nowrap}
+.hero h1 .hl::after{content:"";position:absolute;left:-2%;right:-2%;bottom:.08em;height:.38em;background:linear-gradient(90deg,rgba(14,165,160,.22),rgba(42,165,232,.22));z-index:-1;border-radius:4px}
+.hero p.lead{margin:1.5rem 0 2.1rem;font-size:1.08rem;color:var(--ink-soft);max-width:33em}
+.hero-cta{display:flex;gap:1rem;flex-wrap:wrap;align-items:center}
+.hero-note{margin-top:1.1rem;font-size:.82rem;color:var(--ink-soft);display:flex;gap:1.1rem;flex-wrap:wrap}
+.hero-note span{display:inline-flex;align-items:center;gap:.4em}
+.check{color:var(--teal);font-weight:900}
+
+/* ===== ダッシュボードモック ===== */
+.mock{
+  background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);
+  overflow:hidden;position:relative;
+}
+.mock-bar{display:flex;align-items:center;gap:.5rem;padding:.75rem 1rem;background:#f7fafb;border-bottom:1px solid var(--line)}
+.mock-bar .d{width:11px;height:11px;border-radius:50%}
+.mock-bar .d.r{background:#ff6159}.mock-bar .d.y{background:#ffbd2e}.mock-bar .d.g{background:#28c840}
+.mock-url{margin-left:.6rem;flex:1;background:#fff;border:1px solid var(--line);border-radius:7px;font-size:.72rem;color:var(--ink-soft);padding:.3rem .7rem;font-family:"Manrope";display:flex;align-items:center;gap:.4em}
+.mock-url .lock{color:var(--teal)}
+.mock-body{display:grid;grid-template-columns:132px 1fr;min-height:360px}
+.mock-side{background:#0d2135;color:#c7d6e2;padding:1rem .8rem;font-size:.74rem}
+.mock-side .ms-logo{color:#fff;font-weight:900;font-size:.95rem;margin-bottom:1.1rem;display:flex;align-items:center;gap:.35em}
+.mock-side ul{list-style:none;display:flex;flex-direction:column;gap:.25rem}
+.mock-side li{padding:.5rem .6rem;border-radius:8px;display:flex;align-items:center;gap:.5em;opacity:.78;white-space:nowrap}
+.mock-side li.on{background:linear-gradient(90deg,rgba(14,165,160,.9),rgba(42,165,232,.85));color:#fff;opacity:1;font-weight:700}
+.mock-side li .ic{width:7px;height:7px;border-radius:2px;background:currentColor;opacity:.8}
+.mock-main{padding:1.1rem 1.2rem;background:#fbfdfd}
+.mm-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:.9rem}
+.mm-head h4{font-size:.92rem}
+.mm-head .tag{font-size:.66rem;background:#eef4f5;color:var(--ink-soft);padding:.2rem .6rem;border-radius:6px;font-weight:700}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:.9rem}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:11px;padding:.7rem .75rem}
+.kpi .l{font-size:.6rem;color:var(--ink-soft);letter-spacing:.04em}
+.kpi .v{font-family:"Manrope";font-weight:800;font-size:1.25rem;color:var(--ink);line-height:1.2;margin-top:.15rem}
+.kpi .v small{font-size:.6rem;color:var(--ink-soft);font-weight:700}
+.kpi.accent .v{color:var(--teal-d)}
+.mock-table{background:#fff;border:1px solid var(--line);border-radius:11px;overflow:hidden;font-size:.7rem}
+.mtr{display:grid;grid-template-columns:1.1fr 1.4fr 1fr;padding:.5rem .8rem;align-items:center}
+.mtr.h{background:#f4f8f9;color:var(--ink-soft);font-weight:700;font-size:.63rem;letter-spacing:.05em}
+.mtr:not(.h){border-top:1px solid var(--line)}
+.mtr .st{justify-self:start;font-size:.6rem;font-weight:700;padding:.14rem .55rem;border-radius:999px}
+.st.paid{background:rgba(23,166,115,.12);color:var(--ok)}
+.st.unpaid{background:rgba(224,138,43,.14);color:var(--warn)}
+.float-card{
+  position:absolute;background:#fff;border:1px solid var(--line);border-radius:13px;
+  box-shadow:var(--shadow);padding:.75rem .9rem;display:flex;align-items:center;gap:.65rem;font-size:.74rem;font-weight:700;
+}
+.float-card .ring{width:34px;height:34px;flex:none}
+.float-1{right:-22px;top:-22px}
+.float-2{left:-26px;bottom:34px}
+.float-card .big{font-family:"Manrope";font-size:1.15rem;color:var(--teal-d);line-height:1}
+.float-card .sub{font-size:.6rem;color:var(--ink-soft);font-weight:500}
+
+/* ===== ロゴ帯（実績） ===== */
+.logos{padding:34px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2)}
+.logos .wrap{display:flex;align-items:center;gap:30px;flex-wrap:wrap;justify-content:center}
+.logos .label{font-size:.78rem;color:var(--ink-soft);font-weight:700;letter-spacing:.04em}
+.logo-pill{display:flex;align-items:center;gap:.5em;font-weight:700;color:var(--ink-2);font-size:.98rem;opacity:.85}
+.logo-pill .mk{width:22px;height:22px;border-radius:6px;background:var(--grad);display:grid;place-items:center;color:#fff;font-size:.7rem;font-weight:900}
+.logos .sep{width:1px;height:26px;background:var(--line)}
+
+/* ===== 共通セクション見出し ===== */
+.sec{padding:96px 0}
+.sec.alt{background:var(--bg-2)}
+.eyebrow{display:inline-flex;align-items:center;gap:.5em;font-family:"Manrope";font-weight:800;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--teal-d);margin-bottom:.9rem}
+.eyebrow::before{content:"";width:24px;height:2px;background:var(--grad);border-radius:2px}
+.sec-head{max-width:40em;margin-bottom:3rem}
+.sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+.sec-head.center .eyebrow::before{display:none}
+.sec-head h2{font-size:clamp(1.7rem,3.3vw,2.5rem);line-height:1.4;font-weight:900}
+.sec-head p{margin-top:1rem;color:var(--ink-soft);font-size:1.03rem}
+
+/* ===== お悩み ===== */
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+.pain{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:1.8rem;box-shadow:var(--shadow-sm);transition:transform .3s,box-shadow .3s}
+.pain:hover{transform:translateY(-6px);box-shadow:var(--shadow)}
+.pain .q{font-family:"Noto Serif JP";font-weight:700;font-size:2rem;color:var(--line);line-height:1}
+.pain h3{font-size:1.08rem;margin:.6rem 0 .5rem;font-weight:700}
+.pain p{font-size:.92rem;color:var(--ink-soft)}
+.pain .qmark{display:inline-block;margin-top:1rem;font-size:.78rem;font-weight:700;color:var(--warn)}
+
+/* ===== 3つの理由 ===== */
+.reasons{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem}
+.reason{position:relative;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:2.2rem 1.8rem;box-shadow:var(--shadow-sm);overflow:hidden}
+.reason::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--grad)}
+.reason .n{font-family:"Manrope";font-weight:800;font-size:.85rem;color:var(--teal-d);letter-spacing:.1em}
+.reason .ico{width:56px;height:56px;border-radius:15px;background:linear-gradient(135deg,rgba(14,165,160,.14),rgba(42,165,232,.14));display:grid;place-items:center;margin:1rem 0 1.2rem}
+.reason h3{font-size:1.25rem;font-weight:900;margin-bottom:.7rem}
+.reason p{font-size:.95rem;color:var(--ink-soft)}
+
+/* ===== 2パターン（霊園/寺院） ===== */
+.use-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.4rem}
+.use{border-radius:var(--radius);padding:2.4rem;color:#fff;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.use.a{background:linear-gradient(145deg,#13304c,#0d2135)}
+.use.b{background:linear-gradient(145deg,#0b857f,#0d2135)}
+.use::after{content:"";position:absolute;right:-60px;top:-60px;width:220px;height:220px;border-radius:50%;background:radial-gradient(circle,rgba(42,165,232,.3),transparent 70%)}
+.use .kind{font-size:.8rem;font-weight:700;letter-spacing:.1em;opacity:.85}
+.use h3{font-size:1.5rem;font-weight:900;margin:.4rem 0 1.3rem;position:relative}
+.use ul{list-style:none;display:flex;flex-direction:column;gap:.85rem;position:relative}
+.use li{display:flex;gap:.7rem;font-size:.96rem;line-height:1.7}
+.use li .c{flex:none;width:22px;height:22px;border-radius:50%;background:rgba(255,255,255,.16);display:grid;place-items:center;font-size:.7rem;font-weight:900;margin-top:.15rem}
+
+/* ===== Before/After ===== */
+.ba-wrap{display:grid;grid-template-columns:1fr auto 1fr;gap:1.6rem;align-items:stretch}
+.ba{border-radius:var(--radius);padding:2rem;border:1px solid var(--line)}
+.ba.before{background:#fbf6f3;border-color:#f0dfd4}
+.ba.after{background:linear-gradient(160deg,#eefaf8,#f1f9fd);border-color:#cceae7}
+.ba .tag{display:inline-flex;align-items:center;gap:.5em;font-family:"Manrope";font-weight:800;font-size:.8rem;letter-spacing:.08em;padding:.35rem .9rem;border-radius:999px;margin-bottom:1.2rem}
+.ba.before .tag{background:#f3e3d8;color:#b5703a}
+.ba.after .tag{background:var(--grad);color:#fff}
+.ba ol{list-style:none;counter-reset:s;display:flex;flex-direction:column;gap:.8rem}
+.ba li{counter-increment:s;display:flex;gap:.8rem;font-size:.92rem;color:var(--ink-2)}
+.ba li::before{content:counter(s);flex:none;width:24px;height:24px;border-radius:7px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;font-family:"Manrope";font-weight:800;font-size:.76rem;color:var(--ink-soft)}
+.ba.after li::before{background:var(--teal);color:#fff;border:none}
+.ba-arrow{display:grid;place-items:center;color:var(--teal);font-size:2rem}
+.ba-result{margin-top:2rem;text-align:center;background:#fff;border:1px dashed var(--teal);border-radius:16px;padding:1.4rem;max-width:560px;margin-left:auto;margin-right:auto}
+.ba-result b{font-family:"Manrope";font-size:1.5rem;color:var(--teal-d)}
+.ba-result .step{display:inline-flex;align-items:center;gap:.6rem;font-family:"Manrope";font-weight:800;font-size:1.6rem}
+.ba-result .step s{color:var(--warn);opacity:.6}
+.ba-result .step .ar{color:var(--ink-soft);font-size:1.1rem}
+.ba-result .step em{color:var(--teal-d);font-style:normal}
+
+/* ===== 機能 ===== */
+.feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.1rem}
+.feat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.6rem;transition:transform .3s,border-color .3s}
+.feat:hover{transform:translateY(-5px);border-color:var(--teal)}
+.feat .ico{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,rgba(14,165,160,.13),rgba(42,165,232,.13));display:grid;place-items:center;margin-bottom:1rem}
+.feat h3{font-size:1.02rem;font-weight:700;margin-bottom:.4rem}
+.feat p{font-size:.86rem;color:var(--ink-soft)}
+
+/* ===== 比較表 ===== */
+.cmp{overflow-x:auto;border-radius:var(--radius);box-shadow:var(--shadow-sm);border:1px solid var(--line)}
+table.compare{width:100%;border-collapse:collapse;min-width:620px;background:#fff}
+table.compare th,table.compare td{padding:1.1rem 1.3rem;text-align:left;font-size:.92rem;border-bottom:1px solid var(--line)}
+table.compare thead th{background:#fbfdfd;font-size:.82rem;color:var(--ink-soft);font-weight:700}
+table.compare thead th.hk{background:var(--ink);color:#fff;font-size:1rem;position:relative}
+table.compare thead th.hk span{display:block;font-size:.66rem;font-weight:500;opacity:.75;font-family:"Manrope";letter-spacing:.06em}
+table.compare td.rowh{font-weight:700;color:var(--ink-2);background:#fbfdfd;width:30%}
+table.compare td.hk{background:rgba(14,165,160,.05);font-weight:700;color:var(--ink)}
+table.compare td.hk .c{color:var(--teal);font-weight:900;margin-right:.3em}
+table.compare td.other{color:var(--ink-soft)}
+table.compare tr:last-child td{border-bottom:none}
+
+/* ===== 料金 ===== */
+.price-wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:1.6rem;align-items:center}
+.price-card{background:linear-gradient(160deg,#0d2135,#13304c);color:#fff;border-radius:var(--radius);padding:2.8rem;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.price-card::after{content:"";position:absolute;right:-70px;bottom:-70px;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(14,165,160,.35),transparent 70%)}
+.price-card .pc-tag{display:inline-block;background:var(--grad);padding:.4rem 1rem;border-radius:999px;font-size:.78rem;font-weight:800;margin-bottom:1.4rem}
+.price-card .amount{display:flex;align-items:baseline;gap:.4rem;position:relative}
+.price-card .amount .num{font-family:"Manrope";font-weight:800;font-size:3.6rem;line-height:1}
+.price-card .amount .unit{font-size:1.05rem;font-weight:700}
+.price-card .amount .per{font-size:.9rem;opacity:.75}
+.price-card .pc-desc{margin-top:1rem;font-size:.92rem;opacity:.85}
+.price-card .pc-list{list-style:none;margin-top:1.6rem;display:flex;flex-direction:column;gap:.7rem;position:relative}
+.price-card .pc-list li{display:flex;gap:.6rem;font-size:.9rem}
+.price-card .pc-list .c{color:var(--teal);font-weight:900}
+.price-side{display:flex;flex-direction:column;gap:1rem}
+.price-side .ps{background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.5rem;box-shadow:var(--shadow-sm)}
+.price-side .ps h4{font-size:1rem;display:flex;align-items:center;gap:.5em;margin-bottom:.5rem}
+.price-side .ps p{font-size:.88rem;color:var(--ink-soft)}
+.price-side .ps .free-badge{font-family:"Manrope";font-weight:800;color:var(--teal-d);font-size:1.3rem}
+
+/* ===== 乗り換え実績 ===== */
+.cases{display:grid;grid-template-columns:repeat(4,1fr);gap:1.1rem}
+.case{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:1.6rem;box-shadow:var(--shadow-sm)}
+.case .pin{width:38px;height:38px;border-radius:11px;background:linear-gradient(135deg,rgba(14,165,160,.13),rgba(42,165,232,.13));display:grid;place-items:center;margin-bottom:.9rem}
+.case h4{font-size:1.08rem;font-weight:700}
+.case .loc{font-size:.8rem;color:var(--ink-soft);margin:.2rem 0 .8rem}
+.case .sw{display:inline-flex;align-items:center;gap:.4em;font-size:.76rem;font-weight:700;background:rgba(14,165,160,.1);color:var(--teal-d);padding:.3rem .7rem;border-radius:999px}
+
+/* ===== 流れ ===== */
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative}
+.flow .step{position:relative;padding:0 .8rem;text-align:center}
+.flow .step .dot{width:52px;height:52px;border-radius:50%;background:#fff;border:2px solid var(--teal);display:grid;place-items:center;margin:0 auto 1rem;font-family:"Manrope";font-weight:800;color:var(--teal-d);font-size:1.1rem;position:relative;z-index:2}
+.flow .step:not(:last-child)::after{content:"";position:absolute;top:26px;left:60%;right:-40%;height:2px;background:linear-gradient(90deg,var(--teal),var(--sky));opacity:.4;z-index:1}
+.flow .step h4{font-size:1rem;font-weight:700;margin-bottom:.4rem}
+.flow .step p{font-size:.82rem;color:var(--ink-soft)}
+
+/* ===== FAQ ===== */
+.faq-list{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:.8rem}
+.faq{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:box-shadow .3s}
+.faq.open{box-shadow:var(--shadow-sm)}
+.faq .q{display:flex;align-items:center;gap:.9rem;padding:1.3rem 1.5rem;cursor:pointer;font-weight:700;font-size:1rem}
+.faq .q .mk{flex:none;width:26px;height:26px;border-radius:7px;background:var(--grad);color:#fff;display:grid;place-items:center;font-family:"Noto Serif JP";font-weight:700;font-size:.9rem}
+.faq .q .tgl{margin-left:auto;flex:none;transition:transform .3s;color:var(--teal-d);font-size:1.3rem;line-height:1}
+.faq.open .q .tgl{transform:rotate(45deg)}
+.faq .a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.faq .a div{padding:0 1.5rem 1.4rem 4rem;color:var(--ink-soft);font-size:.92rem}
+
+/* ===== 最終CTA / フォーム ===== */
+.cta{background:linear-gradient(160deg,#0d2135,#0b3b4d);color:#fff;padding:90px 0;position:relative;overflow:hidden}
+.cta::before{content:"";position:absolute;inset:0;opacity:.4;background-image:radial-gradient(600px 300px at 15% 20%,rgba(14,165,160,.4),transparent 60%),radial-gradient(600px 300px at 85% 80%,rgba(42,165,232,.4),transparent 60%)}
+.cta .wrap{position:relative;display:grid;grid-template-columns:.95fr 1.05fr;gap:50px;align-items:start}
+.cta-left h2{font-size:clamp(1.8rem,3.4vw,2.6rem);font-weight:900;line-height:1.4}
+.cta-left p{margin:1.3rem 0 2rem;opacity:.85;font-size:1rem}
+.cta-free{display:inline-flex;align-items:center;gap:1rem;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:16px;padding:1.2rem 1.6rem;backdrop-filter:blur(6px)}
+.cta-free .fb{font-family:"Manrope";font-weight:800;font-size:2.4rem;line-height:1;background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.cta-free .ft{font-size:.84rem;opacity:.85}
+.cta-tel{margin-top:1.6rem;display:flex;align-items:center;gap:.8rem}
+.cta-tel .tl{font-size:.75rem;opacity:.7}
+.cta-tel b{font-family:"Manrope";font-size:1.7rem}
+.form{background:#fff;color:var(--ink);border-radius:22px;padding:2.2rem;box-shadow:0 30px 60px -20px rgba(0,0,0,.5)}
+.form h3{font-size:1.2rem;font-weight:900;margin-bottom:.4rem}
+.form .fnote{font-size:.8rem;color:var(--ink-soft);margin-bottom:1.4rem}
+.fg{margin-bottom:1rem}
+.fg label{display:block;font-size:.82rem;font-weight:700;margin-bottom:.4rem}
+.fg label .req{color:#e0564a;font-size:.72rem;margin-left:.3em}
+.fg input,.fg select,.fg textarea{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:.8rem 1rem;font-size:.95rem;font-family:inherit;color:var(--ink);transition:border-color .2s,box-shadow .2s;background:#fff}
+.fg input:focus,.fg select:focus,.fg textarea:focus{outline:none;border-color:var(--teal);box-shadow:0 0 0 3px rgba(14,165,160,.14)}
+.fg.row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form .btn{width:100%;margin-top:.6rem}
+.form .priv{font-size:.72rem;color:var(--ink-soft);margin-top:.9rem;text-align:center}
+
+/* ===== フッター ===== */
+footer{background:#0a1a2a;color:#9fb3c4;padding:48px 0 34px;font-size:.86rem}
+.foot-top{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.08)}
+.foot-brand{display:flex;align-items:center;gap:.6rem;color:#fff;font-weight:900;font-size:1.25rem}
+.foot-tel b{font-family:"Manrope";color:#fff;font-size:1.2rem}
+.foot-bottom{padding-top:22px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:.78rem}
+.foot-bottom a{color:#9fb3c4}
+
+/* ===== reveal ===== */
+.rv{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.8,.2,1),transform .7s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.08s}.rv.d2{transition-delay:.16s}.rv.d3{transition-delay:.24s}
+
+/* ===== レスポンシブ ===== */
+@media(max-width:960px){
+  .hero-grid,.price-wrap,.cta .wrap{grid-template-columns:1fr;gap:38px}
+  .pain-grid,.reasons,.feat-grid,.cases{grid-template-columns:1fr 1fr}
+  .use-grid{grid-template-columns:1fr}
+  .ba-wrap{grid-template-columns:1fr}
+  .ba-arrow{transform:rotate(90deg)}
+  .flow{grid-template-columns:1fr 1fr;gap:2rem 1rem}
+  .flow .step::after{display:none}
+  .nav-links{display:none}
+  .float-1{right:-10px;top:-14px}.float-2{left:-10px}
+}
+@media(max-width:620px){
+  .hero{padding:116px 0 54px}
+  .sec{padding:64px 0}
+  .pain-grid,.reasons{grid-template-columns:1fr}
+  .feat-grid,.cases{grid-template-columns:1fr}
+  .fg.row{grid-template-columns:1fr}
+  .nav-tel{display:none}
+  .kpis{grid-template-columns:1fr 1fr}
+  .cta-free{flex-wrap:wrap}
+  .nav{height:64px}
+  .brand-logo{height:32px}
+  .nav-right{gap:.6rem}
+  .nav .btn-primary{padding:.7rem 1.1rem;font-size:.86rem}
+}
+
+/* =========================================================
+   v2 仕上げ：スマホのスクロール短縮＋プレミアムな動き
+   ========================================================= */
+/* 上部スクロール進捗バー */
+.progress-top{position:fixed;top:0;left:0;height:3px;width:0;background:var(--grad);z-index:200;transition:width .12s linear;box-shadow:0 0 10px rgba(14,165,160,.6)}
+/* 出現アニメを少し上質に（わずかなスケール） */
+.rv{transform:translateY(24px) scale(.985)}
+/* プライマリボタンに光沢スイープ */
+.btn-primary{overflow:hidden}
+.btn-primary::after{content:"";position:absolute;inset:0;border-radius:inherit;background:linear-gradient(120deg,transparent 32%,rgba(255,255,255,.4) 50%,transparent 68%);transform:translateX(-130%);transition:transform .8s cubic-bezier(.2,.8,.2,1);pointer-events:none}
+.btn-primary:hover::after{transform:translateX(130%)}
+/* ヒーロー：管理画面モックの動き */
+.float-card{animation:floaty 5s ease-in-out infinite}
+.float-2{animation-delay:-2.5s}
+@keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.float-1 .ring .rc{stroke-dashoffset:94.2;animation:ringdraw 1.7s cubic-bezier(.2,.8,.2,1) .4s forwards}
+@keyframes ringdraw{to{stroke-dashoffset:7.5}}
+.mtr.flash{background:linear-gradient(90deg,rgba(14,165,160,.1),transparent);transition:background .5s}
+/* ヒーロー：紙→デジタルの上昇ピクセル（ロゴの世界観） */
+.pixels{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.pixels i{position:absolute;display:block;border-radius:2px;opacity:0;box-shadow:0 2px 8px rgba(42,165,232,.3);animation-name:rise;animation-timing-function:linear;animation-iteration-count:infinite}
+@keyframes rise{0%{opacity:0;transform:translateY(24px) scale(.7) rotate(0)}12%{opacity:.5}80%{opacity:.4}100%{opacity:0;transform:translateY(-140px) scale(1) rotate(45deg)}}
+/* セクション余白を少し締める（全幅共通） */
+.sec{padding:90px 0}
+@media(max-width:960px){
+  .sec{padding:70px 0}
+  .feat-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:620px){
+  .sec{padding:50px 0}
+  .sec-head{margin-bottom:2rem}
+  .sec-head h2{font-size:1.5rem}
+  /* ヒーローの2つのCTAをスマホで同じ幅（横いっぱい）に揃える */
+  .hero-cta{flex-direction:column;align-items:stretch;gap:.8rem}
+  .hero-cta .btn{width:100%}
+  /* 機能・事例を2列にして縦を約半分に */
+  .feat-grid{grid-template-columns:1fr 1fr;gap:.6rem}
+  .feat{padding:1.05rem .85rem;border-radius:13px}
+  .feat .ico{width:38px;height:38px;border-radius:10px;margin-bottom:.55rem;font-size:1.1rem}
+  .feat h3{font-size:.86rem;margin-bottom:.25rem}
+  .feat p{font-size:.74rem;line-height:1.55}
+  .cases{grid-template-columns:1fr 1fr;gap:.6rem}
+  .case{padding:1.1rem .9rem}
+  .case .pin{width:32px;height:32px;margin-bottom:.6rem}
+  .case h4{font-size:.95rem}
+  .case .loc{font-size:.72rem;margin:.15rem 0 .6rem}
+  .case .sw{font-size:.64rem;padding:.25rem .55rem}
+  /* お悩みカードを圧縮 */
+  .pain{padding:1.35rem 1.25rem}
+  .pain .q{font-size:1.6rem}
+  .pain h3{font-size:1rem;margin:.35rem 0 .35rem}
+  .pain p{font-size:.84rem}
+  .pain .qmark{margin-top:.6rem;font-size:.74rem}
+  .pain-grid{gap:.75rem}
+  /* 理由カード圧縮 */
+  .reason{padding:1.7rem 1.4rem}
+  .reasons{gap:.8rem}
+  .reason .ico{width:48px;height:48px;margin:.8rem 0 1rem}
+  /* フロー縦詰め */
+  .flow{gap:1.5rem 1rem}
+  .flow .step .dot{width:46px;height:46px;margin-bottom:.7rem}
+  /* 料金の数字を少し縮小 */
+  .price-card{padding:2.1rem 1.6rem}
+  .price-card .amount .num{font-size:3rem}
+}
+/* スマホ下部の固定CTAバー（電話＋無料で試す） */
+.mcta{position:fixed;left:0;right:0;bottom:0;z-index:150;display:none;gap:.55rem;padding:.55rem .7rem calc(.55rem + env(safe-area-inset-bottom));background:rgba(255,255,255,.93);backdrop-filter:blur(12px);border-top:1px solid var(--line);box-shadow:0 -10px 28px -18px rgba(13,33,53,.5)}
+.mcta a{flex:1;display:flex;align-items:center;justify-content:center;gap:.4em;border-radius:12px;font-weight:700;font-size:.9rem;padding:.8rem;white-space:nowrap}
+.mcta .tel{background:#fff;border:1.5px solid var(--line);color:var(--ink);flex:0 0 46%}
+.mcta .tel small{display:block;font-size:.58rem;color:var(--ink-soft);font-weight:600;letter-spacing:.02em}
+.mcta .cvt{background:var(--grad);color:#fff}
+@media(max-width:620px){.mcta{display:flex} body{padding-bottom:72px}}
+@media(prefers-reduced-motion:reduce){
+  .float-card{animation:none}
+  .float-1 .ring .rc{animation:none;stroke-dashoffset:7.5}
+  .btn-primary::after{display:none}
+  .pixels{display:none}
+}
+
+/* 短縮のため一旦カット（復活はこの1行を消すだけ）：実績ロゴ帯・Before/After・ご利用の流れ */
+.logos,#ba,#flow{display:none}
+
+/* =========================================================
+   de-AI リファイン：絵文字→線画SVG／虹色グラデ→単色／定型ラベル撤去
+   ========================================================= */
+:root{--teal:#0e8f88;--teal-d:#0b6f69}
+.eyebrow{display:none}                 /* 英語の定型ラベルを撤去 */
+.sec-head{margin-bottom:2.4rem}
+.sec-head.center{max-width:38em}
+/* ボタン・バッジは単色に（グラデ特有のAIっぽさを排除） */
+.btn-primary{background:var(--teal-d);box-shadow:0 12px 26px -14px rgba(11,111,105,.5)}
+.btn-primary:hover{box-shadow:0 20px 36px -16px rgba(11,111,105,.55)}
+.mcta .cvt{background:var(--teal-d)}
+.badge.free{background:var(--teal-d)}
+.badge .dot{background:var(--teal)}
+.hero h1 .hl{color:var(--teal-d)}
+.hero h1 .hl::after{background:rgba(14,143,136,.15)}
+.reason::before{background:var(--teal)}
+.mock-side li.on{background:var(--teal)}
+.faq .q .mk{background:var(--teal-d)}
+.price-card .pc-tag{background:var(--teal-d)}
+.cta-free .fb{-webkit-text-fill-color:#fff;background:none;color:#fff}
+.check,.use li .c,.pc-list .c,table.compare td.hk .c{color:var(--teal)}
+/* アイコン下地：淡い単色ティント＋線画SVGの色・太さを統一 */
+.feat .ico,.reason .ico,.case .pin{background:rgba(14,143,136,.09)}
+.feat .ico svg,.case .pin svg,.ps .ps-ic svg{stroke:var(--teal-d);stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.reason .ico svg{stroke:var(--teal-d)}
+.feat .ico svg{width:24px;height:24px}
+.case .pin svg{width:20px;height:20px}
+.ps-ic{display:inline-flex;flex:none}
+.ps .ps-ic svg{width:20px;height:20px}
+/* セクションのイラスト */
+.pain-ill{display:flex;justify-content:center;margin:-.5rem 0 2.4rem}
+.pain-ill svg{width:100%;max-width:340px;height:auto}
+.use-ill{display:block;width:100%;max-width:210px;height:auto;margin:0 auto 1.4rem}
+@media(max-width:620px){
+  .pain-ill{margin:0 0 1.6rem}
+  .pain-ill svg{max-width:260px}
+  .use-ill{max-width:170px;margin-bottom:1.1rem}
+}
+
+/* =========================================================
+   v3 スマホのスクロールをさらに短縮（内容は残す）
+   ========================================================= */
+@media(max-width:620px){
+  .sec{padding:40px 0}
+  .sec-head{margin-bottom:1.5rem}
+  .sec-head h2{font-size:1.4rem;line-height:1.38}
+  .sec-head p{font-size:.85rem;margin-top:.55rem}
+  .eyebrow{margin-bottom:.5rem;font-size:.72rem}
+  .logos{padding:20px 0}
+  /* お悩みを2列に（6枚→3行） */
+  .pain-grid{grid-template-columns:1fr 1fr;gap:.6rem}
+  .pain{padding:1rem .85rem}
+  .pain .q{font-size:1.3rem}
+  .pain h3{font-size:.85rem;margin:.25rem 0 .3rem;line-height:1.45}
+  .pain p{font-size:.73rem;line-height:1.55}
+  .pain .qmark{display:none}
+  /* 選ばれる理由：アイコン左固定・見出し＋説明を右に積むコンパクト行 */
+  .reasons{gap:.6rem}
+  .reason{display:block;position:relative;padding:1.15rem 1.1rem 1.15rem 3.9rem}
+  .reason .n{display:none}
+  .reason .ico{position:absolute;left:1.1rem;top:1.25rem;width:44px;height:44px;margin:0;border-radius:12px}
+  .reason .ico svg{width:23px;height:23px}
+  .reason h3{font-size:1.04rem;margin-bottom:.3rem;line-height:1.4}
+  .reason p{font-size:.81rem}
+  /* Before/After 圧縮 */
+  .ba{padding:1.3rem 1.1rem}
+  .ba .tag{margin-bottom:.8rem;font-size:.7rem;padding:.3rem .7rem}
+  .ba li{font-size:.82rem}
+  .ba ol{gap:.55rem}
+  .ba-result{margin-top:1.2rem;padding:1rem}
+  /* 霊園/寺院の2パターン 圧縮 */
+  .use{padding:1.5rem 1.4rem}
+  .use h3{font-size:1.2rem;margin:.3rem 0 1rem}
+  .use li{font-size:.86rem;line-height:1.6}
+  .use ul{gap:.6rem}
+  /* 料金 圧縮 */
+  .price-wrap{gap:1rem}
+  .price-card{padding:1.8rem 1.4rem}
+  .price-card .pc-list{margin-top:1.1rem;gap:.5rem}
+  .price-card .pc-list li{font-size:.84rem}
+  .price-side{gap:.7rem}
+  .price-side .ps{padding:1.1rem}
+  /* フロー 圧縮 */
+  .flow{gap:1.2rem .8rem}
+  /* 最終CTA・フォーム 圧縮 */
+  .cta{padding:50px 0}
+  .cta-left h2{font-size:1.5rem}
+  .cta-left p{margin:1rem 0 1.4rem;font-size:.9rem}
+  .form{padding:1.5rem}
+  .fg{margin-bottom:.7rem}
+}
+
+/* v4 仕上げ圧縮：ヒーロー/比較表/FAQ/フォーム */
+@media(max-width:620px){
+  .hero{padding:104px 0 42px}
+  .badge-row{margin-bottom:1.1rem;gap:.4rem}
+  .hero p.lead{margin:1.1rem 0 1.5rem;font-size:1rem}
+  .hero-note{margin-top:.9rem;gap:.45rem .9rem}
+  .mock-body{min-height:0}
+  .mock-main{padding:.9rem 1rem}
+  .mock-side{padding:.9rem .7rem}
+  .kpis{margin-bottom:.7rem}
+  .mock-table .mtr:last-child{display:none}
+  table.compare th,table.compare td{padding:.8rem .9rem;font-size:.84rem}
+  .faq .q{padding:1rem 1.1rem;font-size:.92rem;gap:.7rem}
+  .faq .a div{padding:0 1.1rem 1.1rem 3.1rem;font-size:.86rem}
+  .faq-list{gap:.6rem}
+  .cta-free{padding:1rem 1.2rem}
+  .cta-free .fb{font-size:2rem}
+  .fg{margin-bottom:.6rem}
+  .fg label{margin-bottom:.3rem;font-size:.8rem}
+  .fg input,.fg select,.fg textarea{padding:.7rem .9rem;font-size:.92rem}
+  .form h3{font-size:1.1rem}
+  .form .fnote{margin-bottom:1rem}
+}
+</style>
+</head>
+<body>
+<div class="progress-top" id="progressTop"></div>
+
+<!-- ===== スマホ固定CTAバー ===== -->
+<div class="mcta">
+  <a class="tel" href="tel:0367767974"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M5 3h3l1.5 5-2 1.5a12 12 0 0 0 5 5l1.5-2 5 1.5v3a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2z"/></svg>電話で相談<small>03-6776-7974</small></a>
+  <a class="cvt" href="#form">3か月無料で試す</a>
+</div>
+
+<!-- ===== ヘッダー ===== -->
+<header id="header">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="hakamory 霊園管理システム">
+      <img src="assets/logo-trim.png" alt="hakamory 霊園管理をIT化" class="brand-logo" />
+    </a>
+    <div class="nav-right">
+      <nav class="nav-links">
+        <a href="#reasons">選ばれる理由</a>
+        <a href="#features">機能</a>
+        <a href="#compare">比較</a>
+        <a href="#price">料金</a>
+        <a href="#faq">よくある質問</a>
+      </nav>
+      <div class="nav-tel">
+        <span>お電話でのご相談</span>
+        <b class="en">03-6776-7974</b>
+      </div>
+      <a href="#form" class="btn btn-primary">3か月無料で試す</a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== ヒーロー ===== -->
+<section class="hero" id="top">
+  <div class="pixels" aria-hidden="true">
+    <i style="left:60%;top:70%;width:9px;height:9px;background:var(--sky);animation-duration:7s;animation-delay:0s"></i>
+    <i style="left:72%;top:80%;width:7px;height:7px;background:var(--teal);animation-duration:8.5s;animation-delay:1.2s"></i>
+    <i style="left:84%;top:66%;width:11px;height:11px;background:var(--sky);animation-duration:9s;animation-delay:2.4s"></i>
+    <i style="left:66%;top:88%;width:6px;height:6px;background:var(--teal);animation-duration:7.8s;animation-delay:3.1s"></i>
+    <i style="left:90%;top:82%;width:8px;height:8px;background:var(--sky);animation-duration:8.2s;animation-delay:0.6s"></i>
+    <i style="left:54%;top:84%;width:7px;height:7px;background:var(--teal);animation-duration:9.4s;animation-delay:4.2s"></i>
+    <i style="left:78%;top:90%;width:10px;height:10px;background:var(--sky);animation-duration:7.4s;animation-delay:2s"></i>
+    <i style="left:48%;top:76%;width:6px;height:6px;background:var(--sky);animation-duration:10s;animation-delay:5s"></i>
+  </div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="badge-row rv">
+        <span class="badge free"><svg viewBox="0 0 24 24" width="13" height="13" fill="currentColor" style="flex:none"><path d="M12 2l1.8 5.6L19.5 9l-4.6 3.4L16.5 18 12 14.6 7.5 18l1.6-5.6L4.5 9l5.7-1.4z"/></svg>最初の3か月 月額利用料0円</span>
+        <span class="badge"><span class="dot"></span>霊園・寺院向け</span>
+        <span class="badge"><span class="dot"></span>クラウド型</span>
+      </div>
+      <h1 class="rv d1"><span class="nw">紙とExcelの墓地台帳を、</span><span class="nw"><span class="hl">そのままクラウド</span>へ。</span></h1>
+      <p class="lead rv d2">霊園・寺院向けのクラウド型 霊園管理システム。区画・使用者から年間管理料の請求・口座振替データの作成まで、<b>ひとつの画面</b>に。インストールも専用端末も不要です。</p>
+      <div class="hero-cta rv d2">
+        <a href="#form" class="btn btn-primary btn-lg">3か月無料で試す</a>
+        <a href="#reasons" class="btn btn-ghost btn-lg">選ばれる理由を見る</a>
+      </div>
+      <div class="hero-note rv d3">
+        <span><i class="check">✓</i> 1区画から導入できる</span>
+        <span><i class="check">✓</i> 他社システムからの乗り換え実績</span>
+        <span><i class="check">✓</i> 普段のパソコンで使える</span>
+      </div>
+    </div>
+
+    <!-- ダッシュボードモック -->
+    <div class="hero-visual rv d2" style="position:relative">
+      <div class="mock">
+        <div class="mock-bar">
+          <span class="d r"></span><span class="d y"></span><span class="d g"></span>
+          <span class="mock-url"><span class="lock">🔒</span> app.hakamory.jp／dashboard</span>
+        </div>
+        <div class="mock-body">
+          <aside class="mock-side">
+            <div class="ms-logo">⬡ hakamory</div>
+            <ul>
+              <li class="on"><span class="ic"></span>ダッシュボード</li>
+              <li><span class="ic"></span>区画管理</li>
+              <li><span class="ic"></span>使用者管理</li>
+              <li><span class="ic"></span>請求・入金</li>
+              <li><span class="ic"></span>口座振替</li>
+              <li><span class="ic"></span>帳票出力</li>
+            </ul>
+          </aside>
+          <main class="mock-main">
+            <div class="mm-head">
+              <h4>年間管理料 2026年度</h4>
+              <span class="tag">みどりが丘霊園</span>
+            </div>
+            <div class="kpis">
+              <div class="kpi"><div class="l">対象区画</div><div class="v" data-count="1480">0<small>区画</small></div></div>
+              <div class="kpi accent"><div class="l">請求件数</div><div class="v" data-count="238">0<small>件</small></div></div>
+              <div class="kpi"><div class="l">入金済</div><div class="v" data-count="92">0<small>%</small></div></div>
+            </div>
+            <div class="mock-table">
+              <div class="mtr h"><span>区画</span><span>使用者</span><span>請求状況</span></div>
+              <div class="mtr"><span>A-12-04</span><span>佐藤 家</span><span class="st paid">入金済</span></div>
+              <div class="mtr"><span>B-03-11</span><span>髙橋 家</span><span class="st paid">入金済</span></div>
+              <div class="mtr"><span>C-08-02</span><span>渡辺 家</span><span class="st unpaid">未納</span></div>
+              <div class="mtr"><span>A-05-19</span><span>山本 家</span><span class="st paid">入金済</span></div>
+            </div>
+          </main>
+        </div>
+      </div>
+      <div class="float-card float-1">
+        <svg class="ring" viewBox="0 0 36 36"><circle cx="18" cy="18" r="15" fill="none" stroke="#eef4f5" stroke-width="5"/><circle class="rc" cx="18" cy="18" r="15" fill="none" stroke="#0ea5a0" stroke-width="5" stroke-linecap="round" stroke-dasharray="94.2" stroke-dashoffset="7.5" transform="rotate(-90 18 18)"/></svg>
+        <div><div class="big en">92%</div><div class="sub">入金消込 完了</div></div>
+      </div>
+      <div class="float-card float-2">
+        <div style="display:grid;place-items:center;width:30px;height:30px;border-radius:9px;background:rgba(14,143,136,.1);flex:none"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#0b6f69" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-5 9 5M4.5 9v9M19.5 9v9M3 20h18M8 18v-5M12 18v-5M16 18v-5"/></svg></div>
+        <div><div class="big en"><span data-count="238">0</span>件</div><div class="sub">口座振替データ 作成完了</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 実績ロゴ帯 ===== -->
+<div class="logos">
+  <div class="wrap">
+    <span class="label">導入・乗り換え実績</span>
+    <span class="logo-pill"><span class="mk">霊</span>川越霊園</span>
+    <span class="sep"></span>
+    <span class="logo-pill"><span class="mk">霊</span>みどりが丘霊園</span>
+    <span class="sep"></span>
+    <span class="logo-pill"><span class="mk">霊</span>新所沢聖地霊園</span>
+    <span class="sep"></span>
+    <span class="logo-pill"><span class="mk">寺</span>頼勝寺</span>
+  </div>
+</div>
+
+<!-- ===== お悩み ===== -->
+<section class="sec" id="pain">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Issues</span>
+      <h2><span class="nw">墓地台帳と請求の手間、</span><span class="nw">毎年同じところで</span><span class="nw">発生していませんか？</span></h2>
+      <p>墓地台帳をまだシステムで管理していない霊園・寺院から、よく伺うお悩みです。</p>
+    </div>
+    <div class="pain-ill rv" aria-hidden="true">
+      <svg viewBox="0 0 300 150" fill="none">
+        <!-- 机の線 -->
+        <path d="M18 128h264" stroke="#d7e0e5" stroke-width="2" stroke-linecap="round"/>
+        <!-- 古い専用端末 -->
+        <rect x="30" y="56" width="86" height="60" rx="5" fill="#eef4f5" stroke="#0d2135" stroke-width="1.8"/>
+        <rect x="38" y="63" width="70" height="40" rx="2" fill="#fff" stroke="#0e8f88" stroke-width="1.4"/>
+        <path d="M46 71h54M46 79h54M46 87h54M46 95h54M64 63v40M82 63v40" stroke="#cfe0e3" stroke-width="1"/>
+        <path d="M66 116h14v8H66z" fill="#eef4f5" stroke="#0d2135" stroke-width="1.8"/>
+        <path d="M52 124h42" stroke="#0d2135" stroke-width="1.8" stroke-linecap="round"/>
+        <!-- 紙の台帳の山 -->
+        <rect x="150" y="104" width="96" height="16" rx="2.5" fill="#fff" stroke="#0d2135" stroke-width="1.8"/>
+        <rect x="156" y="90" width="96" height="16" rx="2.5" fill="#fff" stroke="#0d2135" stroke-width="1.8"/>
+        <rect x="150" y="76" width="96" height="16" rx="2.5" fill="#fff" stroke="#0d2135" stroke-width="1.8"/>
+        <path d="M160 84h42M166 98h42M160 112h42" stroke="#cbd5dd" stroke-width="1.3" stroke-linecap="round"/>
+        <!-- 虫眼鏡 -->
+        <circle cx="206" cy="46" r="21" fill="rgba(14,143,136,.08)" stroke="#0e8f88" stroke-width="2"/>
+        <path d="M221 61l16 16" stroke="#0e8f88" stroke-width="2.6" stroke-linecap="round"/>
+        <path d="M198 46h16M206 38v16" stroke="#0e8f88" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="pain-grid">
+      <div class="pain rv"><div class="q serif">01</div><h3>台帳が紙のままで、探すのに時間がかかる</h3><p>問い合わせのたびに紙の墓地台帳をめくって、区画と連絡先を確認している。</p><span class="qmark">▶ 探す時間が毎回ムダに</span></div>
+      <div class="pain rv d1"><div class="q serif">02</div><h3>Excel管理が複雑で、担当しか触れない</h3><p>シートが増えて最新版がわからない。引き継ぎのたびに説明が必要になる。</p><span class="qmark">▶ 属人化してブラックボックス</span></div>
+      <div class="pain rv d2"><div class="q serif">03</div><h3>年間管理料の請求と消込が手作業</h3><p>口座振替データの作成、入金の照合、未納の確認に毎年何日もかかる。</p><span class="qmark">▶ 繁忙期に業務が集中</span></div>
+      <div class="pain rv"><div class="q serif">04</div><h3>専用端末でしか使えない</h3><p>ネットにつながらない1台の端末に依存。遠隔地からは状況がわからない。</p><span class="qmark">▶ 外からは確認できない</span></div>
+      <div class="pain rv d1"><div class="q serif">05</div><h3>事務員の採用が難しく、人手が足りない</h3><p>少ない人数でも回る仕組みにしたいが、何から変えればよいかわからない。</p><span class="qmark">▶ 省人化の一歩が踏み出せない</span></div>
+      <div class="pain rv d2"><div class="q serif">06</div><h3>保守費・買い替え費用が重い</h3><p>ハードとソフトがセットの契約で、更新のたびにまとまった費用がかかる。</p><span class="qmark">▶ 維持コストが読めない</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 3つの理由 ===== -->
+<section class="sec alt" id="reasons">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Why hakamory</span>
+      <h2>hakamoryが選ばれる3つの理由</h2>
+      <p>霊園業界に、当たり前のITを。使わない機能を省いて、必要な分だけで価格を抑えています。</p>
+    </div>
+    <div class="reasons">
+      <div class="reason rv">
+        <div class="n en">REASON 01</div>
+        <div class="ico">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0b857f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7a8 5 0 0 1 16 0"/><path d="M4 7v10a8 5 0 0 0 16 0V7"/><path d="M4 12a8 5 0 0 0 16 0"/></svg>
+        </div>
+        <h3>いつでも、どこからでも</h3>
+        <p>普段お使いのパソコンのブラウザで動きます。事務所の外や自宅からも霊園の状況を確認でき、インストールも更新作業もいりません。</p>
+      </div>
+      <div class="reason rv d1">
+        <div class="n en">REASON 02</div>
+        <div class="ico">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0b857f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+        </div>
+        <h3>日々の業務が速くなる</h3>
+        <p>区画ではなく「使用者」を起点に情報を整理。検索ですぐ目的の情報にたどり着けます。郵便番号からの住所入力など、細かな手間も省きます。</p>
+      </div>
+      <div class="reason rv d2">
+        <div class="n en">REASON 03</div>
+        <div class="ico">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#0b857f" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg>
+        </div>
+        <h3>管理コストを抑えられる</h3>
+        <p>専用ハードやネットワーク工事は不要。月額利用料は区画数に応じて決まるため、担当者アカウントを増やしても変わりません。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Before/After ===== -->
+<section class="sec" id="ba">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Before / After</span>
+      <h2>年間管理料の請求業務で比べると</h2>
+      <p>毎年の請求作業が、ここまで短くなります。</p>
+    </div>
+    <div class="ba-wrap">
+      <div class="ba before rv">
+        <span class="tag">BEFORE ─ 紙・Excel・専用端末</span>
+        <ol>
+          <li>紙の墓地台帳から対象の区画と使用者を拾い出す</li>
+          <li>Excelに転記して請求額を計算する</li>
+          <li>専用端末で口座振替データを作り直す（1台でしか操作できない）</li>
+          <li>入金結果を見ながら1件ずつ消込</li>
+          <li>未納を別シートで洗い出し、宛名を手書き</li>
+        </ol>
+      </div>
+      <div class="ba-arrow rv d1">➜</div>
+      <div class="ba after rv d2">
+        <span class="tag">AFTER ─ hakamory</span>
+        <ol>
+          <li>登録済みの使用者・区画情報から請求対象を自動で抽出</li>
+          <li>口座振替データをそのまま作成（普段のパソコンから、担当者ごとのアカウントで）</li>
+          <li>入金結果を取り込んで消込、未納を一覧で確認</li>
+        </ol>
+      </div>
+    </div>
+    <div class="ba-result rv d1">
+      <div class="step en"><s>5</s><span class="ar">ステップ ➜</span><em>3</em></div>
+      <p style="font-size:.9rem;color:var(--ink-soft);margin-top:.4rem">転記と端末の行き来がなくなり、<b>手順が 5 → 3</b> に。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2パターン ===== -->
+<section class="sec alt" id="use">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">For your site</span>
+      <h2>霊園にも、寺院墓地にも。</h2>
+      <p>民営霊園の管理事務所でも、寺院墓地を管理する寺院でも。必要な情報を同じ画面で扱えます。</p>
+    </div>
+    <div class="use-grid">
+      <div class="use a rv">
+        <svg class="use-ill" viewBox="0 0 220 120" fill="none" aria-hidden="true">
+          <path d="M26 98h150l18 11H8z" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.45)" stroke-width="1.4" stroke-linejoin="round"/>
+          <rect x="60" y="64" width="16" height="30" rx="1" fill="rgba(255,255,255,.07)" stroke="#fff" stroke-width="1.4"/>
+          <rect x="54" y="92" width="28" height="7" rx="1" fill="rgba(255,255,255,.07)" stroke="#fff" stroke-width="1.4"/>
+          <rect x="100" y="54" width="18" height="40" rx="1" fill="rgba(14,143,136,.35)" stroke="#8fe3dd" stroke-width="1.4"/>
+          <rect x="93" y="92" width="32" height="8" rx="1" fill="rgba(14,143,136,.25)" stroke="#8fe3dd" stroke-width="1.4"/>
+          <path d="M168 96V76" stroke="#fff" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="168" cy="64" r="15" fill="rgba(255,255,255,.05)" stroke="#fff" stroke-width="1.4"/>
+          <path d="M66 30a11 11 0 0 1 21-3 7.5 7.5 0 0 1 2 14.8H69A8.5 8.5 0 0 1 66 30z" fill="rgba(14,143,136,.3)" stroke="#8fe3dd" stroke-width="1.4"/>
+          <path d="M78 50V36M73.5 41.5L78 37l4.5 4.5" stroke="#8fe3dd" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <div class="kind">霊園を運営する方へ</div>
+        <h3>民営霊園・公益法人の管理事務所</h3>
+        <ul>
+          <li><span class="c">✓</span>複数の霊園を、1つのアカウントでまとめて管理</li>
+          <li><span class="c">✓</span>年間管理料の口座振替データ作成と、現金払いの管理</li>
+          <li><span class="c">✓</span>区画ごとの面積・名称・使用者をひと目で確認</li>
+          <li><span class="c">✓</span>区画ごとにアカウントを発行。IDの共有は不要</li>
+        </ul>
+      </div>
+      <div class="use b rv d1">
+        <svg class="use-ill" viewBox="0 0 220 120" fill="none" aria-hidden="true">
+          <path d="M58 54l44-22 44 22" stroke="#8fe3dd" stroke-width="1.5" stroke-linejoin="round"/>
+          <path d="M64 54q38-11 76 0l-7 7H71z" fill="rgba(14,143,136,.3)" stroke="#8fe3dd" stroke-width="1.4" stroke-linejoin="round"/>
+          <rect x="74" y="61" width="56" height="34" fill="rgba(255,255,255,.05)" stroke="#fff" stroke-width="1.4"/>
+          <rect x="94" y="73" width="16" height="22" fill="rgba(255,255,255,.06)" stroke="#fff" stroke-width="1.4"/>
+          <path d="M66 95h72l8 10H58z" fill="rgba(255,255,255,.05)" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/>
+          <path d="M160 70h18l-4-6h-10z" fill="rgba(255,255,255,.06)" stroke="#fff" stroke-width="1.3" stroke-linejoin="round"/>
+          <rect x="162" y="70" width="14" height="13" fill="rgba(255,255,255,.05)" stroke="#fff" stroke-width="1.3"/>
+          <path d="M169 83v12M163 95h12" stroke="#fff" stroke-width="1.3" stroke-linecap="round"/>
+          <path d="M30 36a9 9 0 0 1 17-2.5A6.5 6.5 0 0 1 49 46H32a7.5 7.5 0 0 1-2-10z" fill="rgba(14,143,136,.3)" stroke="#8fe3dd" stroke-width="1.4"/>
+        </svg>
+        <div class="kind">寺院墓地を管理する寺院へ</div>
+        <h3>寺院墓地・樹木葬・納骨堂の管理</h3>
+        <ul>
+          <li><span class="c">✓</span>区画の使用者だけでなく、ご家族の情報もまとめて登録</li>
+          <li><span class="c">✓</span>永代使用承諾書をシステムから発行</li>
+          <li><span class="c">✓</span>登録済みの住所から、請求書送付用の宛名ラベルを作成</li>
+          <li><span class="c">✓</span>住職が外出先からでも墓地台帳を確認できる</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 機能 ===== -->
+<section class="sec" id="features">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Features</span>
+      <h2>主な機能</h2>
+      <p>霊園管理システムに必要な機能を、必要な分だけ。使わない機能を省くことで、価格を抑えています。</p>
+    </div>
+    <div class="feat-grid">
+      <div class="feat rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2V3z"/><path d="M9 8h6M9 12h5"/></svg></div><h3>請求管理</h3><p>口座振替データの作成、現金払いの管理に対応。</p></div>
+      <div class="feat rv d1"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.6a3 3 0 0 1 0 4.8M20.5 20a5.5 5.5 0 0 0-4-5.3"/></svg></div><h3>使用者管理</h3><p>使用者だけでなく、ご家族や埋葬者の情報も登録・編集・閲覧。</p></div>
+      <div class="feat rv d2"><div class="ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg></div><h3>区画管理</h3><p>区画の面積・名称など、区画ごとの情報を管理。</p></div>
+      <div class="feat rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 21V8l6-3v16"/><path d="M9 21V5l10 3v13"/><path d="M3 21h18"/><path d="M13 11h2.5M13 15h2.5"/></svg></div><h3>複数霊園の管理</h3><p>霊園を複数お持ちでも、まとめて管理できます。</p></div>
+      <div class="feat rv d1"><div class="ico"><svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l2.5 2.5M14 9l2.5 2.5"/></svg></div><h3>区画ごとのアカウント</h3><p>区画ごとにアカウントを発行。IDの共有は不要。</p></div>
+      <div class="feat rv d2"><div class="ico"><svg viewBox="0 0 24 24"><path d="M6 3h9l4 4v8H6z"/><path d="M9 7h5M9 11h7"/><circle cx="12" cy="18.5" r="2.6"/><path d="M10.2 20.6L9 23.5l3-1.3 3 1.3-1.2-2.9"/></svg></div><h3>永代使用承諾書の発行</h3><p>システムから発行。独自デザインもご相談ください。</p></div>
+      <div class="feat rv"><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h6l9 9-6 6-9-9V7z"/><circle cx="8" cy="10" r="1.4"/></svg></div><h3>宛名ラベルの作成</h3><p>請求書の郵送用ラベルを、登録情報から作成。</p></div>
+      <div class="feat rv d1"><div class="ico"><svg viewBox="0 0 24 24"><path d="M3 8l9-5 9 5v8l-9 5-9-5V8z"/><path d="M3 8l9 5 9-5M12 13v8"/></svg></div><h3>商品管理</h3><p>扱うサービス・商品を使用者と紐付け、請求まで連携。</p></div>
+      <div class="feat rv d2"><div class="ico"><svg viewBox="0 0 24 24"><path d="M7.5 18a4 4 0 0 1-.3-8 5.2 5.2 0 0 1 9.9-1.2A3.6 3.6 0 0 1 17.5 18z"/><path d="M9.5 13.5L12 16l2.5-2.5"/></svg></div><h3>自動バックアップ</h3><p>データは自動で保存。手動バックアップは不要です。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 比較表 ===== -->
+<section class="sec alt" id="compare">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Comparison</span>
+      <h2>従来の霊園管理ソフトとの違い</h2>
+      <p>事務所のパソコンに入れて使う霊園管理ソフト（パッケージ型）と、hakamoryの違いです。</p>
+    </div>
+    <div class="cmp rv">
+      <table class="compare">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="hk">hakamory<span>クラウド型</span></th>
+            <th>インストール型／パッケージ型</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td class="rowh">使える端末</td><td class="hk"><span class="c">✓</span>普段のパソコン。事務所の外からも利用可</td><td class="other">事務所の専用端末のみの場合が多い</td></tr>
+          <tr><td class="rowh">導入時の機器</td><td class="hk"><span class="c">✓</span>専用ハード・ネットワーク工事は不要</td><td class="other">ハードとソフトのセット購入が必要</td></tr>
+          <tr><td class="rowh">更新・バックアップ</td><td class="hk"><span class="c">✓</span>自動。作業は不要</td><td class="other">手動、または業者の訪問対応</td></tr>
+          <tr><td class="rowh">料金の決まり方</td><td class="hk"><span class="c">✓</span>区画数に応じた月額。担当者が増えても同じ</td><td class="other">端末数・ライセンス数に応じて増える</td></tr>
+          <tr><td class="rowh">導入前のお試し</td><td class="hk"><span class="c">✓</span>3か月無料で、実際の業務で試せる</td><td class="other">導入前に試せないことが多い</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 料金 ===== -->
+<section class="sec" id="price">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Pricing</span>
+      <h2>料金</h2>
+      <p>霊園管理システムの料金は、区画数で決まります。使う人数が増えても変わりません。</p>
+    </div>
+    <div class="price-wrap">
+      <div class="price-card rv">
+        <span class="pc-tag">月額利用料</span>
+        <div class="amount">
+          <span class="num en">50</span>
+          <span class="unit">円</span>
+          <span class="per">／ 1区画（税抜）・月額</span>
+        </div>
+        <p class="pc-desc">区画数に応じた月額利用料。1区画から導入できます。</p>
+        <ul class="pc-list">
+          <li><span class="c">✓</span>担当者アカウントを何人に増やしても、月額は変わりません</li>
+          <li><span class="c">✓</span>専用ハード・サーバーの購入は不要</li>
+          <li><span class="c">✓</span>初期費用・データ移行費用は、お見積もりの際にご案内します</li>
+        </ul>
+      </div>
+      <div class="price-side">
+        <div class="ps rv d1">
+          <h4><span class="ps-ic"><svg viewBox="0 0 24 24"><rect x="3.5" y="8" width="17" height="12" rx="1.5"/><path d="M3.5 12h17M12 8v12M12 8C10.5 5.5 8 5.5 8 7.3S10 9 12 8s4 .7 4-1S13.5 5.5 12 8z"/></svg></span>最初の3か月は月額無料</h4>
+          <p><span class="free-badge en">3か月 0円</span><br>年間管理料の請求を含む一連の業務を、無料期間中に一度回してみることができます。</p>
+        </div>
+        <div class="ps rv d2">
+          <h4><span class="ps-ic"><svg viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="17" height="17" rx="2"/><path d="M3.5 12h17M12 3.5v17"/></svg></span>1区画から導入OK</h4>
+          <p>小規模な寺院墓地から、複数の霊園をお持ちの法人まで導入いただけます。</p>
+        </div>
+        <div class="ps rv d3">
+          <h4><span class="ps-ic"><svg viewBox="0 0 24 24"><path d="M4 8h13l-3.2-3.2M20 16H7l3.2 3.2"/></svg></span>乗り換え費用もご案内</h4>
+          <p>他社システムやExcelのデータ形式を伺ったうえで、移行方法をご案内します。</p>
+        </div>
+      </div>
+    </div>
+    <p class="rv" style="text-align:center;margin-top:1.4rem;font-size:.82rem;color:var(--ink-soft)">※ キャンペーンの詳しい条件は、お申し込み後にご案内します。</p>
+  </div>
+</section>
+
+<!-- ===== 乗り換え実績 ===== -->
+<section class="sec alt" id="cases">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Case</span>
+      <h2>導入事例・乗り換え実績</h2>
+      <p>他社の霊園システムからの乗り換えにも対応しています。</p>
+    </div>
+    <div class="cases">
+      <div class="case rv"><div class="pin"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg></div><h4>川越霊園</h4><p class="loc">埼玉県川越市</p><span class="sw">↻ 他社システムから乗り換え</span></div>
+      <div class="case rv d1"><div class="pin"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg></div><h4>みどりが丘霊園</h4><p class="loc">埼玉県ふじみ野市</p><span class="sw">↻ 他社システムから乗り換え</span></div>
+      <div class="case rv d2"><div class="pin"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg></div><h4>新所沢聖地霊園</h4><p class="loc">埼玉県川越市</p><span class="sw">↻ 他社システムから乗り換え</span></div>
+      <div class="case rv d3"><div class="pin"><svg viewBox="0 0 24 24"><path d="M12 21s-6-5.3-6-10a6 6 0 0 1 12 0c0 4.7-6 10-6 10z"/><circle cx="12" cy="11" r="2.2"/></svg></div><h4>頼勝寺</h4><p class="loc">埼玉県川越市</p><span class="sw">✦ 新規でシステム導入</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 流れ ===== -->
+<section class="sec" id="flow">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">Flow</span>
+      <h2>ご利用までの流れ</h2>
+      <p>お申し込みから無料期間の終了まで、担当者がサポートします。</p>
+    </div>
+    <div class="flow">
+      <div class="step rv"><div class="dot en">1</div><h4>お申し込み</h4><p>下のフォームから、1分ほどで申し込めます。</p></div>
+      <div class="step rv d1"><div class="dot en">2</div><h4>Web会議でヒアリング</h4><p>現在の管理方法と課題を伺い、機能と料金をご説明します。</p></div>
+      <div class="step rv d2"><div class="dot en">3</div><h4>データ登録・初期設定</h4><p>今の墓地台帳の登録方法をご案内します。</p></div>
+      <div class="step rv d3"><div class="dot en">4</div><h4>3か月無料でご利用</h4><p>実際の業務で使って、必要なシステムかをご判断ください。</p></div>
+      <div class="step rv"><div class="dot en">5</div><h4>ご契約</h4><p>継続される場合は、申込書を電子サインで締結します。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== FAQ ===== -->
+<section class="sec alt" id="faq">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <span class="eyebrow">FAQ</span>
+      <h2>よくあるご質問</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq rv"><div class="q"><span class="mk">Q</span>3か月の無料期間が終わると、自動で有料になりますか？<span class="tgl">+</span></div><div class="a"><div>無料期間の終わりに、担当者から継続のご意向を確認します。ご契約いただかない限り、料金は発生しません。</div></div></div>
+      <div class="faq rv"><div class="q"><span class="mk">Q</span>無料期間中に登録したデータは、継続後もそのまま使えますか？<span class="tgl">+</span></div><div class="a"><div>そのままお使いいただけます。継続されない場合は、データをお返ししたうえで削除します。</div></div></div>
+      <div class="faq rv"><div class="q"><span class="mk">Q</span>個人情報を扱いますが、セキュリティは大丈夫ですか？<span class="tgl">+</span></div><div class="a"><div>データのやり取りはすべて暗号化しています。データは自動でバックアップされるため、端末の故障でデータを失う心配もありません。</div></div></div>
+      <div class="faq rv"><div class="q"><span class="mk">Q</span>どのくらいの規模から使えますか？<span class="tgl">+</span></div><div class="a"><div>1区画から対応しています。小規模な寺院墓地から、複数の霊園をお持ちの法人まで導入いただけます。</div></div></div>
+      <div class="faq rv"><div class="q"><span class="mk">Q</span>他社の霊園システムから乗り換えられますか？<span class="tgl">+</span></div><div class="a"><div>乗り換えられます。他社システムやExcelのデータ形式を伺ったうえで、移行方法をご案内します。</div></div></div>
+      <div class="faq rv"><div class="q"><span class="mk">Q</span>寺院の墓地管理システムとしても使えますか？<span class="tgl">+</span></div><div class="a"><div>使えます。寺院墓地の区画・使用者・ご家族の情報をまとめて管理でき、永代使用承諾書の発行にも対応しています。</div></div></div>
+      <div class="faq rv"><div class="q"><span class="mk">Q</span>料金のお見積もりだけでも依頼できますか？<span class="tgl">+</span></div><div class="a"><div>できます。区画数をうかがえれば、月額利用料のお見積もりをお出しします。</div></div></div>
+      <div class="faq rv"><div class="q"><span class="mk">Q</span>パソコンが苦手な職員でも使えますか？<span class="tgl">+</span></div><div class="a"><div>必要な情報に最短でたどり着けるよう、検索中心の画面にしています。導入時にはWeb会議で操作方法をご案内します。</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 最終CTA / フォーム ===== -->
+<section class="cta" id="form">
+  <div class="wrap">
+    <div class="cta-left rv">
+      <h2><span class="nw">墓地台帳と請求の管理を、</span><span class="nw">来年度からクラウドに。</span></h2>
+      <p>お申し込み後、担当者からご連絡し、Web会議で操作方法をご案内します。無料期間中に、実際の業務で合うかどうかをご判断ください。</p>
+      <div class="cta-free">
+        <div class="fb en">3か月<br>0円</div>
+        <div class="ft">最初の3か月は<br>月額利用料が無料<br><small style="opacity:.7">申込期限・先着数はありません</small></div>
+      </div>
+      <div class="cta-tel">
+        <div>
+          <div class="tl">お電話でのご相談</div>
+          <b class="en">03-6776-7974</b>
+        </div>
+      </div>
+    </div>
+
+    <form class="form rv d1" id="leadForm" novalidate>
+      <h3>3か月無料キャンペーンのお申し込み</h3>
+      <p class="fnote">お見積もりだけ・お話を聞くだけでもお気軽にどうぞ。</p>
+      <div class="fg">
+        <label>霊園名・寺院名<span class="req">必須</span></label>
+        <input type="text" name="org" placeholder="例）みどりが丘霊園" required />
+      </div>
+      <div class="fg row">
+        <div>
+          <label>種別<span class="req">必須</span></label>
+          <select name="kind" required>
+            <option value="">選択してください</option>
+            <option>霊園</option><option>寺院</option><option>その他</option>
+          </select>
+        </div>
+        <div>
+          <label>区画数<span class="req">必須</span></label>
+          <select name="units" required>
+            <option value="">選択してください</option>
+            <option>100区画未満</option><option>100〜500区画</option>
+            <option>500〜1,000区画</option><option>1,000区画以上</option><option>わからない</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg">
+        <label>ご担当者名<span class="req">必須</span></label>
+        <input type="text" name="name" placeholder="例）山田 太郎" required />
+      </div>
+      <div class="fg row">
+        <div>
+          <label>電話番号<span class="req">必須</span></label>
+          <input type="tel" name="tel" placeholder="例）049-000-0000" required />
+        </div>
+        <div>
+          <label>メールアドレス<span class="req">必須</span></label>
+          <input type="email" name="email" placeholder="例）info@example.jp" required />
+        </div>
+      </div>
+      <div class="fg">
+        <label>現在の管理方法</label>
+        <select name="current">
+          <option value="">選択してください</option>
+          <option>紙の台帳</option><option>Excel</option><option>専用端末のソフト</option>
+          <option>他社システム</option><option>その他</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>ご希望の内容</label>
+        <select name="hope">
+          <option value="">選択してください</option>
+          <option>3か月無料キャンペーンを申し込みたい</option>
+          <option>お見積もりだけ知りたい</option>
+          <option>まずは話を聞きたい</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>ご相談内容</label>
+        <textarea name="message" rows="3" placeholder="ご質問・ご要望がございましたらご記入ください"></textarea>
+      </div>
+      <button type="submit" class="btn btn-primary btn-lg">無料で申し込む</button>
+      <p class="priv">送信いただいた情報は、プライバシーポリシーに沿って管理します。</p>
+    </form>
+  </div>
+</section>
+
+<!-- ===== フッター ===== -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <svg width="30" height="30" viewBox="0 0 40 40" fill="none"><rect x="3" y="3" width="34" height="34" rx="9" fill="url(#lg2)"/><path d="M13 26V17l7-5 7 5v9" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="20" cy="22" r="2.4" fill="#fff"/><defs><linearGradient id="lg2" x1="3" y1="3" x2="37" y2="37"><stop stop-color="#0ea5a0"/><stop offset="1" stop-color="#2aa5e8"/></linearGradient></defs></svg>
+        hakamory
+      </div>
+      <div class="foot-tel">お電話でのご相談　<b class="en">03-6776-7974</b></div>
+    </div>
+    <div class="foot-bottom">
+      <span>クラウド型 霊園管理システム hakamory ─ 紙とExcelの墓地台帳を、そのままクラウドへ。</span>
+      <span>
+        <a href="#">プライバシーポリシー</a>　/　<a href="#">利用規約</a>　｜　© 2026 hakamory
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ヘッダー影
+const header=document.getElementById('header');
+addEventListener('scroll',()=>header.classList.toggle('scrolled',scrollY>20));
+
+// reveal
+const io=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}})},{threshold:.14});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+
+// カウントアップ（ヒーローのKPI）
+function countUp(el){
+  const target=+el.dataset.count;const small=el.querySelector('small');const suf=small?small.outerHTML:'';
+  let s=null;const dur=1400;
+  function step(t){if(!s)s=t;const p=Math.min((t-s)/dur,1);const e=1-Math.pow(1-p,3);
+    el.innerHTML=Math.floor(e*target).toLocaleString()+suf;if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+}
+const kio=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){countUp(e.target);kio.unobserve(e.target);}})},{threshold:.5});
+document.querySelectorAll('[data-count]').forEach(el=>kio.observe(el));
+
+// FAQ
+document.querySelectorAll('.faq .q').forEach(q=>{
+  q.addEventListener('click',()=>{
+    const f=q.parentElement;const a=f.querySelector('.a');const open=f.classList.contains('open');
+    document.querySelectorAll('.faq.open').forEach(o=>{if(o!==f){o.classList.remove('open');o.querySelector('.a').style.maxHeight=null;}});
+    f.classList.toggle('open',!open);
+    a.style.maxHeight=!open?a.scrollHeight+'px':null;
+  });
+});
+
+// フォーム（送信先は後日接続。今はダミー）
+document.getElementById('leadForm').addEventListener('submit',e=>{
+  e.preventDefault();
+  if(!e.target.checkValidity()){e.target.reportValidity();return;}
+  alert('お申し込みありがとうございます。\n（このデモでは送信は行われません。本番では担当者にメール通知されます）');
+});
+
+// スクロール進捗バー
+const pt=document.getElementById('progressTop');
+function updProgress(){const h=document.documentElement;const max=h.scrollHeight-h.clientHeight;pt.style.width=(max>0?(h.scrollTop/max*100):0)+'%';}
+addEventListener('scroll',updProgress,{passive:true});updProgress();
+
+// 管理画面モック：行をやさしく巡回ハイライト（“動いている”感）
+(function(){
+  const rows=[...document.querySelectorAll('.mock-table .mtr:not(.h)')];
+  if(!rows.length)return;let i=0;
+  setInterval(()=>{rows.forEach(r=>r.classList.remove('flash'));rows[i].classList.add('flash');i=(i+1)%rows.length;},1600);
+})();
+</script>
+</body>
+</html>
