@@ -358,6 +358,30 @@ footer .corp{max-width:560px;margin:26px auto 0;display:grid;gap:6px;text-align:
 footer .corp div{display:grid;grid-template-columns:7.5em 1fr;gap:10px;padding:6px 0;border-bottom:1px solid var(--hair2)}
 footer .corp dt{color:var(--dim)}
 footer .corp dd{color:var(--ink);overflow-wrap:anywhere}
+
+/* ===== 2026-11-04 PC・タブレットのFV：動画（文字入り）と見出しが重ならないように分ける =====
+   スマホ（〜600px）は従来どおり「動画→文字」の縦並び（上の @media(max-width:600px) のまま）。
+   動画は 960x540 で上下に約44pxの黒帯があるので、枠を映像部分の比率（960:452）にして cover で黒帯を切る。 */
+@media (min-width:601px){ header:not(.solid) .logo{color:#fff} }   /* 暗いFVの上ではロゴを白に（白い帯になったら元の色） */
+@media (min-width:601px) and (max-width:959px){
+  .hero{min-height:0;display:block;background:#071019;padding:92px clamp(24px,5vw,48px) 0;overflow:visible}
+  .hero .bg,.hero::after{display:none}
+  .hero video{position:static;display:block;width:100%;height:auto;aspect-ratio:960/452;object-fit:cover;background:#000;border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.06)}
+  .hero .inner{position:static;padding:40px 0 64px}
+  .hero h1{font-size:clamp(40px,7.2vw,72px)}
+  .hero .down{display:none}
+}
+@media (min-width:960px){
+  .hero{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);align-items:center;column-gap:clamp(36px,4vw,80px);
+        min-height:min(100svh,980px);padding:clamp(104px,13vh,140px) clamp(40px,5vw,96px) clamp(64px,9vh,104px);
+        background:radial-gradient(110% 120% at 85% 30%,#13283d 0%,#0a1724 45%,#071019 75%)}
+  .hero .bg,.hero::after{display:none}
+  .hero .inner{grid-column:1;grid-row:1;position:relative;z-index:2;padding:0}
+  .hero video{grid-column:2;grid-row:1;position:relative;inset:auto;z-index:1;width:100%;height:auto;aspect-ratio:960/452;object-fit:cover;
+        background:#000;border-radius:20px;box-shadow:0 40px 90px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.07)}
+  .hero h1{font-size:clamp(52px,5vw,92px)}
+  .hero .down{right:clamp(20px,2.2vw,40px);bottom:32px}
+}
 </style>
 </head>
 <body>
