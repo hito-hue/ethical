@@ -40,7 +40,7 @@ window.addEventListener('error',function(e){
 </script>
 <!-- End Google tag -->
 <!-- Microsoft Clarity（ヒートマップ・録画計測） -->
-<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","xmnw7ql5sn");</script>
+<script type="text/javascript">(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window,document,"clarity","script","xmnw7ql5sn");window.clarity("set","lp","google-search");</script>
 <style>
 :root{
   --bg:#ffffff;
@@ -382,15 +382,16 @@ footer .corp dd{color:var(--ink);overflow-wrap:anywhere}
   .hero video{height:auto;aspect-ratio:960/452}
 }
 @media (min-width:960px){
-  /* 上の黒帯（横幅×44/960）の中にヘッダーが収まるよう、画面の上にいる間だけヘッダーの上下の余白を詰める */
-  header:not(.solid){background:transparent;padding-top:max(4px,calc((100vw * 44 / 960 - 44px) / 2));padding-bottom:max(4px,calc((100vw * 44 / 960 - 44px) / 2))}
-  .hero video{height:calc(100vw * 540 / 960)}
-  /* テロップ帯を動画の下の黒帯に重ねてつなげる（黒どうしなので継ぎ目が見えない） */
-  .hero .inner{margin-top:calc(-100vw * 44 / 960);display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:clamp(32px,4vw,72px);align-items:center;
-               padding:16px clamp(36px,5vw,96px) 26px}
+  /* PC：上から「黒いヘッダー帯（60px）」「動画（黒帯を切った映像・960:452）」「黒いテロップ帯（約168px）」で、どの画面の高さでも1画面に収める。
+     画面が低いときは動画を切らずに少し小さくして中央に置き、左右は黒い縁になる（横長の画面ほど映画のような見た目） */
+  .hero{--hdr:60px;--band:168px;padding-top:var(--hdr)}
+  header:not(.solid){background:#000;padding-top:8px;padding-bottom:8px}
+  .hero video{width:clamp(720px, calc((100svh - var(--hdr) - var(--band)) * 960 / 452), 100%);height:auto;aspect-ratio:960/452;margin:0 auto}
+  .hero .inner{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:clamp(32px,4vw,72px);align-items:center;
+               min-height:var(--band);padding:16px clamp(36px,5vw,96px) 22px;box-sizing:border-box}
   .hero .inner > *{grid-column:1}
   .hero .kicker{grid-row:1;margin-bottom:8px}
-  .hero h1{grid-row:2;font-size:clamp(28px,2.6vw,48px);line-height:1.2;white-space:nowrap}
+  .hero h1{grid-row:2;font-size:clamp(28px,2.6vw,46px);line-height:1.2;white-space:nowrap}
   .hero h1 .a{display:inline}.hero h1 .b{padding-left:.6em}
   .hero .lead{grid-row:3;margin-top:10px;padding-left:.15em}
   .hero .lead-sub{grid-row:4;margin-top:4px;padding-left:.15em}
@@ -399,6 +400,38 @@ footer .corp dd{color:var(--ink);overflow-wrap:anywhere}
   .hero .play{grid-column:2}
 }
 @media (min-width:1200px){ .hero .lead-sub br{display:none} .hero .lead-sub .nw{margin-right:1em} }   /* 広い画面では説明を1行に */
+
+/* ===== 2026-11-04 PICK UP 実績（林尚弘様）：公式サイト事例「ショート動画が初動500万再生突破」＋LP掲載「全投稿10万再生以上」 ===== */
+.pickup{background:#fff}
+.pickup .sec{padding-top:clamp(28px,5vw,64px);padding-bottom:clamp(36px,6vw,72px)}
+.pk{display:grid;grid-template-columns:minmax(200px,280px) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center;
+    background:linear-gradient(135deg,#eef6fc 0%,#ffffff 70%);border:1px solid var(--hair2);border-radius:28px;padding:clamp(22px,4vw,52px)}
+.pk-phone{display:block;position:relative;aspect-ratio:9/16;border-radius:30px;overflow:hidden;background:#000;
+    box-shadow:0 0 0 7px #0f2233,0 30px 70px rgba(15,34,51,.25)}
+.pk-phone video{display:block;width:100%;height:100%;object-fit:cover}
+.pk-phone .pk-play{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);white-space:nowrap;font-size:11px;letter-spacing:.08em;color:#fff;
+    background:rgba(0,0,0,.55);backdrop-filter:blur(4px);padding:7px 14px;border-radius:20px}
+.pk .eyeb{color:var(--key);font-family:var(--lora);font-weight:600}
+.pk-co{font-size:13px;letter-spacing:.08em;color:var(--dim)}
+.pk-name{font-family:var(--serif);font-weight:700;font-size:clamp(28px,3.4vw,42px);line-height:1.25;color:var(--ink);margin-top:2px}
+.pk-name .sm{font-size:.55em;margin-left:.2em}
+.pk-tag{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;letter-spacing:.12em;color:#fff;background:var(--ink);padding:5px 12px;border-radius:6px}
+.pk-stats{display:flex;flex-wrap:wrap;gap:clamp(10px,1.6vw,18px);margin-top:clamp(18px,3vw,28px)}
+.pk-stats .st{flex:1 1 170px;background:#fff;border:1px solid var(--hair2);border-radius:18px;padding:16px 20px 14px;box-shadow:0 8px 24px rgba(15,34,51,.06)}
+.pk-stats .st .k{display:block;font-size:11.5px;letter-spacing:.08em;color:var(--dim)}
+.pk-stats .st b{display:block;margin-top:4px;font-family:var(--lora);font-weight:700;font-size:clamp(36px,4.6vw,56px);line-height:1;color:var(--key);letter-spacing:.01em}
+.pk-stats .st b small{font-family:var(--serif);font-size:.42em;color:var(--ink);margin-left:3px;letter-spacing:.04em}
+.pk-txt{margin-top:18px;font-size:14px;line-height:1.95;color:#33475a}
+.pk-meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:12px;color:var(--dim)}
+.pk-meta b{font-weight:600;color:var(--ink);margin-right:6px}
+.pk-cta{display:inline-flex;align-items:center;gap:10px;margin-top:22px;background:var(--btn);color:#fff;font-size:13.5px;font-weight:600;letter-spacing:.1em;padding:15px 32px;border-radius:44px;transition:.25s}
+.pk-cta:hover{background:#0f6fb8;transform:translateY(-1px)}
+@media(max-width:700px){
+  .pk{grid-template-columns:1fr;text-align:left;gap:24px}
+  .pk-phone{width:min(200px,52vw);margin:0 auto}
+  .pk-stats .st{flex:1 1 120px;padding:12px 14px 10px}
+  .pk-stats .st b{font-size:clamp(30px,9vw,40px)}
+}
 </style>
 </head>
 <body>
@@ -439,6 +472,31 @@ footer .corp dd{color:var(--ink);overflow-wrap:anywhere}
     <span class="l2">フォロワーを、<span class="u">採用</span>へ。</span>
   </p>
   <p class="small fade">月500本以上のショート動画を分析し、"伸びる型"を研究してきた専門チームが、企画から撮影・編集・投稿・分析まで、まるごとサポートする。それが <span class="brand">エシカル・スカイジャパン</span> です。</p>
+</section>
+
+<!-- ===== PICK UP 実績（林尚弘様） ===== -->
+<section class="pickup" id="pickup">
+  <div class="sec">
+    <div class="pk fade">
+      <a class="pk-phone" href="https://www.tiktok.com/@hayashi.fc/video/7619646028500733205" target="_blank" rel="noopener" aria-label="林社長の投稿をTikTokで見る">
+        <video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/hayashi.mp4" poster="../works/hayashi.jpg" muted loop playsinline autoplay preload="none"></video>
+        <span class="pk-play">▶ TikTokで見る</span>
+      </a>
+      <div class="pk-body">
+        <p class="eyeb">PICK UP</p>
+        <p class="pk-co">株式会社FCチャンネル</p>
+        <h2 class="pk-name">林 尚弘<span class="sm">様</span></h2>
+        <span class="pk-tag">令和の虎 2代目主宰</span>
+        <div class="pk-stats">
+          <div class="st"><span class="k">ショート動画の初動</span><b>500<small>万再生</small></b></div>
+          <div class="st"><span class="k">全投稿で</span><b>10<small>万再生以上</small></b></div>
+        </div>
+        <p class="pk-txt">ショート動画が初動500万再生を達成。全投稿で10万再生以上を記録しています。</p>
+        <p class="pk-meta"><span><b>業種</b>コンサル</span><span><b>目的</b>集客</span></p>
+        <a href="#cta" class="pk-cta">資料請求・無料相談<span class="dlic" aria-hidden="true"></span></a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ===== ご支援させていただく皆さま ===== -->
