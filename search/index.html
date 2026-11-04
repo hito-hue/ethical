@@ -432,6 +432,7 @@ footer .corp dd{color:var(--ink);overflow-wrap:anywhere}
   .pk-stats .st{flex:1 1 120px;padding:12px 14px 10px}
   .pk-stats .st b{font-size:clamp(30px,9vw,40px)}
 }
+.hpf{position:absolute!important;left:-10000px!important;top:auto;width:1px;height:1px;overflow:hidden}
 </style>
 </head>
 <body>
@@ -619,6 +620,8 @@ footer .corp dd{color:var(--ink);overflow-wrap:anywhere}
       <p class="f-hint">※現在の発信状況を拝見したうえで、具体的なご提案をいたします</p></div>
     <label class="f-check"><input type="checkbox" name="consult" value="1"><span>無料相談を希望する（任意）</span></label>
     <label class="f-check"><input type="checkbox" name="nosales" value="1"><span>営業・勧誘目的ではありません。</span></label>
+    <!-- ボット対策（2026-11-04）：人には見えない欄。ここが埋まっていたらボットとみなす -->
+    <div class="hpf" aria-hidden="true"><label>FAX番号<input type="text" name="fax" tabindex="-1" autocomplete="off"></label></div>
     <!-- Google広告の流入情報（URLの gclid / utm_*）。下のスクリプトが自動で入れる。オフラインでの成果取り込み用 -->
     <input type="hidden" name="gclid"><input type="hidden" name="gbraid"><input type="hidden" name="wbraid">
     <input type="hidden" name="utm_source"><input type="hidden" name="utm_medium"><input type="hidden" name="utm_campaign">
@@ -715,6 +718,7 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
   AD_KEYS.forEach(k=>{ const el=form.querySelector('input[name="'+k+'"]'); if(el) el.value=AD[k]||''; });
   const adFields=()=>{ const o={}; AD_KEYS.forEach(k=>{ o[k]=AD[k]||''; }); return o; };
   /* このブラウザの一時ID（記入途中データの目印。送信すると自動でCV扱いになる） */
+  const T_OPEN=Date.now();   /* ボット対策：ページを開いた時刻（送信までが極端に短い＝ボット） */
   let SID='';
   try{ SID=sessionStorage.getItem('esj_g_sid')||''; if(!SID){ SID='s'+Date.now().toString(36)+Math.random().toString(36).slice(2,8); sessionStorage.setItem('esj_g_sid',SID); } }catch(_){ SID='s'+Date.now().toString(36); }
   /* 現在のフォーム内容を集める */
@@ -745,6 +749,16 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
     e.preventDefault();
     if(!form.reportValidity()) return;              // 4項目の必須チェック
     const d=new FormData(form);
+    /* ボット対策：見えない欄が埋まっている／開いてから3秒未満の送信 → 記録だけ残し、Googleの成果・Discord・LINE・お礼メールは送らない。
+       ボットに気づかれないよう、画面は普通にサンクスへ進める（esj_submitted を付けないのでサンクスで成果は送られない） */
+    const ELAPSED=Date.now()-T_OPEN;
+    if((d.get('fax')||'').trim() || ELAPSED<3000){
+      try{ fetch(LEAD_ENDPOINT,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({name:d.get('name')||'',company:d.get('company')||'',email:d.get('email')||'',phone:d.get('phone')||'',
+          source:'ethical-listing',hp:(d.get('fax')||'').slice(0,100),elapsed:ELAPSED,sid:SID,...adFields()})}).catch(()=>{}); }catch(_){}
+      setTimeout(function(){ location.href='thanks.html'; },200);
+      return;
+    }
     const msg="📩 **新しい資料請求が届きました（Google検索広告）**\n"+
       "▫️ お名前："+(d.get('name')||'')+"\n"+
       "▫️ 会社名・屋号："+(d.get('company')||'')+"\n"+
@@ -801,7 +815,7 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
         body:JSON.stringify({
           name:d.get('name')||'', company:d.get('company')||'',
           email:d.get('email')||'', phone:d.get('phone')||'',
-          link:d.get('link')||'', consult:d.get('consult')?'希望する':'', nosales:d.get('nosales')?'チェック済み':'', source:'ethical-listing', sid:SID,
+          link:d.get('link')||'', consult:d.get('consult')?'希望する':'', nosales:d.get('nosales')?'チェック済み':'', source:'ethical-listing', sid:SID, elapsed:ELAPSED,
           ...adFields()   // gclid・utm（受け取り側が対応したら保存される）
         })}).catch(()=>{}));
     }
