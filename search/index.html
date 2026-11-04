@@ -359,29 +359,46 @@ footer .corp div{display:grid;grid-template-columns:7.5em 1fr;gap:10px;padding:6
 footer .corp dt{color:var(--dim)}
 footer .corp dd{color:var(--ink);overflow-wrap:anywhere}
 
-/* ===== 2026-11-04 PC・タブレットのFV：動画（文字入り）と見出しが重ならないように分ける =====
-   スマホ（〜600px）は従来どおり「動画→文字」の縦並び（上の @media(max-width:600px) のまま）。
-   動画は 960x540 で上下に約44pxの黒帯があるので、枠を映像部分の比率（960:452）にして cover で黒帯を切る。 */
-@media (min-width:601px){ header:not(.solid) .logo{color:#fff} }   /* 暗いFVの上ではロゴを白に（白い帯になったら元の色） */
-@media (min-width:601px) and (max-width:959px){
-  .hero{min-height:0;display:block;background:#071019;padding:92px clamp(24px,5vw,48px) 0;overflow:visible}
+/* ===== 2026-11-04 PC・タブレットのFV（伊藤さん指示で作り直し：動画を大きく・文字は下の黒い帯へ）=====
+   動画 hero.mp4 は 960x540 で、上下に約44pxの黒帯が焼き込まれている。
+   PC：動画は横幅いっぱい・本来の比率のまま出し、上の黒帯にロゴと右上ボタン、下の黒帯に「テロップ帯」（見出し＋予約ボタン）をつなげる＝映画のような黒い縁で、文字と映像が重ならない。
+   タブレット：黒帯を切った映像（960:452）を横いっぱいに出し、その上にヘッダー、下にテロップ帯。
+   スマホ（〜600px）は従来どおり（上の @media(max-width:600px) のまま）。 */
+@media (min-width:601px){
+  header:not(.solid) .logo{color:#fff}
+  .hero{display:block;min-height:0;padding:0;background:#000;overflow:hidden}
   .hero .bg,.hero::after{display:none}
-  .hero video{position:static;display:block;width:100%;height:auto;aspect-ratio:960/452;object-fit:cover;background:#000;border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.4),0 0 0 1px rgba(255,255,255,.06)}
-  .hero .inner{position:static;padding:40px 0 64px}
-  .hero h1{font-size:clamp(40px,7.2vw,72px)}
+  .hero video{position:relative;inset:auto;z-index:0;display:block;width:100%;object-fit:cover;background:#000}
+  .hero .inner{position:relative;z-index:2;background:#000;padding:24px clamp(24px,5vw,56px) 36px}
   .hero .down{display:none}
+  .hero h1 .a{display:block}.hero h1 .b{display:inline;padding-left:.5em}.hero h1 .c{display:inline;padding-left:.15em}
+  .hero h1{font-size:clamp(34px,6vw,52px);line-height:1.18}
+  .hero .kicker{margin-bottom:12px}
+  .hero .lead{margin-top:16px}
+}
+@media (min-width:601px) and (max-width:959px){
+  header:not(.solid){background:#000;padding-top:10px;padding-bottom:10px}
+  .hero{padding-top:64px}
+  .hero video{height:auto;aspect-ratio:960/452}
 }
 @media (min-width:960px){
-  .hero{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);align-items:center;column-gap:clamp(36px,4vw,80px);
-        min-height:min(100svh,980px);padding:clamp(104px,13vh,140px) clamp(40px,5vw,96px) clamp(64px,9vh,104px);
-        background:radial-gradient(110% 120% at 85% 30%,#13283d 0%,#0a1724 45%,#071019 75%)}
-  .hero .bg,.hero::after{display:none}
-  .hero .inner{grid-column:1;grid-row:1;position:relative;z-index:2;padding:0}
-  .hero video{grid-column:2;grid-row:1;position:relative;inset:auto;z-index:1;width:100%;height:auto;aspect-ratio:960/452;object-fit:cover;
-        background:#000;border-radius:20px;box-shadow:0 40px 90px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.07)}
-  .hero h1{font-size:clamp(52px,5vw,92px)}
-  .hero .down{right:clamp(20px,2.2vw,40px);bottom:32px}
+  /* 上の黒帯（横幅×44/960）の中にヘッダーが収まるよう、画面の上にいる間だけヘッダーの上下の余白を詰める */
+  header:not(.solid){background:transparent;padding-top:max(4px,calc((100vw * 44 / 960 - 44px) / 2));padding-bottom:max(4px,calc((100vw * 44 / 960 - 44px) / 2))}
+  .hero video{height:calc(100vw * 540 / 960)}
+  /* テロップ帯を動画の下の黒帯に重ねてつなげる（黒どうしなので継ぎ目が見えない） */
+  .hero .inner{margin-top:calc(-100vw * 44 / 960);display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:clamp(32px,4vw,72px);align-items:center;
+               padding:16px clamp(36px,5vw,96px) 26px}
+  .hero .inner > *{grid-column:1}
+  .hero .kicker{grid-row:1;margin-bottom:8px}
+  .hero h1{grid-row:2;font-size:clamp(28px,2.6vw,48px);line-height:1.2;white-space:nowrap}
+  .hero h1 .a{display:inline}.hero h1 .b{padding-left:.6em}
+  .hero .lead{grid-row:3;margin-top:10px;padding-left:.15em}
+  .hero .lead-sub{grid-row:4;margin-top:4px;padding-left:.15em}
+  .hero .hero-cta{grid-column:2;grid-row:1 / span 3;align-self:end;justify-self:end;margin:0}
+  .hero .hero-note{grid-column:2;grid-row:4;justify-self:end;margin:8px 0 0}
+  .hero .play{grid-column:2}
 }
+@media (min-width:1200px){ .hero .lead-sub br{display:none} .hero .lead-sub .nw{margin-right:1em} }   /* 広い画面では説明を1行に */
 </style>
 </head>
 <body>
