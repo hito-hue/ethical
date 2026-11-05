@@ -481,6 +481,8 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
       <p class="f-hint">※現在の発信状況を拝見したうえで、具体的なご提案をいたします</p></div>
     <label class="f-check"><input type="checkbox" name="consult" value="1"><span>無料相談を希望する（任意）</span></label>
     <label class="f-check"><input type="checkbox" name="nosales" value="1"><span>営業・勧誘目的ではありません。</span></label>
+    <!-- ▼ ボット対策の“見えない罠”欄：人には見えないので空のまま。ボットが自動入力すると埋まる＝送信を弾く -->
+    <div class="hpf" aria-hidden="true" style="position:absolute!important;left:-10000px!important;top:auto;width:1px;height:1px;overflow:hidden"><label>FAX番号<input type="text" name="fax" tabindex="-1" autocomplete="off"></label></div>
     <button type="submit">資料を受け取る</button>
     <p class="form-note">※ご入力いただいた情報は、当社のプライバシーポリシーに基づき適切に管理いたします。</p>
   </form>
@@ -552,6 +554,11 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
   const LEAD_ENDPOINT = "https://x85-131-252-8.static.xvps.ne.jp/ethical-lead";
   /* 記入途中データの記録先（送信前・カゴ落ち追客用） */
   const PARTIAL_ENDPOINT = "https://x85-131-252-8.static.xvps.ne.jp/ethical-partial";
+  const T_OPEN=Date.now();   /* ボット対策：ページを開いた時刻（送信までが極端に短い＝ボット） */
+  /* ボット対策：これまで確認できた“嫌がらせ・自動送信”の目印（メール・電話）。合致したら通知・成果計測はしない */
+  const BLOCK_EMAILS=['keroro@gmail.com','alsok@gmail.com'];
+  const normP=(s)=>{let x=String(s||'').replace(/\D/g,'');if(x.startsWith('81'))x='0'+x.slice(2);return x;};
+  const BLOCK_PHONES=['08033664455','08022216663'];
   /* このブラウザの一時ID（記入途中データの目印。送信すると自動でCV扱いになる） */
   let SID='';
   try{ SID=sessionStorage.getItem('eth_sid')||''; if(!SID){ SID='s'+Date.now().toString(36)+Math.random().toString(36).slice(2,8); sessionStorage.setItem('eth_sid',SID); } }catch(_){ SID='s'+Date.now().toString(36); }
@@ -583,6 +590,22 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
     e.preventDefault();
     if(!form.reportValidity()) return;              // 4項目の必須チェック
     const d=new FormData(form);
+    /* ★ボット対策：①見えない罠欄(fax)が埋まっている ②開いてから3秒未満の送信 ③既知の嫌がらせ目印(メール/電話)に合致
+       → 記録だけ残し、Discord通知・お礼メール・スプレッドシート・Meta成果計測(Lead)はすべて送らない。
+         画面は普通にサンクスへ進める（eth_submitted を付けないので thanks でピクセルは発火しない） */
+    const ELAPSED=Date.now()-T_OPEN;
+    const emLc=(d.get('email')||'').trim().toLowerCase();
+    const phN=normP(d.get('phone'));
+    const isBot=(d.get('fax')||'').trim() || ELAPSED<3000 || BLOCK_EMAILS.includes(emLc) || BLOCK_PHONES.includes(phN);
+    if(isBot){
+      if(LEAD_ENDPOINT){ try{ fetch(LEAD_ENDPOINT,{method:'POST',keepalive:true,headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({name:d.get('name')||'',company:d.get('company')||'',email:d.get('email')||'',phone:d.get('phone')||'',
+          link:d.get('link')||'',source:'ethical-lp',sid:SID,hp:(d.get('fax')||'').slice(0,100),elapsed:ELAPSED})}).catch(()=>{}); }catch(_){}
+      }
+      setTimeout(function(){ location.href='thanks.html'; },200);
+      return;
+    }
+    try{ sessionStorage.setItem('eth_submitted','1'); }catch(_){}   // 本物の送信の印（thanksでピクセルを発火させる）
     const msg="📩 **新しい資料請求が届きました**\n"+
       "▫️ お名前："+(d.get('name')||'')+"\n"+
       "▫️ 会社名・屋号："+(d.get('company')||'')+"\n"+

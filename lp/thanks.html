@@ -21,7 +21,8 @@ s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '1591987786299885');
 fbq('track', 'PageView');
-fbq('track', 'Lead');   /* 資料請求“完了”のコンバージョン計測 */
+/* 本物の送信のときだけ成果(Lead)を送る。ボット判定で来た場合は eth_submitted が無いので送らない＝Metaに偽の成果を学習させない */
+try{ if(sessionStorage.getItem('eth_submitted')==='1'){ fbq('track', 'Lead'); sessionStorage.removeItem('eth_submitted'); } }catch(_){ fbq('track', 'Lead'); }
 </script>
 <noscript><img height="1" width="1" style="display:none"
 src="https://www.facebook.com/tr?id=1591987786299885&ev=PageView&noscript=1"
