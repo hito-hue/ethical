@@ -376,19 +376,9 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
   .pk-stats .st b{font-size:clamp(30px,9vw,40px)}
 }
 
-/* ===== 2026-11-13 改善：FVに数字と料金・見出しの字下げをやめる・PCで文字を読みやすく ===== */
+/* ===== 2026-11-13 改善：見出しの字下げをやめる・PCで文字を読みやすく ===== */
 .hero h1 .b,.hero h1 .c{padding-left:0}
 .hero .lead{padding-left:0}.hero-cta{margin-left:0}.hero-note{margin-left:0}
-.hero-proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-width:520px;margin-top:clamp(18px,3vw,26px)}
-.hero-proof .pf{min-width:0;padding:10px 12px 9px;border:1px solid rgba(169,194,214,.26);border-radius:14px;background:rgba(255,255,255,.05);backdrop-filter:blur(4px)}
-.hero-proof .pf .k{display:block;font-size:10.5px;letter-spacing:.08em;color:#a9c2d6;white-space:nowrap}
-.hero-proof .pf b{display:block;margin-top:3px;font-family:var(--lora);font-weight:600;font-size:clamp(24px,3vw,32px);line-height:1.05;color:#fff;letter-spacing:.01em;white-space:nowrap}
-.hero-proof .pf b small{font-family:var(--sans);font-size:.46em;margin-left:2px;color:#cfe0ec;font-weight:500;letter-spacing:.04em}
-.hero-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin-top:16px;color:#cfe0ec;font-size:12.5px;letter-spacing:.06em}
-.hero-price .pl{display:inline-block;font-size:10.5px;font-weight:600;color:#071019;background:#5ccbf0;padding:3px 9px;border-radius:20px;letter-spacing:.06em}
-.hero-price b{font-family:var(--lora);font-weight:600;font-size:24px;color:#fff;letter-spacing:.02em}
-.hero-price b small{font-family:var(--sans);font-size:.55em;font-weight:500;margin-left:1px}
-.hero-pnote{margin-top:6px;font-size:10px;line-height:1.7;color:#7f98ad;letter-spacing:.03em}
 @media(min-width:601px){
   .hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
     background:linear-gradient(90deg,rgba(7,16,25,.92) 0%,rgba(7,16,25,.78) 36%,rgba(7,16,25,.2) 68%,rgba(7,16,25,0) 100%)}
@@ -425,13 +415,6 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
       <span class="b">拡散は、<i>ETHICAL</i>が</span>
     </h1>
     <p class="lead">集客・採用につなげる、TikTok運用代行。</p>
-    <div class="hero-proof fade in chk" data-chk="数字は会社の営業資料（7月版・2025年末時点）から。最新の数字か確認">
-      <div class="pf"><span class="k">総再生回数</span><b>8<small>億回</small></b></div>
-      <div class="pf"><span class="k">売上貢献</span><b>6<small>億円</small></b></div>
-      <div class="pf"><span class="k">採用貢献</span><b>200<small>名以上</small></b></div>
-    </div>
-    <p class="hero-price fade in chk" data-chk="料金を載せてよいか・金額（月24.2万円÷8本＝1本30,250円）をそらさんに確認"><span class="pl">撮影込み・丸投げ</span>動画1本あたり<b>約3万円<small>〜</small></b></p>
-    <p class="hero-pnote fade in">※実績は2025年末時点・当社支援アカウントの合計。料金は動画月8本（月額24.2万円・税込）の場合。同じ動画をTikTokとInstagramの両方に投稿します。</p>
     <a href="#cta" class="hero-cta fade in">資料請求する<span class="dlic" aria-hidden="true"></span></a>
     <p class="hero-note fade in">資料は無料でお送りします・しつこい営業はいたしません</p>
     <button class="play fade in" id="playBtn" hidden><span class="ic">▶</span> ブランドムービーを見る</button>
