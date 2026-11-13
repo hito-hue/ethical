@@ -425,7 +425,7 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
 <!-- ===== PICK UP 実績（林尚弘様） ===== -->
 <section class="pickup" id="pickup">
   <div class="sec">
-    <div class="pk fade chk" data-chk="動画は旧広告アカウント停止（BAN）の原因になった広告動画（v2_②広告動画1本目）。新アカウントの広告のリンク先に載せてよいか判断が必要">
+    <div class="pk fade">
       <div class="pk-phone">
         <video id="pkVid" src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/hayashi-ad.mp4" poster="works/hayashi-ad.jpg" muted loop playsinline preload="none" aria-label="林尚弘さんとそらさんの対談動画"></video>
         <button type="button" class="pk-play pk-sound" id="pkSound">🔊 音声ありで見る</button>
@@ -435,7 +435,7 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
         <p class="pk-co">株式会社FCチャンネル</p>
         <h2 class="pk-name">林 尚弘<span class="sm">様</span></h2>
         <span class="pk-tag">令和の虎 2代目主宰</span>
-        <div class="pk-stats chk" data-chk="数字は10/8のそらさんとのLINEの再生数まとめ（11本・TikTok 389.5万＋Instagram 578.4万）。動画の中は833万（8本時点）のまま">
+        <div class="pk-stats">
           <div class="st"><span class="k">11本の総再生</span><b>968<small>万回</small></b></div>
           <div class="st"><span class="k">1本の最高再生</span><b>227<small>万回</small></b></div>
         </div>
@@ -486,7 +486,7 @@ b.addEventListener('click',function(){if(v.muted){v.muted=false;v.currentTime=0;
 </section>
 
 <!-- ===== 実際の投稿（Instagram 埋め込み） ===== -->
-<section class="works chk" data-chk="並び順を変更：林社長を先頭、ドッキリ系の動画を最後へ（そらさんに確認）">
+<section class="works">
   <div class="sec">
     <div class="shead fade"><span class="ix">02</span><div><p class="eyeb">Works</p><h2 class="htitle">実際の投稿</h2></div></div>
     <div class="lookwrap">
@@ -537,8 +537,8 @@ b.addEventListener('click',function(){if(v.muted){v.muted=false;v.currentTime=0;
     <details class="q fade"><summary>まだSNSを始めていなくても大丈夫ですか。</summary><div class="a">はい。ゼロからの立ち上げも得意です。無料相談で、最適なスタートをご提案します。</div></details>
     <details class="q fade"><summary>どんな業種でも対応できますか。</summary><div class="a">美容・コンサル・販売・メーカー・採用など、幅広い業種でご支援してきました。まずはお気軽にご相談ください。</div></details>
     <details class="q fade"><summary>撮影や編集は自分でする必要がありますか。</summary><div class="a">企画・台本から撮影・編集・投稿までこちらで対応します。撮影は月1回程度で済むため、本業に集中いただけます。</div></details>
-    <details class="q fade chk" data-chk="料金：11/9の社内プラン表（スタンダード）より。載せてよいか確認"><summary>料金はどのくらいですか。</summary><div class="a">スタンダードプランは月額24.2万円（税込）です。動画を月8本制作し（1本あたり約3万円）、TikTokとInstagramの両方に投稿します。企画・台本・撮影・編集・投稿・分析まで含みます（別途、初期費用がかかります）。詳しくは資料でご案内します。</div></details>
-    <details class="q fade chk" data-chk="営業資料の「ご契約から1ヶ月ちょっとで投稿開始」より"><summary>始めてから、どのくらいで投稿が始まりますか。</summary><div class="a">ご契約から約1か月で投稿を始めます。最初の1か月で、ねらう方向性を決め、企画・台本づくりと撮影を行います。</div></details>
+    <details class="q fade"><summary>料金はどのくらいですか。</summary><div class="a">スタンダードプランは月額24.2万円（税込）です。動画を月8本制作し（1本あたり約3万円）、TikTokとInstagramの両方に投稿します。企画・台本・撮影・編集・投稿・分析まで含みます（別途、初期費用がかかります）。詳しくは資料でご案内します。</div></details>
+    <details class="q fade"><summary>始めてから、どのくらいで投稿が始まりますか。</summary><div class="a">ご契約から約1か月で投稿を始めます。最初の1か月で、ねらう方向性を決め、企画・台本づくりと撮影を行います。</div></details>
     <details class="q fade"><summary>相談だけでも大丈夫ですか。</summary><div class="a">もちろんです。まずは無料相談から、お気軽にどうぞ。オンラインでも対応しています。</div></details>
   </div>
 </section>
@@ -556,7 +556,7 @@ b.addEventListener('click',function(){if(v.muted){v.muted=false;v.currentTime=0;
       <p class="f-hint">※個人の方は「個人」とご記入ください</p></div>
     <div class="field"><label for="f-email">メールアドレス<span class="req">必須</span></label><input id="f-email" type="email" name="email" required autocomplete="email" placeholder="例) example@sky-will.jp"></div>
     <div class="field"><label for="f-phone">電話番号<span class="req">必須</span></label><input id="f-phone" type="tel" name="phone" required autocomplete="tel" placeholder="例) 090-0000-0000"></div>
-    <div class="field chk" data-chk="架電担当（ルナさん）の電話できる時間に合わせて選択肢を調整"><label for="f-calltime">お電話がつながりやすい時間帯<span class="opt">任意</span></label><select id="f-calltime" name="calltime"><option value="">指定なし</option><option>平日 10〜12時</option><option>平日 12〜15時</option><option>平日 15〜18時</option><option>平日 18時以降</option></select></div>
+    <div class="field"><label for="f-calltime">お電話がつながりやすい時間帯<span class="opt">任意</span></label><select id="f-calltime" name="calltime"><option value="">指定なし</option><option>平日 10〜12時</option><option>平日 12〜15時</option><option>平日 15〜18時</option><option>平日 18時以降</option></select></div>
     <div class="field"><label for="f-link">ホームページまたはSNSアカウントのリンク<span class="opt">任意</span></label><input id="f-link" type="url" name="link" autocomplete="url" placeholder="例) https://www.tiktok.com/@your_account">
       <p class="f-hint">※現在の発信状況を拝見したうえで、具体的なご提案をいたします</p></div>
     <label class="f-check"><input type="checkbox" name="consult" value="1"><span>無料相談を希望する（任意）</span></label>
