@@ -397,6 +397,8 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
 /* フォーム：時間帯の選択欄（入力欄と同じ見た目）・注意書き */
 .reqform .field select{width:100%;padding:12px 38px 12px 12px;border:1px solid #eee;border-radius:4px;font-family:var(--sans);font-size:15px;background:#f9f9f9 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%236b7a88' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") right 10px center/20px no-repeat;color:var(--ink);-webkit-appearance:none;appearance:none}
 .reqform .field select:focus{outline:none;border-color:var(--key);background-color:#fff;box-shadow:0 0 0 3px rgba(47,155,224,.13)}
+.pk-sound{border:none;cursor:pointer;font-family:var(--sans);top:12px;bottom:auto!important}
+.pk-sound:hover{background:rgba(0,0,0,.72)}
 .reqform .f-nosales{font-size:11.5px;color:var(--dim);letter-spacing:.02em;margin-top:-2px}
 </style>
 </head>
@@ -439,11 +441,11 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
 <!-- ===== PICK UP 実績（林尚弘様） ===== -->
 <section class="pickup" id="pickup">
   <div class="sec">
-    <div class="pk fade">
-      <a class="pk-phone" href="https://www.tiktok.com/@hayashi.fc/video/7619646028500733205" target="_blank" rel="noopener" aria-label="林社長の投稿をTikTokで見る">
-        <video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/hayashi.mp4" poster="works/hayashi.jpg" muted loop playsinline autoplay preload="none"></video>
-        <span class="pk-play">▶ TikTokで見る</span>
-      </a>
+    <div class="pk fade chk" data-chk="動画は旧広告アカウント停止（BAN）の原因になった広告動画（v2_②広告動画1本目）。新アカウントの広告のリンク先に載せてよいか判断が必要">
+      <div class="pk-phone">
+        <video id="pkVid" src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/hayashi-ad.mp4" poster="works/hayashi-ad.jpg" muted loop playsinline preload="none" aria-label="林尚弘さんとそらさんの対談動画"></video>
+        <button type="button" class="pk-play pk-sound" id="pkSound">🔊 音声ありで見る</button>
+      </div>
       <div class="pk-body">
         <p class="eyeb">PICK UP</p>
         <p class="pk-co">株式会社FCチャンネル</p>
@@ -460,6 +462,10 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
     </div>
   </div>
 </section>
+
+<script>(function(){var v=document.getElementById('pkVid'),b=document.getElementById('pkSound');if(!v)return;
+var on=false;new IntersectionObserver(function(es){on=es[0].isIntersecting;if(on){var p=v.play();if(p&&p.catch)p.catch(function(){});}else v.pause();},{threshold:.35}).observe(v);
+b.addEventListener('click',function(){if(v.muted){v.muted=false;v.currentTime=0;v.play();b.textContent='🔇 音を消す';}else{v.muted=true;b.textContent='🔊 音声ありで見る';}});})();</script>
 
 <!-- ===== リード ===== -->
 <section class="sec intro">
