@@ -343,6 +343,61 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
   .hero h1{font-size:clamp(28px,8.6vw,44px)}
   .hero .kicker{margin-bottom:14px}
 }
+/* ===== 2026-11-04 PICK UP 実績（林尚弘様）：公式サイト事例「ショート動画が初動500万再生突破」＋LP掲載「全投稿10万再生以上」 ===== */
+.pickup{background:#fff}
+.pickup .sec{padding-top:clamp(28px,5vw,64px);padding-bottom:clamp(36px,6vw,72px)}
+.pk{display:grid;grid-template-columns:minmax(200px,280px) minmax(0,1fr);gap:clamp(28px,5vw,72px);align-items:center;
+    background:linear-gradient(135deg,#eef6fc 0%,#ffffff 70%);border:1px solid var(--hair2);border-radius:28px;padding:clamp(22px,4vw,52px)}
+.pk-phone{display:block;position:relative;aspect-ratio:9/16;border-radius:30px;overflow:hidden;background:#000;
+    box-shadow:0 0 0 7px #0f2233,0 30px 70px rgba(15,34,51,.25)}
+.pk-phone video{display:block;width:100%;height:100%;object-fit:cover}
+.pk-phone .pk-play{position:absolute;left:50%;bottom:16px;transform:translateX(-50%);white-space:nowrap;font-size:11px;letter-spacing:.08em;color:#fff;
+    background:rgba(0,0,0,.55);backdrop-filter:blur(4px);padding:7px 14px;border-radius:20px}
+.pk .eyeb{color:var(--key);font-family:var(--lora);font-weight:600}
+.pk-co{font-size:13px;letter-spacing:.08em;color:var(--dim)}
+.pk-name{font-family:var(--serif);font-weight:700;font-size:clamp(28px,3.4vw,42px);line-height:1.25;color:var(--ink);margin-top:2px}
+.pk-name .sm{font-size:.55em;margin-left:.2em}
+.pk-tag{display:inline-block;margin-top:10px;font-size:12px;font-weight:600;letter-spacing:.12em;color:#fff;background:var(--ink);padding:5px 12px;border-radius:6px}
+.pk-stats{display:flex;flex-wrap:wrap;gap:clamp(10px,1.6vw,18px);margin-top:clamp(18px,3vw,28px)}
+.pk-stats .st{flex:1 1 170px;background:#fff;border:1px solid var(--hair2);border-radius:18px;padding:16px 20px 14px;box-shadow:0 8px 24px rgba(15,34,51,.06)}
+.pk-stats .st .k{display:block;font-size:11.5px;letter-spacing:.08em;color:var(--dim)}
+.pk-stats .st b{display:block;margin-top:4px;font-family:var(--lora);font-weight:700;font-size:clamp(36px,4.6vw,56px);line-height:1;color:var(--key);letter-spacing:.01em}
+.pk-stats .st b small{font-family:var(--serif);font-size:.42em;color:var(--ink);margin-left:3px;letter-spacing:.04em}
+.pk-txt{margin-top:18px;font-size:14px;line-height:1.95;color:#33475a}
+.pk-meta{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:12px;color:var(--dim)}
+.pk-meta b{font-weight:600;color:var(--ink);margin-right:6px}
+.pk-cta{display:inline-flex;align-items:center;gap:10px;margin-top:22px;background:var(--btn);color:#fff;font-size:13.5px;font-weight:600;letter-spacing:.1em;padding:15px 32px;border-radius:44px;transition:.25s}
+.pk-cta:hover{background:#0f6fb8;transform:translateY(-1px)}
+@media(max-width:700px){
+  .pk{grid-template-columns:1fr;text-align:left;gap:24px}
+  .pk-phone{width:min(200px,52vw);margin:0 auto}
+  .pk-stats .st{flex:1 1 120px;padding:12px 14px 10px}
+  .pk-stats .st b{font-size:clamp(30px,9vw,40px)}
+}
+
+/* ===== 2026-11-13 改善：FVに数字と料金・見出しの字下げをやめる・PCで文字を読みやすく ===== */
+.hero h1 .b,.hero h1 .c{padding-left:0}
+.hero .lead{padding-left:0}.hero-cta{margin-left:0}.hero-note{margin-left:0}
+.hero-proof{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;max-width:520px;margin-top:clamp(18px,3vw,26px)}
+.hero-proof .pf{min-width:0;padding:10px 12px 9px;border:1px solid rgba(169,194,214,.26);border-radius:14px;background:rgba(255,255,255,.05);backdrop-filter:blur(4px)}
+.hero-proof .pf .k{display:block;font-size:10.5px;letter-spacing:.08em;color:#a9c2d6;white-space:nowrap}
+.hero-proof .pf b{display:block;margin-top:3px;font-family:var(--lora);font-weight:600;font-size:clamp(24px,3vw,32px);line-height:1.05;color:#fff;letter-spacing:.01em;white-space:nowrap}
+.hero-proof .pf b small{font-family:var(--sans);font-size:.46em;margin-left:2px;color:#cfe0ec;font-weight:500;letter-spacing:.04em}
+.hero-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 10px;margin-top:16px;color:#cfe0ec;font-size:12.5px;letter-spacing:.06em}
+.hero-price .pl{display:inline-block;font-size:10.5px;font-weight:600;color:#071019;background:#5ccbf0;padding:3px 9px;border-radius:20px;letter-spacing:.06em}
+.hero-price b{font-family:var(--lora);font-weight:600;font-size:24px;color:#fff;letter-spacing:.02em}
+.hero-price b small{font-family:var(--sans);font-size:.55em;font-weight:500;margin-left:1px}
+.hero-pnote{margin-top:6px;font-size:10px;line-height:1.7;color:#7f98ad;letter-spacing:.03em}
+@media(min-width:601px){
+  .hero::before{content:"";position:absolute;inset:0;z-index:1;pointer-events:none;
+    background:linear-gradient(90deg,rgba(7,16,25,.92) 0%,rgba(7,16,25,.78) 36%,rgba(7,16,25,.2) 68%,rgba(7,16,25,0) 100%)}
+  .hero h1{font-size:clamp(40px,6vw,82px)}
+  header:not(.solid) .logo{color:#fff}
+}
+/* フォーム：時間帯の選択欄（入力欄と同じ見た目）・注意書き */
+.reqform .field select{width:100%;padding:12px 38px 12px 12px;border:1px solid #eee;border-radius:4px;font-family:var(--sans);font-size:15px;background:#f9f9f9 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%236b7a88' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") right 10px center/20px no-repeat;color:var(--ink);-webkit-appearance:none;appearance:none}
+.reqform .field select:focus{outline:none;border-color:var(--key);background-color:#fff;box-shadow:0 0 0 3px rgba(47,155,224,.13)}
+.reqform .f-nosales{font-size:11.5px;color:var(--dim);letter-spacing:.02em;margin-top:-2px}
 </style>
 </head>
 <body>
@@ -364,15 +419,46 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
     <div class="kicker">選ばれ続ける発信を、データで。</div>
     <h1 class="fade in">
       <span class="a">社長は、本業を</span>
-      <span class="b">拡散は、</span>
-      <span class="c"><i>ETHICAL</i>が</span>
+      <span class="b">拡散は、<i>ETHICAL</i>が</span>
     </h1>
     <p class="lead">集客・採用につなげる、TikTok運用代行。</p>
+    <div class="hero-proof fade in chk" data-chk="数字は会社の営業資料（7月版・2025年末時点）から。最新の数字か確認">
+      <div class="pf"><span class="k">総再生回数</span><b>8<small>億回</small></b></div>
+      <div class="pf"><span class="k">売上貢献</span><b>6<small>億円</small></b></div>
+      <div class="pf"><span class="k">採用貢献</span><b>200<small>名以上</small></b></div>
+    </div>
+    <p class="hero-price fade in chk" data-chk="料金を載せてよいか・金額（月24.2万円÷16投稿）をそらさんに確認"><span class="pl">撮影込み・丸投げ</span>1投稿あたり<b>約1.5万円<small>〜</small></b></p>
+    <p class="hero-pnote fade in">※実績は2025年末時点・当社支援アカウントの合計。料金はTikTok・Instagramに月16投稿する場合（税込）。</p>
     <a href="#cta" class="hero-cta fade in">資料請求する<span class="dlic" aria-hidden="true"></span></a>
     <p class="hero-note fade in">資料は無料でお送りします・しつこい営業はいたしません</p>
     <button class="play fade in" id="playBtn" hidden><span class="ic">▶</span> ブランドムービーを見る</button>
   </div>
   <div class="down">SCROLL</div>
+</section>
+
+<!-- ===== PICK UP 実績（林尚弘様） ===== -->
+<section class="pickup" id="pickup">
+  <div class="sec">
+    <div class="pk fade">
+      <a class="pk-phone" href="https://www.tiktok.com/@hayashi.fc/video/7619646028500733205" target="_blank" rel="noopener" aria-label="林社長の投稿をTikTokで見る">
+        <video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/hayashi.mp4" poster="works/hayashi.jpg" muted loop playsinline autoplay preload="none"></video>
+        <span class="pk-play">▶ TikTokで見る</span>
+      </a>
+      <div class="pk-body">
+        <p class="eyeb">PICK UP</p>
+        <p class="pk-co">株式会社FCチャンネル</p>
+        <h2 class="pk-name">林 尚弘<span class="sm">様</span></h2>
+        <span class="pk-tag">令和の虎 2代目主宰</span>
+        <div class="pk-stats">
+          <div class="st"><span class="k">ショート動画の初動</span><b>500<small>万再生</small></b></div>
+          <div class="st"><span class="k">全投稿で</span><b>10<small>万再生以上</small></b></div>
+        </div>
+        <p class="pk-txt">ショート動画が初動500万再生を達成。全投稿で10万再生以上を記録しています。</p>
+        <p class="pk-meta"><span><b>業種</b>コンサル</span><span><b>目的</b>集客</span></p>
+        <a href="#cta" class="pk-cta">資料請求・無料相談<span class="dlic" aria-hidden="true"></span></a>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ===== リード ===== -->
@@ -409,21 +495,21 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
 </section>
 
 <!-- ===== 実際の投稿（Instagram 埋め込み） ===== -->
-<section class="works">
+<section class="works chk" data-chk="並び順を変更：林社長を先頭、ドッキリ系の動画を最後へ（そらさんに確認）">
   <div class="sec">
     <div class="shead fade"><span class="ix">02</span><div><p class="eyeb">Works</p><h2 class="htitle">実際の投稿</h2></div></div>
     <div class="lookwrap">
       <div class="reels">
-        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-kitahara.webp" loading="lazy" decoding="async" data-name="北原孝彦" href="https://www.tiktok.com/@kitahara64/video/7408497876663340295" target="_blank" rel="noopener" aria-label="北原孝彦の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/kitahara.mp4" data-poster="works/kitahara.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">累計1億再生／10万フォロワー</span><span class="rnm">北原孝彦</span></span></div>
-        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-aimeko.webp" loading="lazy" decoding="async" data-name="あいめこ社長" href="https://www.tiktok.com/@aimeko_dayo/video/7436681525300628744" target="_blank" rel="noopener" aria-label="あいめこ社長の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/aimeko.mp4" data-poster="works/aimeko.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">合計1000万再生達成</span><span class="rnm">あいめこ社長</span></span></div>
-        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-tsuji.webp" loading="lazy" decoding="async" data-name="辻敬太" href="https://www.tiktok.com/@tsuji.keita/video/7117569416014990593" target="_blank" rel="noopener" aria-label="辻敬太の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/tsuji.mp4" data-poster="works/tsuji.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">累計1.5億再生</span><span class="rnm">辻敬太</span></span></div>
         <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-hayashi.webp" loading="lazy" decoding="async" data-name="林社長" href="https://www.tiktok.com/@hayashi.fc/video/7619646028500733205" target="_blank" rel="noopener" aria-label="林社長の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/hayashi.mp4" data-poster="works/hayashi.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">全投稿10万再生以上</span><span class="rnm">林社長</span></span></div>
-        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-hoiku.webp" loading="lazy" decoding="async" data-name="ほいくのおまもり" href="https://www.instagram.com/reel/C-fDFhyT7Jt/" target="_blank" rel="noopener" aria-label="ほいくのおまもりの投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/hoiku.mp4" data-poster="works/hoiku.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">1動画1500万再生／サロン3,000名集客</span><span class="rnm">ほいくのおまもり</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-kitahara.webp" loading="lazy" decoding="async" data-name="北原孝彦" href="https://www.tiktok.com/@kitahara64/video/7408497876663340295" target="_blank" rel="noopener" aria-label="北原孝彦の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/kitahara.mp4" data-poster="works/kitahara.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">累計1億再生／10万フォロワー</span><span class="rnm">北原孝彦</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-tsuji.webp" loading="lazy" decoding="async" data-name="辻敬太" href="https://www.tiktok.com/@tsuji.keita/video/7117569416014990593" target="_blank" rel="noopener" aria-label="辻敬太の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/tsuji.mp4" data-poster="works/tsuji.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">累計1.5億再生</span><span class="rnm">辻敬太</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-kiraga.webp" loading="lazy" decoding="async" data-name="キラガ" href="https://www.tiktok.com/@kiraga_jewelry/video/7355801057768885512" target="_blank" rel="noopener" aria-label="キラガの投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/kiraga.mp4" data-poster="works/kiraga.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">ジュエリー売上1.5億円突破</span><span class="rnm">キラガ</span></span></div>
         <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-yumika.webp" loading="lazy" decoding="async" data-name="一色優美加" href="https://www.instagram.com/reel/DW1EmWWSm1r/" target="_blank" rel="noopener" aria-label="一色優美加の投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/yumika.mp4" data-poster="works/yumika.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">講座販売累計9,000万円突破</span><span class="rnm">一色優美加</span></span></div>
         <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-kim.webp" loading="lazy" decoding="async" data-name="自然美人" href="https://www.tiktok.com/@shizen_bijin/video/7493105907782438161" target="_blank" rel="noopener" aria-label="自然美人の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/kim.mp4" data-poster="works/kim.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">単価40万円の回数券 10件以上販売</span><span class="rnm">自然美人</span></span></div>
         <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-nagomu.webp" loading="lazy" decoding="async" data-name="なごむ" href="https://www.instagram.com/reel/DYWu76FmgLG/" target="_blank" rel="noopener" aria-label="なごむの投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/nagomu.mp4" data-poster="works/nagomu.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">ペット事業／SNS月間550万円達成</span><span class="rnm">なごむ</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-hoiku.webp" loading="lazy" decoding="async" data-name="ほいくのおまもり" href="https://www.instagram.com/reel/C-fDFhyT7Jt/" target="_blank" rel="noopener" aria-label="ほいくのおまもりの投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/hoiku.mp4" data-poster="works/hoiku.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">1動画1500万再生／サロン3,000名集客</span><span class="rnm">ほいくのおまもり</span></span></div>
         <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-sayaka.webp" loading="lazy" decoding="async" data-name="さやか" href="https://www.instagram.com/reel/DaQHyXkNL7Z/" target="_blank" rel="noopener" aria-label="さやかの投稿をInstagramで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/sayaka.mp4" data-poster="works/sayaka.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">ペット事業・売上6倍／総再生500万突破</span><span class="rnm">さやか</span></span></div>
-        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-kiraga.webp" loading="lazy" decoding="async" data-name="キラガ" href="https://www.tiktok.com/@kiraga_jewelry/video/7355801057768885512" target="_blank" rel="noopener" aria-label="キラガの投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/kiraga.mp4" data-poster="works/kiraga.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">ジュエリー売上1.5億円突破</span><span class="rnm">キラガ</span></span></div>
+        <div class="rcard fade"><div class="phone"><a class="link" data-prof="works/prof-aimeko.webp" loading="lazy" decoding="async" data-name="あいめこ社長" href="https://www.tiktok.com/@aimeko_dayo/video/7436681525300628744" target="_blank" rel="noopener" aria-label="あいめこ社長の投稿をTikTokで見る"></a><div class="pill"></div><div class="scr"><video src="https://x85-131-252-8.static.xvps.ne.jp/ethical/works/aimeko.mp4" data-poster="works/aimeko.jpg" muted loop playsinline preload="none"></video></div></div><span class="rcap"><span class="rmet">合計1000万再生達成</span><span class="rnm">あいめこ社長</span></span></div>
       </div>
     </div>
     <div class="swipe"><span class="bar"></span>SWIPE</div>
@@ -460,6 +546,9 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
     <details class="q fade"><summary>まだSNSを始めていなくても大丈夫ですか。</summary><div class="a">はい。ゼロからの立ち上げも得意です。無料相談で、最適なスタートをご提案します。</div></details>
     <details class="q fade"><summary>どんな業種でも対応できますか。</summary><div class="a">美容・コンサル・販売・メーカー・採用など、幅広い業種でご支援してきました。まずはお気軽にご相談ください。</div></details>
     <details class="q fade"><summary>撮影や編集は自分でする必要がありますか。</summary><div class="a">企画・台本から撮影・編集・投稿までこちらで対応します。撮影は月1回程度で済むため、本業に集中いただけます。</div></details>
+    <details class="q fade chk" data-chk="料金：11/9の社内プラン表（スタンダード）より。載せてよいか確認"><summary>料金はどのくらいですか。</summary><div class="a">スタンダードプランは月額24.2万円（税込）です。動画を月8本制作し、TikTokとInstagramの両方に投稿します（月16投稿＝1投稿あたり約1.5万円）。企画・台本・撮影・編集・投稿・分析まで含みます（別途、初期費用がかかります）。詳しくは資料でご案内します。</div></details>
+    <details class="q fade chk" data-chk="契約期間：社内プラン表では1年。載せてよいか確認"><summary>契約期間はどのくらいですか。</summary><div class="a">1年契約が基本です。ショート動画は投稿を積み上げるほど伸びていくため、腰を据えて一緒に育てていきます。</div></details>
+    <details class="q fade chk" data-chk="営業資料の「ご契約から1ヶ月ちょっとで投稿開始」より"><summary>始めてから、どのくらいで投稿が始まりますか。</summary><div class="a">ご契約から約1か月で投稿を始めます。最初の1か月で、ねらう方向性を決め、企画・台本づくりと撮影を行います。</div></details>
     <details class="q fade"><summary>相談だけでも大丈夫ですか。</summary><div class="a">もちろんです。まずは無料相談から、お気軽にどうぞ。オンラインでも対応しています。</div></details>
   </div>
 </section>
@@ -477,10 +566,11 @@ footer .fnav a:hover{color:var(--ink);border-color:var(--hair)}
       <p class="f-hint">※個人の方は「個人」とご記入ください</p></div>
     <div class="field"><label for="f-email">メールアドレス<span class="req">必須</span></label><input id="f-email" type="email" name="email" required autocomplete="email" placeholder="例) example@sky-will.jp"></div>
     <div class="field"><label for="f-phone">電話番号<span class="req">必須</span></label><input id="f-phone" type="tel" name="phone" required autocomplete="tel" placeholder="例) 090-0000-0000"></div>
+    <div class="field chk" data-chk="架電担当（ルナさん）の電話できる時間に合わせて選択肢を調整"><label for="f-calltime">お電話がつながりやすい時間帯<span class="opt">任意</span></label><select id="f-calltime" name="calltime"><option value="">指定なし</option><option>平日 10〜12時</option><option>平日 12〜15時</option><option>平日 15〜18時</option><option>平日 18時以降</option></select></div>
     <div class="field"><label for="f-link">ホームページまたはSNSアカウントのリンク<span class="opt">任意</span></label><input id="f-link" type="url" name="link" autocomplete="url" placeholder="例) https://www.tiktok.com/@your_account">
       <p class="f-hint">※現在の発信状況を拝見したうえで、具体的なご提案をいたします</p></div>
     <label class="f-check"><input type="checkbox" name="consult" value="1"><span>無料相談を希望する（任意）</span></label>
-    <label class="f-check"><input type="checkbox" name="nosales" value="1"><span>営業・勧誘目的ではありません。</span></label>
+    <p class="f-nosales">※営業・売り込み目的でのご利用はご遠慮ください。</p>
     <!-- ▼ ボット対策の“見えない罠”欄：人には見えないので空のまま。ボットが自動入力すると埋まる＝送信を弾く -->
     <div class="hpf" aria-hidden="true" style="position:absolute!important;left:-10000px!important;top:auto;width:1px;height:1px;overflow:hidden"><label>FAX番号<input type="text" name="fax" tabindex="-1" autocomplete="off"></label></div>
     <button type="submit">資料を受け取る</button>
@@ -586,8 +676,24 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
   ['input','change'].forEach(ev=>form.addEventListener(ev,()=>{ clearTimeout(_pt); _pt=setTimeout(()=>sendPartial(),1500); }));
   document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden') sendPartial(); });
   window.addEventListener('pagehide',()=>sendPartial());
+  /* ★2026-11-13 電話番号を日本の形にそろえる：スマホの自動入力で「+81 80…」「8180…」と入ると
+     そのまま掛けても即切れるため。全角数字・ハイフン無しもそろえる（例 +81 80-1234-5678 → 080-1234-5678） */
+  const normPhoneJP=(s)=>{
+    let x=String(s||'').replace(/[０-９]/g,c=>String.fromCharCode(c.charCodeAt(0)-0xFEE0)).replace(/[^\d+]/g,'');
+    x=x.replace(/(?!^)\+/g,'');
+    if(x.startsWith('+81')) x='0'+x.slice(3).replace(/^0/,'');
+    else if(/^81\d{9,10}$/.test(x)) x='0'+x.slice(2);
+    x=x.replace(/\D/g,'');
+    if(/^0[5789]0\d{8}$/.test(x)) return x.slice(0,3)+'-'+x.slice(3,7)+'-'+x.slice(7);
+    if(/^0\d{9}$/.test(x)) return x.slice(0,2)+'-'+x.slice(2,6)+'-'+x.slice(6);
+    return x||String(s||'').trim();
+  };
+  window.ethNormPhone=normPhoneJP;
+  const phEl=form.querySelector('[name="phone"]');
+  if(phEl) phEl.addEventListener('blur',()=>{ if(phEl.value.trim()) phEl.value=normPhoneJP(phEl.value); });
   form.addEventListener('submit',function(e){
     e.preventDefault();
+    if(phEl && phEl.value.trim()) phEl.value=normPhoneJP(phEl.value);
     if(!form.reportValidity()) return;              // 4項目の必須チェック
     const d=new FormData(form);
     /* ★ボット対策：①見えない罠欄(fax)が埋まっている ②開いてから3秒未満の送信 ③既知の嫌がらせ目印(メール/電話)に合致
@@ -613,7 +719,7 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
       "▫️ 電話："+(d.get('phone')||'')+"\n"+
       "▫️ HP / SNS："+(d.get('link')||'（未記入）')+"\n"+
       "▫️ 無料相談希望："+(d.get('consult')?'✅ 希望する':'—')+"\n"+
-      "▫️ 営業・勧誘目的ではない："+(d.get('nosales')?'✅ チェック済み':'—');
+      "▫️ 連絡希望の時間帯："+(d.get('calltime')||'指定なし');
     /* Meta広告コンバージョン計測：Lead はサンクスページ（thanks.html）の1回だけで数える。
        ここでも送ると1件の申込が2件に数えられるため止めている（2026-10-26・旧LPと同じ形） */
     /* if(window.fbq) fbq('track','Lead'); */
@@ -643,6 +749,7 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
       ['name','company','email','phone','link'].forEach(k=>body.append(k,d.get(k)||''));
       body.append('nosales', d.get('nosales')?'はい':'');
       body.append('consult', d.get('consult')?'はい':'');
+      body.append('calltime', d.get('calltime')||'');
       jobs.push(fetch(GAS_URL,{method:'POST',mode:'no-cors',keepalive:true,body:body}).catch(()=>{}));
     }
     /* ③ ダッシュボードへ記録（リード数の集計用） */
@@ -652,7 +759,7 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
         body:JSON.stringify({
           name:d.get('name')||'', company:d.get('company')||'',
           email:d.get('email')||'', phone:d.get('phone')||'',
-          link:d.get('link')||'', consult:d.get('consult')?'希望する':'', source:'ethical-lp', sid:SID
+          link:d.get('link')||'', consult:d.get('consult')?'希望する':'', calltime:d.get('calltime')||'', source:'ethical-lp', sid:SID
         })}).catch(()=>{}));
     }
     /* ④ 記入途中データを「CV済み」にする（未CVリストから外す） */
