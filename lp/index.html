@@ -713,7 +713,7 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
       "▫️ 電話："+(d.get('phone')||'')+"\n"+
       "▫️ HP / SNS："+(d.get('link')||'（未記入）')+"\n"+
       "▫️ 無料相談希望："+(d.get('consult')?'✅ 希望する':'—')+"\n"+
-      "▫️ 連絡希望の時間帯："+(d.get('calltime')||'指定なし');
+      "▫️ 繋がりやすい時間帯："+(d.get('calltime')||'指定なし');   // 11/20 野村さん依頼で「連絡希望の時間帯」から変更（「希望」と書くと時間外の電話で揉めるため）。「電話」を入れるとダッシュボードの電話番号読み取りとぶつかるので入れない
     /* Meta広告コンバージョン計測：Lead はサンクスページ（thanks.html）の1回だけで数える。
        ここでも送ると1件の申込が2件に数えられるため止めている（2026-10-26・旧LPと同じ形） */
     /* if(window.fbq) fbq('track','Lead'); */
