@@ -702,6 +702,10 @@ document.querySelectorAll('.flow .steps,.flow .s').forEach(el=>io2.observe(el));
       return;
     }
     try{ sessionStorage.setItem('eth_submitted','1'); }catch(_){}   // 本物の送信の印（thanksでピクセルを発火させる）
+    /* サンクスページの「空いている日時を見る」で、bookrunの入力欄に同じ内容を入れた状態で開くための一時保存（2026-11-25）。
+       タブを閉じれば消える sessionStorage。サンクス側でボタンを押した瞬間にだけ使う */
+    try{ sessionStorage.setItem('eth_prefill',JSON.stringify({name:(d.get('name')||'').trim(),company:(d.get('company')||'').trim(),
+      email:(d.get('email')||'').trim(),phone:(d.get('phone')||'').trim()})); }catch(_){}
     const msg="📩 **新しい資料請求が届きました**\n"+
       "▫️ お名前："+(d.get('name')||'')+"\n"+
       "▫️ 会社名・屋号："+(d.get('company')||'')+"\n"+

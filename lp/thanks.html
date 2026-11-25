@@ -58,10 +58,17 @@ h1{font-family:"Noto Sans JP",sans-serif;font-weight:700;font-size:clamp(24px,6v
 .btn small{display:block;font-size:11px;font-weight:400;opacity:.85;margin-top:4px;letter-spacing:.04em}
 .box .subnote{margin-top:14px;font-size:11.5px;color:var(--dim);line-height:1.7}
 .box .txt b{color:var(--ink);font-weight:700}
-/* 無料相談の予約カレンダー（BookRun 埋め込み） */
-.booking{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff;box-shadow:0 10px 26px rgba(15,34,51,.06)}
-.booking iframe{display:block;width:100%;height:780px;border:0}
-@media(max-width:600px){.booking iframe{height:640px}}
+/* 無料相談の予約ボタン（2026-11-25：埋め込みをやめ、bookrunを画面いっぱい＋入力済みで開く） */
+.steps{list-style:none;display:grid;gap:10px;margin:2px 0 20px;counter-reset:s}
+.steps li{display:flex;align-items:center;gap:12px;font-size:14px;color:var(--ink);font-weight:500;line-height:1.5}
+.steps li::before{counter-increment:s;content:counter(s);flex:none;width:26px;height:26px;border-radius:50%;background:#e8f5fd;color:var(--key);font:700 13px/26px "Outfit",sans-serif;text-align:center}
+.steps li em{font-style:normal;font-size:11.5px;color:var(--key);background:#e8f5fd;border-radius:99px;padding:2px 9px;margin-left:auto;white-space:nowrap}
+.btn.book{display:flex;align-items:center;justify-content:center;font-size:17px;padding:19px 18px 17px;flex-direction:column}
+.btn.book .arrow{display:inline-block;transition:transform .25s}
+.btn.book:hover .arrow{transform:translateX(4px)}
+.btn.book small{margin-top:2px}
+.meta-row{display:flex;justify-content:center;gap:14px;flex-wrap:wrap;margin-top:14px;font-size:12px;color:var(--dim)}
+.meta-row span::before{content:"✓ ";color:var(--key);font-weight:700}
 .box .subnote a{color:var(--key);font-weight:700;border-bottom:1px solid rgba(47,155,224,.5)}
 .back{display:inline-block;margin-top:30px;color:var(--dim);font-size:13px;border-bottom:1px solid var(--line);padding-bottom:3px}
 .back:hover{color:var(--ink)}
@@ -79,18 +86,21 @@ footer{padding:26px;text-align:center;color:var(--dim);font-size:11px;border-top
     <p class="mailnote">※ 迷惑メールフォルダに振り分けられる場合があります。しばらく経っても届かない場合はご確認ください。</p>
 
     <div class="box">
-      <div class="ttl">無料相談の日程調整について</div>
+      <div class="ttl">無料相談（オンライン・60分）のご予約</div>
       <div class="txt">
-        あわせて、御社の状況に合わせた具体的な進め方をお伝えする<b>無料相談（オンライン・60分）</b>もご用意しております。<br><br>
-        下のカレンダーから、ご都合の良い日時をそのままお選びいただけます。<b>このページ上でご予約が完了します。</b>（オンライン・60分・費用はかかりません）
+        御社の状況に合わせた具体的な進め方をお伝えします。<b>お名前・ご連絡先は入力済み</b>の状態で開くので、日時を選ぶだけでご予約いただけます。
       </div>
-      <!-- 無料相談予約（BookRun 埋め込みカレンダー） -->
-      <div class="booking">
-        <iframe src="https://b-book.run/@sora.ogihara612-a20bc848b5548677_367bc0_0555a2_0eb35d_94a525_ef3f98_74206b"
-                title="無料相談の日程調整カレンダー" loading="lazy"></iframe>
-      </div>
-      <p class="subnote">※ カレンダーが表示されない場合は <a href="https://b-book.run/@sora.ogihara612-a20bc848b5548677_367bc0_0555a2_0eb35d_94a525_ef3f98_74206b" target="_blank" rel="noopener">こちらから予約ページを開く</a><br>
-      ※ 資料だけご覧になりたい方は、ご予約は不要です。</p>
+      <ol class="steps">
+        <li>空いている日時をタップ</li>
+        <li>入力済みの内容を確認<em>入力はほぼ不要</em></li>
+        <li>「予約を確定」で完了</li>
+      </ol>
+      <a class="btn book" id="book-btn" href="https://b-book.run/@sora.ogihara612-a20bc848b5548677_367bc0_0555a2_0eb35d_94a525_ef3f98_74206b">
+        <span>空いている日時を見る <span class="arrow">→</span></span>
+        <small>約30秒でご予約いただけます</small>
+      </a>
+      <div class="meta-row"><span>費用はかかりません</span><span>オンライン（Zoom）60分</span></div>
+      <p class="subnote">※ 資料だけご覧になりたい方は、ご予約は不要です。</p>
     </div>
 
     <a class="back" href="index.html">トップページに戻る</a>
@@ -98,5 +108,25 @@ footer{padding:26px;text-align:center;color:var(--dim);font-size:11px;border-top
 </main>
 
 <footer>© エシカル・スカイジャパン株式会社</footer>
+<script>
+/* 資料請求フォーム（index.html）で入れた内容を、bookrunの入力欄に入った状態で開く（2026-11-25）。
+   index.html の送信時に sessionStorage "eth_prefill" へ {name,company,email,phone} を保存している。
+   個人情報はページの中（リンク先の文字）には書かず、押した瞬間にだけURLを組み立てる＝計測ツールに渡らない。
+   bookrunはURLの __bookrun_name / __bookrun_company_name / __bookrun_email / __bookrun_tel で入力済みにできる。 */
+(function(){
+  var btn=document.getElementById('book-btn'); if(!btn) return;
+  var BASE=btn.getAttribute('href');
+  btn.addEventListener('click',function(e){
+    var d={}; try{ d=JSON.parse(sessionStorage.getItem('eth_prefill')||'{}')||{}; }catch(_){}
+    var q=new URLSearchParams();
+    if(d.name)    q.set('__bookrun_name',d.name);
+    if(d.company) q.set('__bookrun_company_name',d.company);
+    if(d.email)   q.set('__bookrun_email',d.email);
+    if(d.phone)   q.set('__bookrun_tel',String(d.phone).replace(/[^0-9+\-()]/g,''));
+    var s=q.toString(); if(!s) return;           /* 何も無ければ普通に開く */
+    e.preventDefault(); location.href=BASE+'?'+s;
+  });
+})();
+</script>
 </body>
 </html>
